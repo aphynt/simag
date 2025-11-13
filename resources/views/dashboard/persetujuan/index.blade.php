@@ -1,4 +1,4 @@
-@include('dashboard.layout.head', ['title' => 'Pengajuan'])
+@include('dashboard.layout.head', ['title' => 'Persetujuan'])
 @include('dashboard.layout.switcher')
 @include('dashboard.layout.loader')
 @include('dashboard.layout.header')
@@ -9,16 +9,8 @@
 
                     <div class="d-flex align-items-center justify-content-between page-header-breadcrumb flex-wrap gap-2">
                         <div>
-                            <h1 class="page-title fw-medium fs-18 mb-0">Pengajuan</h1>
+                            <h1 class="page-title fw-medium fs-18 mb-0">Persetujuan</h1>
                         </div>
-                        @if (Auth::user()->role == 'mahasiswa')
-                        <div class="btn-list">
-                            <a href="{{ route('pengajuan.insert') }}" class="btn btn-primary btn-wave me-0">
-                                <i class="ri-share-forward-line me-1"></i> Ajukan
-                            </a>
-                        </div>
-                        @endif
-
                     </div>
 
                     <div class="row">
@@ -26,7 +18,7 @@
                             <div class="card custom-card">
                                 <div class="card-header">
                                     <div class="card-title">
-                                        Pengajuan Magang
+                                        Informasi Persetujuan
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -37,6 +29,8 @@
                                                 <th>Nama</th>
                                                 <th>NIM</th>
                                                 <th>Jenis Pengajuan</th>
+                                                <th>Status</th>
+                                                <th>Keterangan</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -48,17 +42,22 @@
                                                     <td>{{ $d->nim }}</td>
                                                     <td>{{ $d->jenis_magang }}</td>
                                                     <td>
-                                                        <a href="{{ route('pengajuan.edit', $d->uuid ) }}" class="btn btn-secondary label-btn @if(Auth::user()->id != $d->user_id) disabled @endif" >
-                                                            <i class="ri-settings-4-line label-btn-icon me-2"></i>
-                                                            Ubah
-                                                        </a>
-                                                        <a href="#" class="btn btn-danger label-btn label-end rounded-pill @if(Auth::user()->id != $d->user_id) disabled @endif" data-bs-toggle="modal" data-bs-target="#deletePengajuan{{ $d->uuid }}">
-                                                            Hapus
-                                                            <i class="ri-close-line label-btn-icon ms-2 rounded-pill"></i>
-                                                        </a>
+                                                        @if ($d->status == 'Diajukan')
+                                                        <span class="btn btn-outline-secondary btn-wave">{{ $d->status }}</span>
+                                                        @elseif ($d->status == 'Disetujui')
+                                                        <span class="btn btn-outline-success btn-wave">{{ $d->status }}</span>
+                                                        @else
+                                                        <span class="btn btn-outline-danger btn-wave">{{ $d->status }}</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $d->keterangan }}</td>
+                                                    <td>
+                                                        <button class="btn btn-info label-btn rounded-pill">
+                                                            <i class="ri-spam-2-line label-btn-icon me-2 rounded-pill"></i>
+                                                            Detail
+                                                        </button>
                                                     </td>
                                                 </tr>
-                                            @include('dashboard.pengajuan.modal.delete')
                                             @endforeach
 
                                         </tbody>

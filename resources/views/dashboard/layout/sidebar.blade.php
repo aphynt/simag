@@ -56,7 +56,7 @@
                     </a>
                 </li>
                 <li class="slide">
-                    <a href="icons.html" class="side-menu__item">
+                    <a href="{{ route('persetujuan.index') }}" class="side-menu__item">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 side-menu__icon" fill="none"
                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
