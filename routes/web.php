@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/pengajuan/delete/{uuid}', [PengajuanController::class, 'delete'])->name('pengajuan.delete');
 
     Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsultasi.index');
+    Route::post('/send-message', [KonsultasiController::class, 'sendMessage'])->name('konsultasi.sendmess');
 
 
     Route::get('/user', [UserController::class, 'index'])->name('user.index');

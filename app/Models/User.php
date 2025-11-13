@@ -46,4 +46,17 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'to_user_id');
+    }
+
+    public function chatMessages()
+    {
+        return $this->hasMany(Message::class, 'from_user_id')
+            ->orWhere('to_user_id', $this->id);
+    }
+
+
 }

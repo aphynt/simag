@@ -3,7 +3,92 @@
 @include('dashboard.layout.loader')
 @include('dashboard.layout.header')
 @include('dashboard.layout.sidebar')
+<style>
+    .modern-file-bubble {
+    max-width: 70%;
+    padding: 12px;
+    border-radius: 14px;
+    background: var(--primary01);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    animation: fadeIn .2s ease-in;
+}
 
+.modern-file-bubble.sent {
+    background: #e0f1ff;
+    border-right: 4px solid #007bff;
+}
+
+.modern-file-bubble.received {
+    background: #f1f1f1;
+    border-left: 4px solid #777;
+}
+
+.modern-file-bubble .bubble-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* FILE CARD */
+.file-card {
+    display: flex;
+    align-items: center;
+    background: white !important;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    transition: 0.2s ease;
+}
+.file-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.file-left {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 24px;
+}
+
+/* Middle info */
+.file-mid, .file-left,.file-right {
+    background: white !important;
+}
+.file-mid {
+    flex: 1 !important;
+}
+.file-name {
+    margin: 0;
+    font-weight: 600;
+    color: black !important;
+}
+.file-size {
+    color: #666 !important;
+    font-size: 12px;
+}
+
+/* Download Button */
+.btn-download {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: #eef;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition: 0.2s;
+}
+.btn-download:hover {
+    background: #d5e7ff;
+}
+
+</style>
 <div class="main-content app-content">
                 <div class="container-fluid">
 
@@ -32,7 +117,7 @@
                                 <div class="tab-pane show active border-0 chat-users-tab" id="users-tab-pane"
                                     role="tabpanel" aria-labelledby="users-tab" tabindex="0">
                                     <ul class="list-unstyled mb-0 mt-2 chat-users-tab" id="chat-msg-scroll">
-                                        <li class="pb-0">
+                                        {{-- <li class="pb-0">
                                             <p class="text-muted fs-11 fw-medium mb-2 op-7">ACTIVE CHATS</p>
                                         </li>
                                         <li class="checkforactive">
@@ -124,156 +209,48 @@
                                                     </div>
                                                 </div>
                                             </a>
-                                        </li>
-                                        <li class="pb-0">
+                                        </li> --}}
+                                       <li class="pb-0">
                                             <p class="text-muted fs-11 fw-medium mb-2 op-7">ALL CHATS</p>
                                         </li>
-                                        <li class="chat-inactive checkforactive" >
-                                            <a href="javascript:void(0);" onclick="changeTheInfo(this,'Rony Erick','11','offline')">
-                                                <div class="d-flex align-items-top">
-                                                    <div class="me-1 lh-1">
-                                                        <span class="avatar avatar-md offline me-2" >
-                                                            <img  src="{{ asset('dash') }}/build/assets/images/faces/11.jpg" alt="img">
-                                                        </span>
+                                        @foreach ($allUser as $u)
+                                            <li class="chat-inactive" data-user-id="{{ $u->id }}">
+                                                <a href="javascript:void(0);" onclick="openChat({{ $u->id }})">
+                                                    <div class="d-flex align-items-top">
+                                                        <div class="me-2">
+                                                            <span class="avatar avatar-md {{ $u->is_online ? 'online' : 'offline' }}">
+                                                                <img src="/profile/{{ $u->avatar }}" alt="img">
+                                                            </span>
+                                                        </div>
+                                                        <div class="flex-fill">
+                                                            <p class="mb-0 fw-medium">
+                                                                {{ $u->name }}
+                                                                <span class="float-end text-muted fs-11">
+                                                                    {{ $u->lastMessage ? $u->lastMessage->created_at->format('d-m-Y H:i') : '' }}
+                                                                </span>
+                                                            </p>
+                                                            <p class="fs-12 mb-0 text-truncate">
+                                                                {{ $u->lastMessage ? $u->lastMessage->message : 'Belum ada pesan' }}
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                    <div class="flex-fill">
-                                                        <p class="mb-0 fw-medium">
-                                                            Rony Erick <span
-                                                                class="float-end text-muted fw-normal fs-11">04:13PM</span>
-                                                        </p>
-                                                        <p class="fs-12 mb-0">
-                                                            <span class="chat-msg text-truncate">You should come definately&#127916;</span>
-                                                            <span class="chat-read-icon float-end align-middle"><i
-                                                                    class="ri-check-double-fill"></i></span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="chat-inactive checkforactive" >
-                                            <a href="javascript:void(0);" onclick="changeTheInfo(this,'Kenath kin','3','offline')">
-                                                <div class="d-flex align-items-top">
-                                                    <div class="me-1 lh-1">
-                                                        <span class="avatar avatar-md offline me-2">
-                                                            <img  src="{{ asset('dash') }}/build/assets/images/faces/3.jpg" alt="img">
-                                                        </span>
-                                                    </div>
-                                                    <div class="flex-fill">
-                                                        <p class="mb-0 fw-medium">
-                                                            Kenath kin <span
-                                                                class="float-end text-muted fw-normal fs-11">12:46AM</span>
-                                                        </p>
-                                                        <p class="fs-12 mb-0">
-                                                            <span class="chat-msg text-truncate">Did you remember the date</span>
-                                                            <span class="chat-read-icon float-end align-middle"><i
-                                                                    class="ri-check-double-fill"></i></span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="chat-inactive checkforactive" >
-                                            <a href="javascript:void(0);" onclick="changeTheInfo(this,'Thomas Lie','13','offline')">
-                                                <div class="d-flex align-items-top">
-                                                    <div class="me-1 lh-1">
-                                                        <span class="avatar avatar-md offline me-2">
-                                                            <img  src="{{ asset('dash') }}/build/assets/images/faces/13.jpg" alt="img">
-                                                        </span>
-                                                    </div>
-                                                    <div class="flex-fill">
-                                                        <p class="mb-0 fw-medium">
-                                                            Thomas Lie <span
-                                                                class="float-end text-muted fw-normal fs-11">07:30PM</span>
-                                                        </p>
-                                                        <p class="fs-12 mb-0">
-                                                            <span class="chat-msg text-truncate">Hi, Thank you for everything</span>
-                                                            <span class="chat-read-icon float-end align-middle"><i
-                                                                    class="ri-check-double-fill"></i></span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="chat-inactive checkforactive" >
-                                            <a href="javascript:void(0);" onclick="changeTheInfo(this,'Peter Stark','4','offline')">
-                                                <div class="d-flex align-items-top">
-                                                    <div class="me-1 lh-1">
-                                                        <span class="avatar avatar-md offline me-2">
-                                                            <img src="{{ asset('dash') }}/build/assets/images/faces/4.jpg" alt="img">
-                                                        </span>
-                                                    </div>
-                                                    <div class="flex-fill">
-                                                        <p class="mb-0 fw-medium">
-                                                            Peter Stark <span
-                                                                class="float-end text-muted fw-normal fs-11">01:18PM</span>
-                                                        </p>
-                                                        <p class="fs-12 mb-0">
-                                                            <span class="chat-msg text-truncate">Going to Australia!</span>
-                                                            <span class="chat-read-icon float-end align-middle"><i
-                                                                    class="ri-check-double-fill"></i></span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="chat-inactive checkforactive" >
-                                            <a href="javascript:void(0);" onclick="changeTheInfo(this,'Monte Christ','13','offline')">
-                                                <div class="d-flex align-items-top">
-                                                    <div class="me-1 lh-1">
-                                                        <span class="avatar avatar-md offline me-2">
-                                                            <img src="{{ asset('dash') }}/build/assets/images/faces/13.jpg" alt="img">
-                                                        </span>
-                                                    </div>
-                                                    <div class="flex-fill">
-                                                        <p class="mb-0 fw-medium">
-                                                            Monte Christ <span
-                                                                class="float-end text-muted fw-normal fs-11">08:07PM</span>
-                                                        </p>
-                                                        <p class="fs-12 mb-0">
-                                                            <span class="chat-msg text-truncate">Little Busy &#127829;</span>
-                                                            <span class="chat-read-icon float-end align-middle"><i
-                                                                    class="ri-check-double-fill"></i></span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="chat-inactive checkforactive" >
-                                            <a href="javascript:void(0);" onclick="changeTheInfo(this,'Regina Mos','15','offline')">
-                                                <div class="d-flex align-items-top">
-                                                    <div class="me-1 lh-1">
-                                                        <span class="avatar avatar-md offline me-2">
-                                                            <img src="{{ asset('dash') }}/build/assets/images/faces/15.jpg" alt="img">
-                                                        </span>
-                                                    </div>
-                                                    <div class="flex-fill">
-                                                        <p class="mb-0 fw-medium">
-                                                            Regina Mos <span
-                                                                class="float-end text-muted fw-normal fs-11">09:19PM</span>
-                                                        </p>
-                                                        <p class="fs-12 mb-0">
-                                                            <span class="chat-msg text-truncate">Have a Question? </span>
-                                                            <span class="chat-read-icon float-end align-middle"><i
-                                                                    class="ri-check-double-fill"></i></span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
+                                                </a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="main-chat-area border">
                             <div class="d-flex align-items-center border-bottom main-chat-head flex-wrap">
-                                <span class="avatar avatar-md online chatstatusperson me-2 lh-1">
-                                        <img class="chatimageperson" src="{{ asset('dash') }}/build/assets/images/faces/6.jpg" alt="img">
+                                <span class="avatar avatar-md chatstatusperson me-2 lh-1">
+                                        {{-- <img class="chatimageperson" src="" alt="img"> --}}
                                     </span>
                                 <div class="flex-fill">
                                     <p class="mb-0 fw-medium fs-14 lh-1">
-                                        <a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" class="chatnameperson responsive-userinfo-open">Kerina Cherish</a>
+                                        <a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" class="chatnameperson responsive-userinfo-open"></a>
                                     </p>
-                                    <p class="text-muted mb-0 chatpersonstatus">online</p>
+                                    <p class="text-muted mb-0 chatpersonstatus"></p>
                                 </div>
                                 <div class="d-flex flex-wrap rightIcons gap-2">
                                     <button aria-label="button" type="button" class="btn btn-icon btn-primary1-light my-0  btn-sm">
@@ -302,158 +279,25 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="chat-content" id="main-chat-content">
-                                <ul class="list-unstyled">
-                                    <li class="chat-day-label">
-                                        <span>Today</span>
-                                    </li>
-                                    <li class="chat-item-start">
-                                        <div class="chat-list-inner">
-                                            <div class="chat-user-profile">
-                                                <span class="avatar avatar-md online chatstatusperson">
-                                                    <img class="chatimageperson" src="{{ asset('dash') }}/build/assets/images/faces/6.jpg" alt="img">
-                                                </span>
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="main-chat-msg">
-                                                    <div>
-                                                        <p class="mb-0">Hey!&#128522; How are you? What have you been up to lately?</p>
-                                                    </div>
-                                                </div>
-                                                <span class="chatting-user-info">
-                                                    <span class="chatnameperson">Kerina Cherish</span> <span class="msg-sent-time">10:20PM</span>
-                                                </span>
-                                            </div>
+                            <div class="chat-content" id="main-chat-content" style="height: 90%">
+                                <ul class="list-unstyled" style="overflow-y: scroll;height: 100% !important">
+                                    <div class="" style="width: 100%;height: 100%;border-radius:4px;display:flex;justify-content: center;align-items: center">
+                                        <div class="spinner-grow" role="status">
+                                            <span class="sr-only">Loading...</span>
                                         </div>
-                                    </li>
-                                    <li class="chat-item-end">
-                                        <div class="chat-list-inner">
-                                            <div class="me-3">
-                                                <div class="main-chat-msg">
-                                                    <div>
-                                                        <p class="mb-0">Oh, hey! &#128516; I'm doing pretty well, thanks! Just been catching up on some reading and enjoying the nice weather. How about you?</p>
-                                                    </div>
-                                                </div>
-                                                <span class="chatting-user-info">
-                                                    <span class="msg-sent-time"><span class="chat-read-mark align-middle d-inline-flex"><i
-                                                                class="ri-check-double-line"></i></span>11:50PM</span> You
-                                                </span>
-                                            </div>
-                                            <div class="chat-user-profile">
-                                                <span class="avatar avatar-md online">
-                                                    <img src="{{ asset('dash') }}/build/assets/images/faces/15.jpg" alt="img">
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="chat-item-start">
-                                        <div class="chat-list-inner">
-                                            <div class="chat-user-profile">
-                                                <span class="avatar avatar-md online chatstatusperson">
-                                                    <img class="chatimageperson" src="{{ asset('dash') }}/build/assets/images/faces/6.jpg" alt="img">
-                                                </span>
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="main-chat-msg">
-                                                    <div>
-                                                        <p class="mb-0">That sounds lovely! I've been keeping busy with work, but I'm looking forward to the weekend. Thinking of heading out for a hike if the weather holds up.</p>
-                                                    </div>
-                                                </div>
-                                                <span class="chatting-user-info">
-                                                    <span class="chatnameperson">Kerina Cherish</span> <span class="msg-sent-time">11:51PM</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="chat-item-end">
-                                        <div class="chat-list-inner">
-                                            <div class="me-3">
-                                                <div class="main-chat-msg">
-                                                    <div>
-                                                        <p class="mb-0">Nice! Hiking sounds like a great way to unwind. Which trail are you thinking of exploring?</p>
-                                                    </div>
-                                                </div>
-                                                <span class="chatting-user-info">
-                                                    <span class="msg-sent-time"><span class="chat-read-mark align-middle d-inline-flex"><i
-                                                                class="ri-check-double-line"></i></span>11:52PM</span> You
-                                                </span>
-                                            </div>
-                                            <div class="chat-user-profile">
-                                                <span class="avatar avatar-md online">
-                                                    <img src="{{ asset('dash') }}/build/assets/images/faces/15.jpg" alt="img">
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="chat-item-start">
-                                        <div class="chat-list-inner">
-                                            <div class="chat-user-profile">
-                                                <span class="avatar avatar-md online chatstatusperson">
-                                                    <img class="chatimageperson" src="{{ asset('dash') }}/build/assets/images/faces/6.jpg" alt="img">
-                                                </span>
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="main-chat-msg">
-                                                    <div>
-                                                        <p class="mb-0">I'm thinking of checking out the one up at Pine Ridge. It's got some amazing views of the valley. Would you be interested in joining?</p>
-                                                    </div>
-                                                </div>
-                                                <span class="chatting-user-info">
-                                                    <span class="chatnameperson">Kerina Cherish</span> <span class="msg-sent-time">11:55PM</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="chat-item-end">
-                                        <div class="chat-list-inner">
-                                            <div class="me-3">
-                                                <div class="main-chat-msg">
-                                                    <div class="">
-                                                        <p class="mb-0">That sounds fantastic! I'd like to come along. Let me know what time you're planning to head out, and I'll make sure to pack some snacks for the trail.</p>
-                                                    </div>
-                                                </div>
-                                                <span class="chatting-user-info">
-                                                    <span class="msg-sent-time"><span class="chat-read-mark align-middle d-inline-flex"><i
-                                                                class="ri-check-double-line"></i></span>11:52PM</span> You
-                                                </span>
-                                            </div>
-                                            <div class="chat-user-profile">
-                                                <span class="avatar avatar-md online">
-                                                    <img src="{{ asset('dash') }}/build/assets/images/faces/15.jpg" alt="img">
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="chat-item-start">
-                                        <div class="chat-list-inner">
-                                            <div class="chat-user-profile">
-                                                <span class="avatar avatar-md online">
-                                                    <img class="chatimageperson" src="{{ asset('dash') }}/build/assets/images/faces/6.jpg" alt="img">
-                                                </span>
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="main-chat-msg">
-                                                    <div>
-                                                        <p class="mb-0">okay. &#128516;</p>
-                                                    </div>
-                                                </div>
-                                                <span class="chatting-user-info chatnameperson">
-                                                    Kerina Cherish <span class="msg-sent-time">11:45PM</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </li>
+                                    </div>
                                 </ul>
                             </div>
-                            <div class="chat-footer">
-                                <a aria-label="anchor" class="btn btn-primary1-light me-2 btn-icon btn-send" href="javascript:void(0)">
+                           <div class="chat-footer">
+                                <a aria-label="anchor" class="btn btn-primary1-light me-2 btn-icon btn-send" href="javascript:void(0)" onclick="document.getElementById('file-input').click()">
                                     <i class="ri-attachment-2"></i>
                                 </a>
+                                <input type="file" id="file-input" style="display: none" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt" onchange="handleFileSelect(event)">
                                 <a aria-label="anchor" class="btn btn-icon me-2 btn-primary2 emoji-picker" href="javascript:void(0)">
                                     <i class="ri-emotion-line"></i>
                                 </a>
-                                <input class="form-control chat-message-space" placeholder="Type your message here..." type="text">
-                                <a aria-label="anchor" class="btn btn-primary ms-2 btn-icon btn-send" href="javascript:void(0)">
+                                <input class="form-control chat-message-space" id="chat-input" placeholder="Type your message here..." type="text">
+                                <a aria-label="anchor" class="btn btn-primary ms-2 btn-icon btn-send" href="javascript:void(0)" onclick="sendMessage()">
                                     <i class="ri-send-plane-2-line"></i>
                                 </a>
                             </div>
@@ -616,3 +460,471 @@
                 </div>
             </div>
 @include('dashboard.layout.footer')
+<script>
+    let userId = "{{ Auth::user()->id }}";
+    let currentChatUserId = null; // Track user yang sedang di-chat
+    console.log(userId);
+    
+    document.getElementById("chat-input").addEventListener("keyup", function(e){
+        if(e.key === "Enter"){
+            sendMessage();
+        }
+    });
+
+    let selectedFile = null;
+    let firstLoad = true;
+
+    // Fungsi untuk handle file selection
+    function handleFileSelect(event) {
+        selectedFile = event.target.files[0];
+        if (selectedFile) {
+            // Tampilkan preview atau nama file
+            const fileName = selectedFile.name;
+            document.getElementById('chat-input').placeholder = `File: ${fileName}`;
+            
+        }
+    }
+
+    // Fungsi untuk mendapatkan icon berdasarkan tipe file
+    function getFileIcon(fileType, fileName) {
+        if (fileType.startsWith('image/')) {
+            return 'ri-image-line';
+        }
+        
+        const ext = fileName.split('.').pop().toLowerCase();
+        switch (ext) {
+            case 'pdf':
+                return 'ri-file-text-line';
+            case 'doc':
+            case 'docx':
+                return 'ri-file-word-line';
+            case 'xls':
+            case 'xlsx':
+                return 'ri-file-excel-line';
+            case 'txt':
+                return 'ri-file-text-line';
+            default:
+                return 'ri-file-line';
+        }
+    }
+
+    // Fungsi untuk mendapatkan class warna berdasarkan tipe file
+    function getFileColorClass(fileType, fileName) {
+        if (fileType.startsWith('image/')) {
+            return 'bg-secondary-transparent';
+        }
+        
+        const ext = fileName.split('.').pop().toLowerCase();
+        switch (ext) {
+            case 'pdf':
+                return 'bg-danger-transparent';
+            case 'doc':
+            case 'docx':
+                return 'bg-primary-transparent';
+            case 'xls':
+            case 'xlsx':
+                return 'bg-success-transparent';
+            case 'txt':
+                return 'bg-info-transparent';
+            default:
+                return 'bg-warning-transparent';
+        }
+    }
+    
+    async function openChat(targetUserId) {
+        currentChatUserId = targetUserId;
+        
+        document.querySelectorAll('.chat-inactive, .checkforactive').forEach(li => {
+            li.classList.remove('active', 'checkforactive');
+            li.classList.add('chat-inactive');
+        });
+        event.target.closest('li').classList.remove('chat-inactive');
+        event.target.closest('li').classList.add('checkforactive', 'active');
+        
+        await loadUserDetail(targetUserId);
+        
+        await loadMessages(targetUserId);
+        
+        document.querySelector('.main-chat-area').style.display = 'block';
+    }
+
+    // Fungsi untuk load detail user (foto, nama, dll)
+    async function loadUserDetail(targetUserId) {
+        try {
+            const response = await fetch(`/api/users/${targetUserId}`);
+            const user = await response.json();
+            
+            document.querySelectorAll('.chatnameperson').forEach(el => {
+                el.textContent = user.name;
+            });
+            
+            // Update gambar di HEADER CHAT (main-chat-head)
+            const headerAvatar = document.querySelector('.main-chat-head .chatstatusperson');
+            if (headerAvatar) {
+                headerAvatar.innerHTML = '';
+                const img = document.createElement('img');
+                img.className = 'chatimageperson';
+                img.src = `/profile/${user.avatar}`;
+                img.alt = 'img';
+                headerAvatar.appendChild(img);
+                
+                headerAvatar.classList.remove('online', 'offline');
+                headerAvatar.classList.add(user.is_online ? 'online' : 'offline');
+            }
+            
+            const offcanvasAvatar = document.querySelector('#offcanvasRight .chatstatusperson');
+            if (offcanvasAvatar) {
+                const offcanvasImg = offcanvasAvatar.querySelector('.chatimageperson');
+                if (offcanvasImg) {
+                    offcanvasImg.src = `/profile/${user.avatar}`;
+                }
+                offcanvasAvatar.classList.remove('online', 'offline');
+                offcanvasAvatar.classList.add(user.is_online ? 'online' : 'offline');
+            }
+            
+            // Update status text
+            const statusText = document.querySelector('.chatpersonstatus');
+            if (statusText) {
+                statusText.textContent = user.is_online ? 'online' : 'offline';
+            }
+            
+            // Update email di offcanvas (jika ada)
+            const emailElement = document.querySelector('#offcanvasRight .text-muted');
+            if (emailElement && user.email) {
+                emailElement.innerHTML = `<span class="chatnameperson">${user.name}</span>@gmail.com`;
+            }
+            
+        } catch (error) {
+            console.error('Error loading user detail:', error);
+        }
+    }
+
+    // Fungsi untuk mengirim pesan (text dan file)
+    async function sendMessage() {
+        if (!currentChatUserId) {
+            alert('Pilih user untuk memulai chat');
+            return;
+        }
+
+        let text = document.getElementById("chat-input").value.trim();
+        
+        // Jika tidak ada text dan tidak ada file, return
+        if (!text && !selectedFile) {
+            return;
+        }
+
+        try {
+            let result;
+            
+            if (selectedFile) {
+                console.log('file bang')
+                // Kirim file menggunakan FormData
+                result = await sendFileMessage(text);
+            } else {
+                console.log('gadacok')
+                // Kirim text biasa
+                result = await sendTextMessage(text);
+            }
+            
+            console.log(result);
+            
+            // Reset form
+            document.getElementById("chat-input").value = "";
+            document.getElementById("chat-input").placeholder = "Type your message here...";
+            document.getElementById('file-input').value = '';
+            selectedFile = null;
+            
+            // Refresh messages
+            loadMessages(currentChatUserId);
+            
+        } catch (error) {
+            console.error('Error sending message:', error);
+            alert('Error sending message');
+        }
+    }
+
+    // Fungsi untuk kirim text message
+    async function sendTextMessage(text) {
+        const response = await fetch('/api/messages/send', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            },
+            body: JSON.stringify({
+                message: text,
+                from_user_id: parseInt(userId),
+                to_user_id: currentChatUserId
+            })
+        });
+        return await response.json();
+    }
+
+    // Fungsi untuk kirim file message
+    async function sendFileMessage(text = '') {
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        formData.append('from_user_id', userId);
+        formData.append('to_user_id', currentChatUserId);
+        formData.append('message', text);
+        formData.append('_token', '{{ csrf_token() }}');
+
+        const response = await fetch('/api/messages/send-file', {
+            method: 'POST',
+            body: formData
+        });
+        return await response.json();
+    }
+    
+    function limitWords(text, maxWords = 11) {
+        if (!text) return '';
+        
+        const words = text.trim().split(/\s+/);
+        if (words.length <= maxWords) {
+            return text;
+        }
+        
+        return words.slice(0, maxWords).join(' ') + '...';
+    }
+
+    async function loadMessages(targetUserId = null) {
+        if (!targetUserId && !currentChatUserId) return;
+        
+        const userToLoad = targetUserId || currentChatUserId;
+        
+        try {
+            const response = await fetch(`/api/messages/${userId}/${userToLoad}`);
+            const messages = await response.json();
+
+            let chatBox = document.querySelector("#main-chat-content ul");
+            chatBox.innerHTML = "";
+
+            if (messages.length === 0) {
+                chatBox.innerHTML = `
+                    <div style="width: 100%;height: 100%;display:flex;justify-content: center;align-items: center;color:#999;">
+                        <p>Belum ada pesan. Mulai percakapan!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            messages.forEach(msg => {
+                const isSent = msg.from_user_id == userId;
+                  
+            if (msg.file_path) {
+                // Message dengan file
+                const isImage = msg.file_type && msg.file_type.startsWith('image/');
+                console.log('file : ' , isImage)
+                const fileIcon = getFileIcon(msg.file_type || '', msg.file_name || 'file');
+                const fileColorClass = getFileColorClass(msg.file_type || '', msg.file_name || 'file');
+                
+                chatBox.innerHTML += isSent ? `
+                <li class="chat-item-end">
+                    <div class="chat-list-inner">
+                        <div class="me-3">
+                            <div class="main-chat-msg">
+                                <div style="width: 100%">
+                                    ${isImage ? `
+                                        <div class="file-message">
+                                            <img src="/storage/${msg.file_path}" alt="${msg.file_name}" style="max-width: 200px; max-height: 200px; border-radius: 8px; cursor: pointer" onclick="openImagePreview('/storage/${msg.file_path}')">
+                                        </div>
+                                    ` : `
+                                        <div class="file-card">
+                                            <div class="file-left ${fileColorClass}">
+                                                <i class="${fileIcon} fs-3"></i>
+                                            </div>
+                                            <div class="file-mid">
+                                                <p class="file-name">${escapeHtml(limitWords(msg.file_name, 4))}</p>
+                                                <small class="file-size">${formatFileSize(msg.file_size)}</small>
+                                            </div>
+                                            <a href="/storage/${msg.file_path}" download="${msg.file_name}" class="btn-download">
+                                                <i class="ri-download-line"></i>
+                                            </a>
+                                        </div>
+                                    `}
+                                    ${msg.message ? `<p class="mb-0 mt-2">${escapeHtml(msg.message)}</p>` : ''}
+                                </div>
+                            </div>
+                            <span class="chatting-user-info">
+                                <span class="msg-sent-time"><span class="chat-read-mark align-middle d-inline-flex"><i
+                                            class="ri-check-double-line"></i></span>${msg.formatted_date}</span> You
+                            </span>
+                        </div>
+                        <div class="chat-user-profile">
+                            <span class="avatar avatar-md online">
+                                <img src="/profile/${msg.sender.avatar}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                ` : `
+                <li class="chat-item-start">
+                    <div class="chat-list-inner">
+                        <div class="chat-user-profile">
+                            <span class="avatar avatar-md online chatstatusperson">
+                                <img class="chatimageperson" src="/profile/${msg.sender.avatar}" alt="img">
+                            </span>
+                        </div>
+                        <div class="ms-3">
+                            <div class="main-chat-msg">
+                                <div>
+                                    ${isImage ? `
+                                        <div class="file-message">
+                                            <img src="/storage/${msg.file_path}" alt="${msg.file_name}" style="max-width: 200px; max-height: 200px; border-radius: 8px; cursor: pointer" onclick="openImagePreview('/storage/${msg.file_path}')">
+                                        </div>
+                                    ` : `
+                                        <div class="file-card">
+                                            <div class="file-left ${fileColorClass}">
+                                                <i class="${fileIcon} fs-3"></i>
+                                            </div>
+                                            <div class="file-mid">
+                                                <p class="file-name">${escapeHtml(limitWords(msg.file_name, 4))}</p>
+                                                <small class="file-size">${formatFileSize(msg.file_size)}</small>
+                                            </div>
+                                            <a href="/storage/${msg.file_path}" download="${msg.file_name}" class="btn-download">
+                                                <i class="ri-download-line"></i>
+                                            </a>
+                                        </div>
+                                    `}
+                                    ${msg.message ? `<p class="mb-0 mt-2">${escapeHtml(msg.message)}</p>` : ''}
+                                </div>
+                            </div>
+                            <span class="chatting-user-info">
+                                <span class="chatnameperson">${escapeHtml(msg.sender.name)}</span> <span class="msg-sent-time">${msg.formatted_date}</span>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                `;
+            } else {
+                console.log('gada')
+                // Message text biasa
+                chatBox.innerHTML += isSent ? `
+                <li class="chat-item-end">
+                    <div class="chat-list-inner">
+                        <div class="me-3">
+                            <div class="main-chat-msg">
+                                <div style="width: 100%">
+                                    <p class="mb-0">${escapeHtml(msg.message)}</p>
+                                </div>
+                            </div>
+                            <span class="chatting-user-info">
+                                <span class="msg-sent-time"><span class="chat-read-mark align-middle d-inline-flex"><i
+                                            class="ri-check-double-line"></i></span>${msg.formatted_date}</span> You
+                            </span>
+                        </div>
+                        <div class="chat-user-profile">
+                            <span class="avatar avatar-md online">
+                                <img src="/profile/${msg.sender.avatar}" alt="img">
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                ` : `
+                <li class="chat-item-start">
+                    <div class="chat-list-inner">
+                        <div class="chat-user-profile">
+                            <span class="avatar avatar-md online chatstatusperson">
+                                <img class="chatimageperson" src="/profile/${msg.sender.avatar}" alt="img">
+                            </span>
+                        </div>
+                        <div class="ms-3">
+                            <div class="main-chat-msg">
+                                <div>
+                                    <p class="mb-0">${escapeHtml(msg.message)}</p>
+                                </div>
+                            </div>
+                            <span class="chatting-user-info">
+                                <span class="chatnameperson">${escapeHtml(msg.sender.name)}</span> <span class="msg-sent-time">${msg.formatted_date}</span>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                `;
+            }
+            });
+
+            const isAtBottom = chatBox.scrollHeight - chatBox.scrollTop <= chatBox.clientHeight + 80;
+
+            // Kalau first load → selalu scroll ke bawah
+            if (firstLoad) {
+                chatBox.scrollTop = chatBox.scrollHeight;
+                firstLoad = false;
+            }
+            // Kalau bukan first load, scroll hanya jika user memang di bawah
+            else if (isAtBottom) {
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+
+
+        } catch (error) {
+            console.error('Error loading messages:', error);
+        }
+    }
+    
+
+    // Fungsi untuk format file size
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    // Fungsi untuk preview image (modal sederhana)
+    function openImagePreview(src) {
+        const modal = document.createElement('div');
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100%';
+        modal.style.height = '100%';
+        modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+        modal.style.display = 'flex';
+        modal.style.justifyContent = 'center';
+        modal.style.alignItems = 'center';
+        modal.style.zIndex = '9999';
+        modal.style.cursor = 'pointer';
+        
+        const img = document.createElement('img');
+        img.src = src;
+        img.style.maxWidth = '90%';
+        img.style.maxHeight = '90%';
+        img.style.objectFit = 'contain';
+        img.style.borderRadius = '8px';
+        
+        modal.appendChild(img);
+        modal.onclick = function() {
+            document.body.removeChild(modal);
+        };
+        
+        document.body.appendChild(modal);
+    }
+
+    // Helper function untuk escape HTML
+    function escapeHtml(text) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, m => map[m]);
+    }
+
+    // Auto refresh messages setiap 3 detik (hanya jika ada chat aktif)
+    setInterval(() => {
+        if (currentChatUserId) {
+            loadMessages(currentChatUserId);
+        }
+    }, 3000);
+
+    // Load pertama kali (tampilkan pesan kosong)
+    document.querySelector("#main-chat-content ul").innerHTML = `
+        <div style="width: 100%;height: 100%;display:flex;justify-content: center;align-items: center;color:#999;">
+            <p>Pilih user untuk memulai percakapan</p>
+        </div>
+    `;
+</script>
