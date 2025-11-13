@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('file_pendukung')->nullable();
             $table->boolean('setuju')->default(1);
             $table->string('status')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }
