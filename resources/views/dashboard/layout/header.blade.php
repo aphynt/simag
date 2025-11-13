@@ -110,12 +110,12 @@
                     <div class="p-3">
                         <div class="d-flex align-items-center justify-content-between">
                             <p class="mb-0 fs-15 fw-medium">Notifications</p>
-                            <span class="badge bg-secondary text-fixed-white" id="notifiation-data">5
-                                Unread</span>
+                            {{-- <span class="badge bg-secondary text-fixed-white" id="notifiation-data">5
+                                Unread</span> --}}
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>
-                    <ul class="list-unstyled mb-0" id="header-notification-scroll">
+                    <ul class="list-unstyled mb-0" id="header-notification-scroll" style="overflow-y: scroll">
                         <li class="dropdown-item">
                             <div class="d-flex align-items-center">
                                 <div class="pe-2 lh-1">
@@ -129,101 +129,6 @@
                                         <div class="text-muted fw-normal fs-12 header-notification-text text-truncate">
                                             Jane Sam sent you a message.</div>
                                         <div class="fw-normal fs-10 text-muted op-8">Now</div>
-                                    </div>
-                                    <div>
-                                        <a href="javascript:void(0);" class="min-w-fit-content dropdown-item-close1">
-                                            <i class="ri-close-line"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="d-flex align-items-center">
-                                <div class="pe-2 lh-1">
-                                    <span class="avatar avatar-md bg-primary avatar-rounded fs-20">
-                                        <i class="fe fe-shopping-cart lh-1 "></i>
-                                    </span>
-                                </div>
-                                <div class="flex-grow-1 d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <p class="mb-0 fw-medium"><a href="chat.html">Order Updates</a></p>
-                                        <div class="text-muted fw-normal fs-12 header-notification-text text-truncate">
-                                            Order <span class="text-primary1">#54321</span> has been shipped.
-                                        </div>
-                                        <div class="fw-normal fs-10 text-muted op-8">2 hours ago</div>
-                                    </div>
-                                    <div>
-                                        <a href="javascript:void(0);" class="min-w-fit-content dropdown-item-close1">
-                                            <i class="ri-close-line"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="d-flex align-items-center">
-                                <div class="pe-2 lh-1">
-                                    <span class="avatar avatar-md bg-orange avatar-rounded">
-                                        <img src="{{ asset('dash') }}/build/assets/images/faces/10.jpg"
-                                            alt="user1">
-                                    </span>
-                                </div>
-                                <div class="flex-grow-1 d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <p class="mb-0 fw-medium"><a href="chat.html">Comment on Post</a></p>
-                                        <div class="text-muted fw-normal fs-12 header-notification-text text-truncate">
-                                            Reacted: <span class="text-primary3">John Richard</span> on your
-                                            next purchase!</div>
-                                        <div class="fw-normal fs-10 text-muted op-8">2 hours ago</div>
-                                    </div>
-                                    <div>
-                                        <a href="javascript:void(0);" class="min-w-fit-content dropdown-item-close1">
-                                            <i class="ri-close-line"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="d-flex align-items-center">
-                                <div class="pe-2 lh-1">
-                                    <span class="avatar avatar-md bg-success avatar-rounded">
-                                        <img src="{{ asset('dash') }}/build/assets/images/faces/11.jpg"
-                                            alt="user1">
-                                    </span>
-                                </div>
-                                <div class="flex-grow-1 d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <p class="mb-0 fw-medium"><a href="chat.html">Follow Request</a></p>
-                                        <div class="text-muted fw-normal fs-12 header-notification-text text-truncate">
-                                            <span class="text-info">Kelin Brown</span> has sent you the
-                                            request.
-                                        </div>
-                                        <div class="fw-normal fs-10 text-muted op-8">1 Day ago</div>
-                                    </div>
-                                    <div>
-                                        <a href="javascript:void(0);" class="min-w-fit-content dropdown-item-close1">
-                                            <i class="ri-close-line"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="d-flex align-items-center">
-                                <div class="pe-2 lh-1">
-                                    <span class="avatar avatar-md bg-primary2 avatar-rounded">
-                                        <i class="ri-gift-line lh-1 fs-16"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-grow-1 d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <p class="mb-0 fw-medium"><a href="chat.html">Exclusive Offers</a></p>
-                                        <div class="text-muted fw-normal fs-12 header-notification-text text-truncate">
-                                            Enjoy<span class="text-success">20% off</span> on your next
-                                            purchase!</div>
-                                        <div class="fw-normal fs-10 text-muted op-8">5 hours ago</div>
                                     </div>
                                     <div>
                                         <a href="javascript:void(0);" class="min-w-fit-content dropdown-item-close1">

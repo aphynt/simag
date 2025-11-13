@@ -27,6 +27,7 @@ class ChatController extends Controller
     public function sendMessage(Request $request)
     {
         try {
+            $text = $request->message ?? '';
             if ($request->file('file')) {
                 
                 $file = $request->file('file');
@@ -36,7 +37,7 @@ class ChatController extends Controller
                 $message = Message::create([
                     'from_user_id' => $request->from_user_id,
                     'to_user_id' => $request->to_user_id,
-                    'message' => $request->message,
+                    'message' => $text,
                     'file_path' => $filePath,
                     'file_name' => $file->getClientOriginalName(),
                     'file_size' => $file->getSize(),
@@ -46,7 +47,7 @@ class ChatController extends Controller
                 $message = Message::create([
                     'from_user_id' => $request->from_user_id,
                     'to_user_id'   => $request->to_user_id,
-                    'message'      => $request->message
+                    'message'      => $text
                 ]);
             }
 
@@ -154,5 +155,65 @@ class ChatController extends Controller
             ], 500);
         }
     }
+
+    public function notifications($userId)
+    {
+        $messages = Message::where('to_user_id', $userId)
+                            ->where('is_read', false)
+                            ->with('sender')
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+        return response()->json($messages);
+    }
+
+    public function markRead(Request $request)
+    {
+        Message::where('id', $request->id)->update(['is_read' => true]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function chatList($userId)
+    {
+        $authId = $userId;
+
+        $allUser = User::where('id', '!=', $authId)
+            ->get()
+            ->map(function($u) use ($authId) {
+
+                // last message
+                $u->lastMessage = Message::where(function($q) use ($authId, $u) {
+                    $q->where('from_user_id', $authId)
+                    ->where('to_user_id', $u->id);
+                })
+                ->orWhere(function($q) use ($authId, $u) {
+                    $q->where('from_user_id', $u->id)
+                    ->where('to_user_id', $authId);
+                })
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+                // unread count
+                $u->unreadCount = Message::where('from_user_id', $u->id)
+                    ->where('to_user_id', $authId)
+                    ->where('is_read', false)
+                    ->count();
+
+                return $u;
+            });
+
+        return response()->json($allUser);
+    }
+
+    public function markReadMess(Request $request)
+    {
+        Message::where('from_user_id', $request->from_user_id)
+            ->where('to_user_id', $request->to_user_id)
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+
+        return response()->json(['status' => 'success']);
+    }
+
 
 }

@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        
         Schema::table('messages', function (Blueprint $table) {
-            $table->string('file_path')->nullable();
-            $table->string('file_name')->nullable();
-            $table->integer('file_size')->nullable();
-            $table->string('file_type')->nullable();
+            $table->text('message')->nullable()->change();
         });
     }
 

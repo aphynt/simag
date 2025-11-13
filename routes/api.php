@@ -12,13 +12,13 @@ Route::get('/user', function (Request $request) {
 // Get user detail
 Route::get('/users/{id}', [ChatController::class, 'getUserDetail']);
 
-// Get messages between two users
-Route::get('/messages/{userId}/{targetUserId}', [ChatController::class, 'getMessagesBetweenUsers']);
-
 // Ambil semua pesan
 Route::get('/messages/{user_id}', [ChatController::class, 'getMessages']);
-
-// Kirim pesan
 Route::post('/messages/send', [ChatController::class, 'sendMessage']);
-
+Route::get('/messages/{userId}/{targetUserId}', [ChatController::class, 'getMessagesBetweenUsers']);
 Route::post('/messages/send-file', [ChatController::class, 'sendFile']);
+Route::get('/chat-list/{userId}', [ChatController::class, 'chatList']);
+Route::post('/messages/mark-read', [ChatController::class, 'markReadMess']);
+
+Route::get('/notifications/messages/{userId}', [ChatController::class, 'notifications']);
+Route::post('/notifications/mark-read', [ChatController::class, 'markRead']);

@@ -231,6 +231,9 @@
                                                             </p>
                                                             <p class="fs-12 mb-0 text-truncate">
                                                                 {{ $u->lastMessage ? $u->lastMessage->message : 'Belum ada pesan' }}
+                                                                @if($u->unreadCount > 0)
+                                                                <span class="badge bg-primary2 rounded-pill float-end">{{ $u->unreadCount }}</span>
+                                                                @endif
                                                             </p>
                                                         </div>
                                                     </div>
@@ -463,13 +466,24 @@
 <script>
     let userId = "{{ Auth::user()->id }}";
     let currentChatUserId = null; // Track user yang sedang di-chat
+    let isScrollingFromSendMessage = false;
+    let lastMessageCount = 0;
+
     console.log(userId);
     
     document.getElementById("chat-input").addEventListener("keyup", function(e){
         if(e.key === "Enter"){
             sendMessage();
+            setTimeout(forceScrollBottom, 200);
         }
     });
+
+    function forceScrollBottom() {
+        const chatBox = document.querySelector("#main-chat-content ul");
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+
 
     let selectedFile = null;
     let firstLoad = true;
@@ -544,9 +558,85 @@
         await loadUserDetail(targetUserId);
         
         await loadMessages(targetUserId);
+
+        await markMessagesAsRead(targetUserId);
+        fetchChatList(); // refresh sidebar chat list
+        fetchNotifications(); // bersihkan notif
+
         
         document.querySelector('.main-chat-area').style.display = 'block';
     }
+
+    
+    async function closeNotif(id) {
+        await fetch('/api/notifications/mark-read', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ id })
+        });
+
+        fetchNotifications(); // refresh notifikasi
+    }
+    async function handleOpenNotif(senderId, notifId) {
+        // tandai sudah dibaca
+        await fetch('/api/notifications/mark-read', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ id: notifId })
+        });
+
+        // trigger openChat milikmu
+        openChat(senderId);
+
+        // refresh notif list
+        fetchNotifications();
+    }
+    async function fetchNotifications() {
+        const response = await fetch('/api/notifications/messages/' + userId);
+        const notifs = await response.json();
+        console.log(response)
+
+        const notifList = document.getElementById('header-notification-scroll');
+        notifList.innerHTML = ""; // reset
+
+        notifs.forEach(notif => {
+            notifList.innerHTML += `
+                <li class="dropdown-item" data-id="${notif.id}" data-sender="${notif.sender.id}">
+                    <div class="d-flex align-items-center">
+                        <div class="pe-2 lh-1">
+                            <span class="avatar avatar-md avatar-rounded bg-primary">
+                                <img src="/profile/${notif.sender.avatar ?? 'default.png'}" alt="${notif.sender.name}">
+                            </span>
+                        </div>
+
+                        <div class="flex-grow-1 d-flex align-items-center justify-content-between">
+                            <div onclick="handleOpenNotif(${notif.sender.id}, ${notif.id})" style="cursor:pointer;">
+                                <p class="mb-0 fw-medium">New Message</p>
+                                <div class="text-muted fw-normal fs-12"> ${notif.sender.name} sent you a message. </div>
+                                <div class="fw-normal fs-10 text-muted op-8">Just now</div>
+                            </div>
+
+                            <div>
+                                <a href="javascript:void(0);" onclick="closeNotif(${notif.id})" class="min-w-fit-content">
+                                    <i class="ri-close-line"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            `;
+        });
+    }
+
+    // polling setiap 5 detik
+    setInterval(fetchNotifications, 5000);
+    fetchNotifications();
 
     // Fungsi untuk load detail user (foto, nama, dll)
     async function loadUserDetail(targetUserId) {
@@ -605,7 +695,8 @@
             alert('Pilih user untuk memulai chat');
             return;
         }
-
+        
+        isScrollingFromSendMessage = true;
         let text = document.getElementById("chat-input").value.trim();
         
         // Jika tidak ada text dan tidak ada file, return
@@ -617,12 +708,8 @@
             let result;
             
             if (selectedFile) {
-                console.log('file bang')
-                // Kirim file menggunakan FormData
                 result = await sendFileMessage(text);
             } else {
-                console.log('gadacok')
-                // Kirim text biasa
                 result = await sendTextMessage(text);
             }
             
@@ -635,7 +722,12 @@
             selectedFile = null;
             
             // Refresh messages
-            loadMessages(currentChatUserId);
+            
+            await loadMessages(currentChatUserId);
+
+            // Paksa scroll ke bawah
+            forceScrollBottom();
+
             
         } catch (error) {
             console.error('Error sending message:', error);
@@ -686,6 +778,50 @@
         
         return words.slice(0, maxWords).join(' ') + '...';
     }
+
+    async function fetchChatList() {
+        const response = await fetch('/api/chat-list/' + userId);
+        const users = await response.json();
+
+        users.forEach(u => {
+            let li = document.querySelector(`li[data-user-id="${u.id}"]`);
+
+            if (li) {
+                // Update last message time
+                let timeEl = li.querySelector("span.float-end.text-muted.fs-11");
+                if (timeEl && u.lastMessage) {
+                    timeEl.textContent = new Date(u.lastMessage.created_at)
+                        .toLocaleString('id-ID', { hour12: false });
+                }
+
+                // Update last message text
+                let lastMsgEl = li.querySelector("p.fs-12.mb-0.text-truncate");
+                if (lastMsgEl) {
+                    lastMsgEl.childNodes[0].nodeValue = u.lastMessage
+                        ? (u.lastMessage.message || '[file]')
+                        : 'Belum ada pesan';
+                }
+
+                // Update unread count
+                let badge = li.querySelector(".badge.bg-primary2");
+                
+                if (u.unreadCount > 0) {
+                    if (!badge) {
+                        // Tambah badge baru
+                        lastMsgEl.innerHTML += 
+                            `<span class="badge bg-primary2 rounded-pill float-end">${u.unreadCount}</span>`;
+                    } else {
+                        badge.textContent = u.unreadCount;
+                    }
+                } else {
+                    if (badge) badge.remove();
+                }
+            }
+        });
+    }
+    setInterval(fetchChatList, 3000);
+    fetchChatList();
+
 
     async function loadMessages(targetUserId = null) {
         if (!targetUserId && !currentChatUserId) return;
@@ -844,16 +980,36 @@
             }
             });
 
+            // Cek apakah sedang di bawah
             const isAtBottom = chatBox.scrollHeight - chatBox.scrollTop <= chatBox.clientHeight + 80;
 
-            // Kalau first load → selalu scroll ke bawah
+            // Hitung pesan baru
+            const newMessageCount = messages.length;
+            const hasNewMessage = newMessageCount > lastMessageCount;
+
+            // Update counter global
+            lastMessageCount = newMessageCount;
+
+            // Jika first load → scroll ke bawah
             if (firstLoad) {
                 chatBox.scrollTop = chatBox.scrollHeight;
                 firstLoad = false;
             }
-            // Kalau bukan first load, scroll hanya jika user memang di bawah
-            else if (isAtBottom) {
+            // Jika ini scroll dari mengirim pesan
+            else if (isScrollingFromSendMessage) {
                 chatBox.scrollTop = chatBox.scrollHeight;
+                isScrollingFromSendMessage = false;
+            }
+            // Jika ada pesan baru dari orang lain & user sedang di bawah → auto scroll
+            else if (hasNewMessage) {
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+            
+            // Jika ada pesan baru dari user yang sedang kamu chat → tandai sebagai read
+            if (hasNewMessage && userToLoad == currentChatUserId) {
+                markMessagesAsRead(currentChatUserId);
+                fetchChatList();
+                fetchNotifications();
             }
 
 
@@ -862,6 +1018,19 @@
         }
     }
     
+    async function markMessagesAsRead(otherUserId) {
+        await fetch('/api/messages/mark-read', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            },
+            body: JSON.stringify({
+                from_user_id: otherUserId,
+                to_user_id: userId
+            })
+        });
+    }
 
     // Fungsi untuk format file size
     function formatFileSize(bytes) {
