@@ -29,7 +29,7 @@ class ChatController extends Controller
         try {
             $text = $request->message ?? '';
             if ($request->file('file')) {
-                
+
                 $file = $request->file('file');
                 $fileName = time() . '_' . $file->getClientOriginalName();
                 $filePath = $file->storeAs('chat_files', $fileName, 'public');
@@ -65,17 +65,24 @@ class ChatController extends Controller
         }
     }
 
-    
+
     public function getUserDetail($id)
     {
         $user = User::findOrFail($id);
-        
+
+        if ($user->last_activity) {
+            $lastActivity = \Carbon\Carbon::parse($user->last_activity); // Convert to Carbon object
+            $user->is_online = $lastActivity->diffInMinutes(now()) <= 5; // Check if the user is active in the last 5 minutes
+        } else {
+            $user->is_online = false; // User is offline if no last_activity
+        }
+
         return response()->json([
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
             'avatar' => $user->avatar,
-            'is_online' => $user->is_online ?? false, // Sesuaikan dengan logic online Anda
+            'is_online' => $user->is_online ?? false,  // Default to false if no last_activity
         ]);
     }
 
@@ -116,7 +123,7 @@ class ChatController extends Controller
         return response()->json($messages);
     }
 
-    
+
     public function sendFile(Request $request)
     {
         $request->validate([
@@ -198,6 +205,13 @@ class ChatController extends Controller
                     ->where('to_user_id', $authId)
                     ->where('is_read', false)
                     ->count();
+
+                if ($u->last_activity) {
+                    $u->last_activity = \Carbon\Carbon::parse($u->last_activity); // Pastikan menjadi objek Carbon
+                    $u->is_online = $u->last_activity->diffInMinutes(now()) <= 5;
+                } else {
+                    $u->is_online = false;
+                }
 
                 return $u;
             });

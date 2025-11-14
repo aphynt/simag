@@ -39,8 +39,8 @@
                 <div id="navigation">
                     <!-- Navigation Menu-->
                     <ul class="navigation-menu nav-light">
-                        <li><a href="index.html" class="sub-menu-item">Home</a></li>
-                        <li><a href="index.html" class="sub-menu-item">Contact</a></li>
+                        <li><a href="{{ route('home.index') }}" class="sub-menu-item">Home</a></li>
+                        <li><a href="#" class="sub-menu-item">Contact</a></li>
                         @if (Auth::user())
                             <li><a href="{{ route('logout') }}" class="sub-menu-item">Logout</a></li>
                         @else

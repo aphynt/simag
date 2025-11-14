@@ -13,6 +13,7 @@ class KonsultasiController extends Controller
     public function index()
     {
         $authId = Auth::id();
+        User::where('id', Auth::user()->id)->update(['last_activity' => now()]);
 
         $allUser = User::where('id', '!=', $authId)
             ->get()
@@ -34,6 +35,12 @@ class KonsultasiController extends Controller
                     ->where('to_user_id', $authId)
                     ->where('is_read', false)
                     ->count();
+                if ($u->last_activity) {
+                    $lastActivity = \Carbon\Carbon::parse($u->last_activity); // Convert last_activity to Carbon object
+                    $u->is_online = $lastActivity->diffInMinutes(now()) <= 5; // Check if the user is active in the last 5 minutes
+                } else {
+                    $u->is_online = false; // User is offline if no last_activity
+                }
 
                 return $u;
             });

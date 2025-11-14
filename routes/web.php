@@ -6,6 +6,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PersetujuanController;
+use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\EvaluasiController;
+use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,8 +25,11 @@ Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('aut
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth']], function(){
+
+    //Dashboard
     Route::get('/dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index');
 
+    //Pengajuan
     Route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan.index');
     Route::get('/pengajuan/ajukan', [PengajuanController::class, 'insert'])->name('pengajuan.insert');
     Route::get('/pengajuan/ajukan/edit/{uuid}', [PengajuanController::class, 'edit'])->name('pengajuan.edit');
@@ -31,10 +37,21 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/pengajuan/ajukan/update/{uuid}', [PengajuanController::class, 'update'])->name('pengajuan.update');
     Route::get('/pengajuan/delete/{uuid}', [PengajuanController::class, 'delete'])->name('pengajuan.delete');
 
+    //Persetujuan
+    Route::get('/persetujuan', [PersetujuanController::class, 'index'])->name('persetujuan.index');
+
+    //Konsultasi
     Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsultasi.index');
     Route::post('/send-message', [KonsultasiController::class, 'sendMessage'])->name('konsultasi.sendmess');
 
-    Route::get('/persetujuan', [PersetujuanController::class, 'index'])->name('persetujuan.index');
+    //Monitoring
+    Route::get('/monitoring', [MonitoringController::class, 'index'])->name('monitoring.index');
+
+    //Evaluasi
+    Route::get('/evaluasi', [EvaluasiController::class, 'index'])->name('evaluasi.index');
+
+    //Penilaian
+    Route::get('/penilaian', [PenilaianController::class, 'index'])->name('penilaian.index');
 
 
     Route::get('/user', [UserController::class, 'index'])->name('user.index');

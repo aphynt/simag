@@ -24,6 +24,8 @@
         <link href="{{ asset('home') }}/assets/libs/%40iconscout/unicons/css/line.css" type="text/css" rel="stylesheet">
         <!-- Style Css-->
         <link href="{{ asset('home') }}/assets/css/style.min.css" id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
+        <!-- SweetAlert 2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
 
     <body>

@@ -87,6 +87,11 @@
 .btn-download:hover {
     background: #d5e7ff;
 }
+.gradient-text {
+    background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+    -webkit-background-clip: text;
+    color: transparent;  /* Make the text color transparent to show the gradient */
+}
 
 </style>
 <div class="main-content app-content">
@@ -211,8 +216,9 @@
                                             </a>
                                         </li> --}}
                                        <li class="pb-0">
-                                            <p class="text-muted fs-11 fw-medium mb-2 op-7">ALL CHATS</p>
+                                            <p class="text-muted fs-11 fw-medium mb-2 op-7 gradient-text">ALL CHATS</p>
                                         </li>
+
                                         @foreach ($allUser as $u)
                                             <li class="chat-inactive" data-user-id="{{ $u->id }}">
                                                 <a href="javascript:void(0);" onclick="openChat({{ $u->id }})">
@@ -255,32 +261,7 @@
                                     </p>
                                     <p class="text-muted mb-0 chatpersonstatus"></p>
                                 </div>
-                                <div class="d-flex flex-wrap rightIcons gap-2">
-                                    <button aria-label="button" type="button" class="btn btn-icon btn-primary1-light my-0  btn-sm">
-                                        <i class="ti ti-phone"></i>
-                                    </button>
-                                    <button aria-label="button" type="button" class="btn btn-icon btn-primary2-light my-0 btn-sm d-none d-sm-block">
-                                        <i class="ti ti-video"></i>
-                                    </button>
-                                    <button aria-label="button" type="button" class="btn btn-icon btn-outline-light  responsive-userinfo-open btn-sm">
-                                        <i class="ti ti-user-circle" id="responsive-chat-close"></i>
-                                    </button>
-                                    <div class="dropdown">
-                                        <button aria-label="button" class="btn btn-icon btn-primary3-light  btn-wave waves-light btn-sm waves-effect waves-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ti ti-dots-vertical"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-user-3-line me-1"></i>Profile</a></li>
-                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-format-clear me-1"></i>Clear Chat</a></li>
-                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-user-unfollow-line me-1"></i>Delete User</a></li>
-                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-user-forbid-line me-1"></i>Block User</a></li>
-                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-error-warning-line me-1"></i>Report</a></li>
-                                        </ul>
-                                    </div>
-                                    <button aria-label="button" type="button" class="btn btn-icon btn-primary-light my-0 responsive-chat-close btn-sm">
-                                        <i class="ri-close-line"></i>
-                                    </button>
-                                </div>
+
                             </div>
                             <div class="chat-content" id="main-chat-content" style="height: 90%">
                                 <ul class="list-unstyled" style="overflow-y: scroll;height: 100% !important">
@@ -296,9 +277,6 @@
                                     <i class="ri-attachment-2"></i>
                                 </a>
                                 <input type="file" id="file-input" style="display: none" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt" onchange="handleFileSelect(event)">
-                                <a aria-label="anchor" class="btn btn-icon me-2 btn-primary2 emoji-picker" href="javascript:void(0)">
-                                    <i class="ri-emotion-line"></i>
-                                </a>
                                 <input class="form-control chat-message-space" id="chat-input" placeholder="Type your message here..." type="text">
                                 <a aria-label="anchor" class="btn btn-primary ms-2 btn-icon btn-send" href="javascript:void(0)" onclick="sendMessage()">
                                     <i class="ri-send-plane-2-line"></i>
@@ -470,7 +448,7 @@
     let lastMessageCount = 0;
 
     console.log(userId);
-    
+
     document.getElementById("chat-input").addEventListener("keyup", function(e){
         if(e.key === "Enter"){
             sendMessage();
@@ -495,7 +473,7 @@
             // Tampilkan preview atau nama file
             const fileName = selectedFile.name;
             document.getElementById('chat-input').placeholder = `File: ${fileName}`;
-            
+
         }
     }
 
@@ -504,7 +482,7 @@
         if (fileType.startsWith('image/')) {
             return 'ri-image-line';
         }
-        
+
         const ext = fileName.split('.').pop().toLowerCase();
         switch (ext) {
             case 'pdf':
@@ -527,7 +505,7 @@
         if (fileType.startsWith('image/')) {
             return 'bg-secondary-transparent';
         }
-        
+
         const ext = fileName.split('.').pop().toLowerCase();
         switch (ext) {
             case 'pdf':
@@ -544,30 +522,30 @@
                 return 'bg-warning-transparent';
         }
     }
-    
+
     async function openChat(targetUserId) {
         currentChatUserId = targetUserId;
-        
+
         document.querySelectorAll('.chat-inactive, .checkforactive').forEach(li => {
             li.classList.remove('active', 'checkforactive');
             li.classList.add('chat-inactive');
         });
         event.target.closest('li').classList.remove('chat-inactive');
         event.target.closest('li').classList.add('checkforactive', 'active');
-        
+
         await loadUserDetail(targetUserId);
-        
+
         await loadMessages(targetUserId);
 
         await markMessagesAsRead(targetUserId);
         fetchChatList(); // refresh sidebar chat list
         fetchNotifications(); // bersihkan notif
 
-        
+
         document.querySelector('.main-chat-area').style.display = 'block';
     }
 
-    
+
     async function closeNotif(id) {
         await fetch('/api/notifications/mark-read', {
             method: 'POST',
@@ -643,11 +621,11 @@
         try {
             const response = await fetch(`/api/users/${targetUserId}`);
             const user = await response.json();
-            
+
             document.querySelectorAll('.chatnameperson').forEach(el => {
                 el.textContent = user.name;
             });
-            
+
             // Update gambar di HEADER CHAT (main-chat-head)
             const headerAvatar = document.querySelector('.main-chat-head .chatstatusperson');
             if (headerAvatar) {
@@ -657,11 +635,11 @@
                 img.src = `/profile/${user.avatar}`;
                 img.alt = 'img';
                 headerAvatar.appendChild(img);
-                
+
                 headerAvatar.classList.remove('online', 'offline');
                 headerAvatar.classList.add(user.is_online ? 'online' : 'offline');
             }
-            
+
             const offcanvasAvatar = document.querySelector('#offcanvasRight .chatstatusperson');
             if (offcanvasAvatar) {
                 const offcanvasImg = offcanvasAvatar.querySelector('.chatimageperson');
@@ -671,19 +649,19 @@
                 offcanvasAvatar.classList.remove('online', 'offline');
                 offcanvasAvatar.classList.add(user.is_online ? 'online' : 'offline');
             }
-            
+
             // Update status text
             const statusText = document.querySelector('.chatpersonstatus');
             if (statusText) {
                 statusText.textContent = user.is_online ? 'online' : 'offline';
             }
-            
+
             // Update email di offcanvas (jika ada)
             const emailElement = document.querySelector('#offcanvasRight .text-muted');
             if (emailElement && user.email) {
                 emailElement.innerHTML = `<span class="chatnameperson">${user.name}</span>@gmail.com`;
             }
-            
+
         } catch (error) {
             console.error('Error loading user detail:', error);
         }
@@ -695,10 +673,10 @@
             alert('Pilih user untuk memulai chat');
             return;
         }
-        
+
         isScrollingFromSendMessage = true;
         let text = document.getElementById("chat-input").value.trim();
-        
+
         // Jika tidak ada text dan tidak ada file, return
         if (!text && !selectedFile) {
             return;
@@ -706,29 +684,29 @@
 
         try {
             let result;
-            
+
             if (selectedFile) {
                 result = await sendFileMessage(text);
             } else {
                 result = await sendTextMessage(text);
             }
-            
+
             console.log(result);
-            
+
             // Reset form
             document.getElementById("chat-input").value = "";
             document.getElementById("chat-input").placeholder = "Type your message here...";
             document.getElementById('file-input').value = '';
             selectedFile = null;
-            
+
             // Refresh messages
-            
+
             await loadMessages(currentChatUserId);
 
             // Paksa scroll ke bawah
             forceScrollBottom();
 
-            
+
         } catch (error) {
             console.error('Error sending message:', error);
             alert('Error sending message');
@@ -767,15 +745,15 @@
         });
         return await response.json();
     }
-    
+
     function limitWords(text, maxWords = 11) {
         if (!text) return '';
-        
+
         const words = text.trim().split(/\s+/);
         if (words.length <= maxWords) {
             return text;
         }
-        
+
         return words.slice(0, maxWords).join(' ') + '...';
     }
 
@@ -804,11 +782,11 @@
 
                 // Update unread count
                 let badge = li.querySelector(".badge.bg-primary2");
-                
+
                 if (u.unreadCount > 0) {
                     if (!badge) {
                         // Tambah badge baru
-                        lastMsgEl.innerHTML += 
+                        lastMsgEl.innerHTML +=
                             `<span class="badge bg-primary2 rounded-pill float-end">${u.unreadCount}</span>`;
                     } else {
                         badge.textContent = u.unreadCount;
@@ -825,9 +803,9 @@
 
     async function loadMessages(targetUserId = null) {
         if (!targetUserId && !currentChatUserId) return;
-        
+
         const userToLoad = targetUserId || currentChatUserId;
-        
+
         try {
             const response = await fetch(`/api/messages/${userId}/${userToLoad}`);
             const messages = await response.json();
@@ -846,14 +824,14 @@
 
             messages.forEach(msg => {
                 const isSent = msg.from_user_id == userId;
-                  
+
             if (msg.file_path) {
                 // Message dengan file
                 const isImage = msg.file_type && msg.file_type.startsWith('image/');
                 console.log('file : ' , isImage)
                 const fileIcon = getFileIcon(msg.file_type || '', msg.file_name || 'file');
                 const fileColorClass = getFileColorClass(msg.file_type || '', msg.file_name || 'file');
-                
+
                 chatBox.innerHTML += isSent ? `
                 <li class="chat-item-end">
                     <div class="chat-list-inner">
@@ -1004,7 +982,7 @@
             else if (hasNewMessage) {
                 chatBox.scrollTop = chatBox.scrollHeight;
             }
-            
+
             // Jika ada pesan baru dari user yang sedang kamu chat → tandai sebagai read
             if (hasNewMessage && userToLoad == currentChatUserId) {
                 markMessagesAsRead(currentChatUserId);
@@ -1017,7 +995,7 @@
             console.error('Error loading messages:', error);
         }
     }
-    
+
     async function markMessagesAsRead(otherUserId) {
         await fetch('/api/messages/mark-read', {
             method: 'POST',
@@ -1055,19 +1033,19 @@
         modal.style.alignItems = 'center';
         modal.style.zIndex = '9999';
         modal.style.cursor = 'pointer';
-        
+
         const img = document.createElement('img');
         img.src = src;
         img.style.maxWidth = '90%';
         img.style.maxHeight = '90%';
         img.style.objectFit = 'contain';
         img.style.borderRadius = '8px';
-        
+
         modal.appendChild(img);
         modal.onclick = function() {
             document.body.removeChild(modal);
         };
-        
+
         document.body.appendChild(modal);
     }
 

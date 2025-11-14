@@ -4,27 +4,16 @@
             <div class="footer-py-30 footer-bar">
                 <div class="container text-center">
                     <div class="row align-items-center">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="text-sm-start">
-                                <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> {{ config('app.name') }}. Design with <i class="mdi mdi-info text-danger"></i> by <a href="https://ahmadfadillah.my.id/" target="_blank" class="text-reset">Ahmad Fadillah</a>.</p>
+                                <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> {{ config('app.name') }}. Design with <i class="mdi mdi-info text-danger"></i> by <a href="https://ahmadfadillah.my.id/" target="_blank" class="text-reset">IT</a>.</p>
                             </div>
                         </div><!--end col-->
 
-                        <div class="col-sm-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                            <ul class="list-unstyled text-sm-end mb-0">
-                                <li class="list-inline-item"><a href="javascript:void(0)"><img src="{{ asset('home') }}/assets/images/payments/american-ex.png" class="avatar avatar-ex-sm" title="American Express" alt=""></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)"><img src="{{ asset('home') }}/assets/images/payments/discover.png" class="avatar avatar-ex-sm" title="Discover" alt=""></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)"><img src="{{ asset('home') }}/assets/images/payments/master-card.png" class="avatar avatar-ex-sm" title="Master Card" alt=""></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)"><img src="{{ asset('home') }}/assets/images/payments/paypal.png" class="avatar avatar-ex-sm" title="Paypal" alt=""></a></li>
-                                <li class="list-inline-item"><a href="javascript:void(0)"><img src="{{ asset('home') }}/assets/images/payments/visa.png" class="avatar avatar-ex-sm" title="Visa" alt=""></a></li>
-                            </ul>
-                        </div><!--end col-->
                     </div><!--end row-->
                 </div><!--end container-->
             </div>
-        </footer><!--end footer-->
-        <!-- Footer End -->
-
+        </footer>
 
         <!-- Cookies Start -->
         <div class="card cookie-popup shadow rounded py-3 px-4">
@@ -50,7 +39,8 @@
                         <div class="card border-0 mt-4" style="z-index: 1">
                             <div class="card-body p-0">
                                 <h4 class="card-title text-center">Masuk</h4>
-                                <form class="login-form mt-4">
+                                <form class="login-form mt-4" method="POST" action="{{ route('authenticate') }}">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="mb-3">
@@ -67,7 +57,7 @@
                                                 <label class="form-label">Password <span class="text-danger">*</span></label>
                                                 <div class="form-icon position-relative">
                                                     <i data-feather="key" class="fea icon-sm icons"></i>
-                                                    <input type="password" class="form-control ps-5" placeholder="Password" required="">
+                                                    <input type="password" class="form-control ps-5" placeholder="Password" name="password" required="">
                                                 </div>
                                             </div>
                                         </div><!--end col-->
@@ -76,11 +66,11 @@
                                             <div class="d-flex justify-content-between">
                                                 <div class="mb-3">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                        <label class="form-check-label" for="flexCheckDefault">Ingat Saya</label>
+                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                                                        <label class="form-check-label" for="flexCheckDefault">Ingat Saya!</label>
                                                     </div>
                                                 </div>
-                                                <p class="forgot-pass mb-0"><a href="auth-cover-re-password.html" class="text-dark fw-bold">Lupa password?</a></p>
+                                                <p class="forgot-pass mb-0"><a href="#" class="text-dark fw-bold">Lupa password?</a></p>
                                             </div>
                                         </div><!--end col-->
 

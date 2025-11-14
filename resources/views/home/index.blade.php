@@ -17,8 +17,13 @@
                                             class="avatar avatar-md-sm" alt="">
                                     </div>
                                     <div class="content mt-3">
-                                        <h6 class="mb-0"><a href="javascript:void(0)"
-                                                class="title text-dark">Pengajuan</a></h6>
+                                        <h6 class="mb-0">
+                                            <a href="javascript:void(0)"
+                                            class="title text-dark"
+                                            onclick="checkLogin('pengajuan')">
+                                            Pengajuan
+                                            </a>
+                                        </h6>
                                     </div>
                                 </div>
                             </div>
@@ -31,8 +36,13 @@
                                             class="avatar avatar-md-sm" alt="">
                                     </div>
                                     <div class="content mt-3">
-                                        <h6 class="mb-0"><a href="javascript:void(0)"
-                                                class="title text-dark">Persetujuan</a></h6>
+                                        <h6 class="mb-0">
+                                            <a href="javascript:void(0)"
+                                            class="title text-dark"
+                                            onclick="checkLogin('persetujuan')">
+                                            Persetujuan
+                                            </a>
+                                        </h6>
                                     </div>
                                 </div>
                             </div>
@@ -45,8 +55,13 @@
                                             class="avatar avatar-md-sm" alt="">
                                     </div>
                                     <div class="content mt-3">
-                                        <h6 class="mb-0"><a href="javascript:void(0)"
-                                                class="title text-dark">Konsultasi</a></h6>
+                                        <h6 class="mb-0">
+                                            <a href="javascript:void(0)"
+                                            class="title text-dark"
+                                            onclick="checkLogin('konsultasi')">
+                                            Konsultasi
+                                            </a>
+                                        </h6>
                                     </div>
                                 </div>
                             </div>
@@ -59,8 +74,13 @@
                                             class="avatar avatar-md-sm" alt="">
                                     </div>
                                     <div class="content mt-3">
-                                        <h6 class="mb-0"><a href="javascript:void(0)"
-                                                class="title text-dark">Monitoring</a></h6>
+                                        <h6 class="mb-0">
+                                            <a href="javascript:void(0)"
+                                            class="title text-dark"
+                                            onclick="checkLogin('monitoring')">
+                                            Monitoring
+                                            </a>
+                                        </h6>
                                     </div>
                                 </div>
                             </div>
@@ -73,8 +93,13 @@
                                             class="avatar avatar-md-sm" alt="">
                                     </div>
                                     <div class="content mt-3">
-                                        <h6 class="mb-0"><a href="javascript:void(0)"
-                                                class="title text-dark">Evaluasi</a></h6>
+                                        <h6 class="mb-0">
+                                            <a href="javascript:void(0)"
+                                            class="title text-dark"
+                                            onclick="checkLogin('evaluasi')">
+                                            Evaluasi
+                                            </a>
+                                        </h6>
                                     </div>
                                 </div>
                             </div>
@@ -87,8 +112,13 @@
                                             class="avatar avatar-md-sm" alt="">
                                     </div>
                                     <div class="content mt-3">
-                                        <h6 class="mb-0"><a href="javascript:void(0)"
-                                                class="title text-dark">Penilaian</a></h6>
+                                        <h6 class="mb-0">
+                                            <a href="javascript:void(0)"
+                                            class="title text-dark"
+                                            onclick="checkLogin('penilaian')">
+                                            Penilaian
+                                            </a>
+                                        </h6>
                                     </div>
                                 </div>
                             </div>
@@ -113,46 +143,41 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-12">
-                <div
-                    class="card features feature-primary feature-full-bg rounded p-4 bg-light position-relative overflow-hidden border-0">
+                <div class="card features feature-primary feature-full-bg rounded p-4 bg-light position-relative overflow-hidden border-0">
                     <span class="h1 icon-color">
                         <i class="uil uil-briefcase"></i>
                     </span>
                     <div class="card-body p-0 content">
-                        <h5>Our Vision</h5>
-                        <p class="para text-muted mb-0">It is a long established fact that a reader will be of a page
-                            reader will be of at its layout.</p>
+                        <h5>Pengajuan Magang</h5>
+                        <p class="para text-muted mb-0">Aplikasi ini memungkinkan mahasiswa untuk mengajukan permohonan magang sesuai dengan jurusan mereka.</p>
                     </div>
                 </div>
             </div><!--end col-->
 
             <div class="col-lg-4 col-md-6 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                <div
-                    class="card features feature-primary feature-full-bg rounded p-4 bg-light position-relative overflow-hidden border-0">
+                <div class="card features feature-primary feature-full-bg rounded p-4 bg-light position-relative overflow-hidden border-0">
                     <span class="h1 icon-color">
                         <i class="uil uil-rocket"></i>
                     </span>
                     <div class="card-body p-0 content">
-                        <h5>Our Mission</h5>
-                        <p class="para text-muted mb-0">It is a long established fact that a reader will be of a page
-                            reader will be of at its layout.</p>
+                        <h5>Tujuan Pengajuan</h5>
+                        <p class="para text-muted mb-0">Memudahkan mahasiswa untuk memilih tempat magang yang relevan dan mendukung pengembangan karir mereka.</p>
                     </div>
                 </div>
             </div><!--end col-->
 
             <div class="col-lg-4 col-md-6 col-12 mt-4 mt-lg-0 pt-2 pt-lg-0">
-                <div
-                    class="card features feature-primary feature-full-bg rounded p-4 bg-light position-relative overflow-hidden border-0">
+                <div class="card features feature-primary feature-full-bg rounded p-4 bg-light position-relative overflow-hidden border-0">
                     <span class="h1 icon-color">
                         <i class="uil uil-crosshairs"></i>
                     </span>
                     <div class="card-body p-0 content">
-                        <h5>Our Goal</h5>
-                        <p class="para text-muted mb-0">It is a long established fact that a reader will be of a page
-                            reader will be of at its layout.</p>
+                        <h5>Proses Persetujuan</h5>
+                        <p class="para text-muted mb-0">Prodi akan memeriksa dan menyetujui pengajuan magang mahasiswa untuk memastikan kesesuaian dengan kurikulum.</p>
                     </div>
                 </div>
             </div><!--end col-->
+<!--end col-->
         </div><!--end row-->
     </div><!--end container-->
 
@@ -164,27 +189,43 @@
 
             <div class="col-lg-7 col-md-6 mt-4 pt-2">
                 <div class="section-title ms-lg-5">
-                    <h4 class="title mb-4">Health Insurance</h4>
-                    <p class="text-muted">You can combine all the Landrick templates into a single one, you can take a
-                        component from the Application theme and use it in the Website.</p>
+                    <h4 class="title mb-4">Pengajuan Magang</h4>
+                    <p class="text-muted">Aplikasi ini memudahkan mahasiswa untuk mengajukan permohonan magang yang akan diproses oleh program studi.</p>
                     <ul class="list-unstyled text-muted">
-                        <li class="mb-1"><span class="text-primary h5 me-2"><i
-                                    class="uil uil-check-circle align-middle"></i></span>Digital Marketing Solutions
-                            for Tomorrow</li>
-                        <li class="mb-1"><span class="text-primary h5 me-2"><i
-                                    class="uil uil-check-circle align-middle"></i></span>Our Talented & Experienced
-                            Marketing Agency</li>
-                        <li class="mb-1"><span class="text-primary h5 me-2"><i
-                                    class="uil uil-check-circle align-middle"></i></span>Create your own skin to match
-                            your brand</li>
+                        <li class="mb-1"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span>Pengajuan magang oleh mahasiswa</li>
+                        <li class="mb-1"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span>Proses verifikasi oleh program studi</li>
+                        <li class="mb-1"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span>Persetujuan untuk melanjutkan magang</li>
                     </ul>
-                    <div class="mt-4">
-                        <a href="javascript:void(0)" class="btn btn-primary">Read More <i
-                                class="uil uil-angle-right-b align-middle"></i></a>
-                    </div>
                 </div>
-            </div><!--end col-->
-        </div><!--end row-->
-    </div><!--end container-->
-</section><!--end section-->
+            </div>
+        </div>
+    </div>
+</section>
+
 @include('home.layout.footer')
+<script>
+    function checkLogin(menu) {
+        @if (Auth::check())
+            if(menu === 'pengajuan') {
+                window.location.href = "{{ route('pengajuan.index') }}";
+            } else if(menu === 'persetujuan') {
+                window.location.href = "{{ route('persetujuan.index') }}";
+            } else if(menu === 'konsultasi') {
+                window.location.href = "{{ route('konsultasi.index') }}";
+            } else if(menu === 'monitoring') {
+                window.location.href = "{{ route('monitoring.index') }}";
+            } else if(menu === 'evaluasi') {
+                window.location.href = "{{ route('evaluasi.index') }}";
+            } else if(menu === 'penilaian') {
+                window.location.href = "{{ route('penilaian.index') }}";
+            }
+        @else
+            Swal.fire({
+                title: "Anda belum login!",
+                text: "Silakan login untuk melanjutkan.",
+                icon: "warning",
+                button: "Tutup",
+            });
+        @endif
+    }
+</script>
