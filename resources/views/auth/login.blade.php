@@ -11,7 +11,7 @@
         <title> {{ config('app.name') }} - Authentication </title>
 
         <!-- Favicon -->
-        <link rel="icon" href="{{ asset('dash') }}/build/assets/images/brand-logos/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="{{ asset('logo') }}/umi.png" type="image/x-icon">
 
         <!-- Main Theme Js -->
         <script src="{{ asset('dash') }}/build/assets/authentication-main.js"></script>
@@ -504,7 +504,11 @@
                     <div class="col-xxl-7 col-xl-9 col-lg-6 col-md-6 col-sm-8 col-12">
                         <div class="card custom-card my-auto border">
                             <div class="card-body p-5">
-                                <p class="h5 mb-2 text-center">Sign In</p>
+                                <p class="h5 mb-2 text-center">
+
+                                    <img src="{{ asset('logo') }}/LogoFikom_HitamKuning.png" width="180px">
+                                </p>
+                                {{-- <p class="h5 mb-2 text-center">Sign In</p> --}}
                                 <p class="mb-4 text-muted op-7 fw-normal text-center">Selamat Datang!</p>
 
                                 <form action="{{ route('authenticate') }}" method="post">
@@ -543,7 +547,7 @@
                 <div class="authentication-cover overflow-hidden">
                     <div class="authentication-cover-logo">
                         <a href="#">
-                            <img src="{{ asset('dash') }}/build/assets/images/brand-logos/desktop-white.png" alt="" class="authentication-brand desktop-white">
+                            <img src="{{ asset('logo') }}/LogoFikom_PutihKuning.png" alt="" class="authentication-brand desktop-white">
                         </a>
                     </div>
                 </div>

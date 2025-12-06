@@ -52,10 +52,10 @@
                                                     </td>
                                                     <td>{{ $d->keterangan }}</td>
                                                     <td>
-                                                        <button class="btn btn-info label-btn rounded-pill">
+                                                        <a href="{{ route('persetujuan.detail', $d->uuid) }}" class="btn btn-info label-btn rounded-pill">
                                                             <i class="ri-spam-2-line label-btn-icon me-2 rounded-pill"></i>
                                                             Detail
-                                                        </button>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             @endforeach

@@ -5,15 +5,10 @@
         <meta charset="utf-8">
         <title>{{ config('app.name') }} | Home</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Premium Bootstrap 5 Landing Page Template">
-        <meta name="keywords" content="Saas, Software, multi-uses, HTML, Clean, Modern">
-        <meta name="author" content="Shreethemes">
-        <meta name="email" content="support@shreethemes.in">
-        <meta name="website" content="https://shreethemes.in/">
-        <meta name="Version" content="v5.0.0">
+        <meta name="Version" content="v1.0.0">
 
         <!-- favicon -->
-        <link rel="shortcut icon" href="{{ asset('home') }}/assets/images/favicon.ico">
+        <link rel="shortcut icon" href="{{ asset('logo') }}/umi.png">
 
         <!-- Css -->
         <link href="{{ asset('home') }}/assets/libs/tiny-slider/tiny-slider.css" rel="stylesheet">

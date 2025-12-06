@@ -31,4 +31,9 @@ class PersetujuanController extends Controller
 
         return view('dashboard.persetujuan.index', compact('data'));
     }
+
+    public function detail($uuid)
+    {
+        return view('dashboard.persetujuan.detail');
+    }
 }

@@ -3,10 +3,10 @@
                 <!-- Logo container-->
                 <a class="logo" href="index.html">
                     <span class="logo-light-mode">
-                        <img src="{{ asset('home') }}/assets/images/logo-dark.png" class="l-dark" height="24" alt="">
-                        <img src="{{ asset('home') }}/assets/images/logo-light.png" class="l-light" height="24" alt="">
+                        <img src="{{ asset('logo') }}/LogoFikom_HitamKuning.png" class="l-dark" height="24" alt="">
+                        <img src="{{ asset('logo') }}/LogoFikom_PutihKuning.png" class="l-light" height="24" alt="">
                     </span>
-                    <img src="{{ asset('home') }}/assets/images/logo-light.png" height="24" class="logo-dark-mode" alt="">
+                    <img src="{{ asset('logo') }}/LogoFikom_PutihKuning.png" height="24" class="logo-dark-mode" alt="">
                 </a>
 
                 <!-- End Logo container-->

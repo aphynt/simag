@@ -15,7 +15,7 @@ data-bg-img="bgimg2" loader="enabled">
     <title> {{ config('app.name') }} | {{ $title }} </title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('dash') }}/build/assets/images/brand-logos/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ asset('logo') }}/umi.png" type="image/x-icon">
 
     <!-- Main Theme Js -->
     <script src="{{ asset('dash') }}/build/assets/main.js"></script>
