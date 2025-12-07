@@ -65,23 +65,39 @@
                                 </div>
                                 <div class="col-xl-6">
                                     <label for="profile-user-name" class="form-label">Nama Lengkap</label>
-                                    <input type="text" class="form-control" id="profile-user-name" value="{{ Auth::user()->name }}" readonly
-                                        placeholder="Enter Name">
+                                    <input type="text" class="form-control" id="profile-user-name" value="{{ Auth::user()->name }}" readonly disabled placeholder="Masukkan Name">
                                 </div>
                                 <div class="col-xl-6">
                                     <label for="profile-email" class="form-label">Email :</label>
-                                    <input type="email" class="form-control" id="profile-email" value="{{ Auth::user()->email }}" name="email"
-                                        placeholder="Enter Email">
+                                    <input type="email" class="form-control" id="profile-email" value="{{ Auth::user()->email }}" name="email" placeholder="Masukkan Email" required>
                                 </div>
                                 <div class="col-xl-6">
                                     <label for="profile-designation" class="form-label">NIM/NIP :</label>
-                                    <input type="text" class="form-control" id="profile-designation" value="{{ Auth::user()->nim }}" readonly
-                                        placeholder="Enter Designation">
+                                    <input type="text" class="form-control" id="profile-designation" value="{{ Auth::user()->nim }}" readonly disabled placeholder="Masukkan NIM/NIP">
                                 </div>
                                 <div class="col-xl-6">
                                     <label for="profile-profesi" class="form-label">Profesi :</label>
-                                    <input type="text" class="form-control" id="profile-profesi" value="{{ Auth::user()->role }}" readonly
-                                        placeholder="Enter Designation">
+                                    <input type="text" class="form-control" id="profile-profesi" value="{{ Auth::user()->role }}" readonly disabled placeholder="Masukkan Profesi">
+                                </div>
+                                <div class="col-xl-6">
+                                    <label for="program-studi" class="form-label">Program Studi</label>
+                                    <select class="form-select" name="program_studi" id="program-studi">
+                                        <option value="{{ Auth::user()->program_studi }}" selected>{{ Auth::user()->program_studi }}</option>
+                                        <option value="Teknik Informatika">Teknik Informatika</option>
+                                        <option value="Sistem Informasi">Sistem Informasi</option>
+                                    </select>
+                                </div>
+                                <div class="col-xl-6">
+                                    <label for="no-handphone" class="form-label">No. Handphone</label>
+                                    <input type="text" class="form-control" id="no-handphone" name="no_hp" value="{{ Auth::user()->no_hp }}" required placeholder="Masukkan No. Handphone">
+                                </div>
+                                <div class="col-xl-6">
+                                    <label for="semester" class="form-label">Semester Sekarang</label>
+                                    <input type="text" class="form-control" id="semester" name="semester" value="{{ Auth::user()->semester }}" required placeholder="Masukkan Semester Sekarang">
+                                </div>
+                                <div class="col-xl-6">
+                                    <label for="ipk" class="form-label">IPK Terakhir</label>
+                                    <input type="text" class="form-control" id="ipk" name="ipk" value="{{ Auth::user()->ipk }}" required placeholder="Masukkan IPK Terakhir">
                                 </div>
                             </div>
                         </div>

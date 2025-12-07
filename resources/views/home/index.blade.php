@@ -9,121 +9,105 @@
                     <h1 class="heading title-dark text-white mb-3">Basement Menu</h1>
 
                     <div class="row mt-4 pt-2">
+
                         <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2">
-                            <div class="card features feature-primary explore-feature border-0 rounded text-center">
+                            <div class="card features feature-primary explore-feature border-0 rounded text-center"
+                                style="cursor:pointer"
+                                onclick="checkLogin('pengajuan')">
                                 <div class="card-body">
                                     <div class="icons rounded-circle shadow-lg d-inline-block">
                                         <img src="{{ asset('home') }}/assets/images/insurance/health.svg"
                                             class="avatar avatar-md-sm" alt="">
                                     </div>
                                     <div class="content mt-3">
-                                        <h6 class="mb-0">
-                                            <a href="javascript:void(0)"
-                                            class="title text-dark"
-                                            onclick="checkLogin('pengajuan')">
-                                            Pengajuan
-                                            </a>
-                                        </h6>
+                                        <h6 class="mb-0 text-dark">Pengajuan</h6>
                                     </div>
                                 </div>
                             </div>
-                        </div><!--end col-->
+                        </div>
+
                         <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2">
-                            <div class="card features feature-primary explore-feature border-0 rounded text-center">
+                            <div class="card features feature-primary explore-feature border-0 rounded text-center"
+                                style="cursor:pointer"
+                                onclick="checkLogin('persetujuan')">
                                 <div class="card-body">
                                     <div class="icons rounded-circle shadow-lg d-inline-block">
                                         <img src="{{ asset('home') }}/assets/images/insurance/term-life.svg"
                                             class="avatar avatar-md-sm" alt="">
                                     </div>
                                     <div class="content mt-3">
-                                        <h6 class="mb-0">
-                                            <a href="javascript:void(0)"
-                                            class="title text-dark"
-                                            onclick="checkLogin('persetujuan')">
-                                            Persetujuan
-                                            </a>
-                                        </h6>
+                                        <h6 class="mb-0 text-dark">Persetujuan</h6>
                                     </div>
                                 </div>
                             </div>
-                        </div><!--end col-->
+                        </div>
+
                         <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2">
-                            <div class="card features feature-primary explore-feature border-0 rounded text-center">
+                            <div class="card features feature-primary explore-feature border-0 rounded text-center"
+                                style="cursor:pointer"
+                                onclick="checkLogin('konsultasi')">
                                 <div class="card-body">
                                     <div class="icons rounded-circle shadow-lg d-inline-block">
                                         <img src="{{ asset('home') }}/assets/images/insurance/family-health.svg"
                                             class="avatar avatar-md-sm" alt="">
                                     </div>
                                     <div class="content mt-3">
-                                        <h6 class="mb-0">
-                                            <a href="javascript:void(0)"
-                                            class="title text-dark"
-                                            onclick="checkLogin('konsultasi')">
-                                            Konsultasi
-                                            </a>
-                                        </h6>
+                                        <h6 class="mb-0 text-dark">Konsultasi</h6>
                                     </div>
                                 </div>
                             </div>
-                        </div><!--end col-->
+                        </div>
+
                         <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2">
-                            <div class="card features feature-primary explore-feature border-0 rounded text-center">
+                            <div class="card features feature-primary explore-feature border-0 rounded text-center"
+                                style="cursor:pointer"
+                                onclick="checkLogin('monitoring')">
                                 <div class="card-body">
                                     <div class="icons rounded-circle shadow-lg d-inline-block">
                                         <img src="{{ asset('home') }}/assets/images/insurance/investment.svg"
                                             class="avatar avatar-md-sm" alt="">
                                     </div>
                                     <div class="content mt-3">
-                                        <h6 class="mb-0">
-                                            <a href="javascript:void(0)"
-                                            class="title text-dark"
-                                            onclick="checkLogin('monitoring')">
-                                            Monitoring
-                                            </a>
-                                        </h6>
+                                        <h6 class="mb-0 text-dark">Monitoring</h6>
                                     </div>
                                 </div>
                             </div>
-                        </div><!--end col-->
+                        </div>
+
                         <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2">
-                            <div class="card features feature-primary explore-feature border-0 rounded text-center">
+                            <div class="card features feature-primary explore-feature border-0 rounded text-center"
+                                style="cursor:pointer"
+                                onclick="checkLogin('evaluasi')">
                                 <div class="card-body">
                                     <div class="icons rounded-circle shadow-lg d-inline-block">
                                         <img src="{{ asset('home') }}/assets/images/insurance/car.svg"
                                             class="avatar avatar-md-sm" alt="">
                                     </div>
                                     <div class="content mt-3">
-                                        <h6 class="mb-0">
-                                            <a href="javascript:void(0)"
-                                            class="title text-dark"
-                                            onclick="checkLogin('evaluasi')">
-                                            Evaluasi
-                                            </a>
-                                        </h6>
+                                        <h6 class="mb-0 text-dark">Evaluasi</h6>
                                     </div>
                                 </div>
                             </div>
-                        </div><!--end col-->
+                        </div>
+
                         <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2">
-                            <div class="card features feature-primary explore-feature border-0 rounded text-center">
+                            <div class="card features feature-primary explore-feature border-0 rounded text-center"
+                                style="cursor:pointer"
+                                onclick="checkLogin('penilaian')">
                                 <div class="card-body">
                                     <div class="icons rounded-circle shadow-lg d-inline-block">
                                         <img src="{{ asset('home') }}/assets/images/insurance/bike.svg"
                                             class="avatar avatar-md-sm" alt="">
                                     </div>
                                     <div class="content mt-3">
-                                        <h6 class="mb-0">
-                                            <a href="javascript:void(0)"
-                                            class="title text-dark"
-                                            onclick="checkLogin('penilaian')">
-                                            Penilaian
-                                            </a>
-                                        </h6>
+                                        <h6 class="mb-0 text-dark">Penilaian</h6>
                                     </div>
                                 </div>
                             </div>
-                        </div><!--end col-->
-                    </div><!--end row-->
+                        </div>
+
+                    </div>
+<!--end row-->
                 </div>
             </div><!--end col-->
         </div><!--end row-->

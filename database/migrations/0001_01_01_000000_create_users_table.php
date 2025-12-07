@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('role');
             $table->string('semester')->nullable();
+            $table->string('program_studi')->nullable();
+            $table->string('no_hp')->nullable();
             $table->string('ipk')->nullable();
             $table->string('avatar')->nullable();
             $table->string('email')->nullable();

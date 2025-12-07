@@ -48,11 +48,20 @@
                                                     <td>{{ $d->nim }}</td>
                                                     <td>{{ $d->jenis_magang }}</td>
                                                     <td>
-                                                        <a href="{{ route('pengajuan.edit', $d->uuid ) }}" class="btn btn-secondary label-btn @if(Auth::user()->id != $d->user_id) disabled @endif" >
+                                                        @php
+                                                            $canEdit = Auth::user()->role == 'prodi' || Auth::user()->id == $d->user_id;
+                                                        @endphp
+
+                                                        <a href="{{ route('pengajuan.edit', $d->uuid ) }}"
+                                                        class="btn btn-secondary label-btn {{ $canEdit ? '' : 'disabled' }}">
                                                             <i class="ri-settings-4-line label-btn-icon me-2"></i>
                                                             Ubah
                                                         </a>
-                                                        <a href="#" class="btn btn-danger label-btn label-end rounded-pill @if(Auth::user()->id != $d->user_id) disabled @endif" data-bs-toggle="modal" data-bs-target="#deletePengajuan{{ $d->uuid }}">
+
+                                                        <a href="#"
+                                                        class="btn btn-danger label-btn label-end rounded-pill {{ $canEdit ? '' : 'disabled' }}"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#deletePengajuan{{ $d->uuid }}">
                                                             Hapus
                                                             <i class="ri-close-line label-btn-icon ms-2 rounded-pill"></i>
                                                         </a>

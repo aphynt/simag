@@ -4,7 +4,7 @@
                 class="text-dark fw-medium">{{ config('app.name') }}</a>.
             Designed with <span class="bi bi-heart-fill text-danger"></span> by <a href="https://ahmadfadillah.my.id/"
                 target="_blank">
-                <span class="fw-medium text-primary">IT</span>
+                <span class="fw-medium text-primary">Aphynt</span>
             </a> All
             rights
             reserved

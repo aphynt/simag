@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr" data-nav-layout="vertical" data-theme-mode="light"
 data-header-styles="light" data-menu-styles="dark" data-toggled="close"
 data-bg-img="bgimg2" loader="enabled">
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
 

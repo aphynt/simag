@@ -36,24 +36,33 @@
                                 <input type="text" class="form-control" value="{{ Auth::user()->name }}" readonly>
                             </div>
                             <div class="col-md-6">
+                                <label for="namaPerusahaan" class="form-label">Nama Perusahaan/Instansi</label>
+                                <input type="text" class="form-control" id="namaPerusahaan" name="namaPerusahaan" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="bagianPerusahaan" class="form-label">Bagian di Perusahaan</label>
+                                <input type="text" class="form-control" id="bagianPerusahaan" name="bagianPerusahaan" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="alamatInstansi" class="form-label">Alamat Perusahaan/Instansi</label>
+                                <input type="text" class="form-control" id="alamatInstansi" name="alamatInstansi" required>
+                            </div>
+
+                            <div class="col-md-6">
                                 <label for="tanggalPengajuan" class="form-label">Tanggal Pengajuan</label>
-                                <input type="date" class="form-control" id="tanggalPengajuan" name="tanggalPengajuan"
-                                    required>
+                                <input type="date" class="form-control" id="tanggalPengajuan" name="tanggalPengajuan" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="tanggalSelesai" class="form-label">Tanggal Selesai</label>
-                                <input type="date" class="form-control" id="tanggalSelesai" name="tanggalSelesai"
-                                    required>
+                                <input type="date" class="form-control" id="tanggalSelesai" name="tanggalSelesai" required>
                             </div>
                             <div class="col-12">
                                 <label for="inputAddress" class="form-label">Alasan Magang</label>
-                                <textarea class="form-control" style="height: 200px;" name="alasanMagang"
-                                    required></textarea>
+                                <textarea class="form-control" style="height: 200px;" name="alasanMagang" required></textarea>
                             </div>
                             <div class="col-md-6">
                                 <label for="kompetensiIlmu" class="form-label">Kompetensi Ilmu</label>
-                                <input type="text" class="form-control" id="kompetensiIlmu" name="kompetensiIlmu"
-                                    required>
+                                <input type="text" class="form-control" id="kompetensiIlmu" name="kompetensiIlmu" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="semester" class="form-label">Semester</label>

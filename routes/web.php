@@ -40,6 +40,9 @@ Route::group(['middleware' => ['auth']], function(){
     //Persetujuan
     Route::get('/persetujuan', [PersetujuanController::class, 'index'])->name('persetujuan.index');
     Route::get('/persetujuan/detail/{uuid}', [PersetujuanController::class, 'detail'])->name('persetujuan.detail');
+    Route::get('/persetujuan/download/{uuid}', [PersetujuanController::class, 'download'])->name('persetujuan.download');
+    Route::put('/persetujuan/{uuid}/verifikasi', [PersetujuanController::class, 'verifikasi'])->name('persetujuan.verifikasi');
+    Route::put('/persetujuan/{uuid}/tolak', [PersetujuanController::class, 'tolak'])->name('persetujuan.tolak');
 
     //Konsultasi
     Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsultasi.index');

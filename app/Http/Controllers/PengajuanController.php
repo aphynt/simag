@@ -35,6 +35,9 @@ class PengajuanController extends Controller
 
     public function insert()
     {
+        if(Auth::user()->program_studi == null && Auth::user()->no_hp == null && Auth::user()->semester == null){
+            return redirect()->route('user.index')->with('info', 'Maaf, silakan lengkapi profile terlebih dahulu!');
+        }
         return view('dashboard.pengajuan.insert');
     }
 
@@ -54,6 +57,9 @@ class PengajuanController extends Controller
             'statusenabled' => true,
             'tanggal_pengajuan' => $request->tanggalPengajuan,
             'tanggal_selesai'   => $request->tanggalSelesai,
+            'nama_perusahaan'   => $request->namaPerusahaan,
+            'bagian_perusahaan'   => $request->bagianPerusahaan,
+            'alamat_perusahaan'   => $request->alamatInstansi,
             'alasan_magang'     => $request->alasanMagang,
             'kompetensi_ilmu'   => $request->kompetensiIlmu,
             'jenis_magang'   => $request->jenisMagang,
@@ -88,6 +94,7 @@ class PengajuanController extends Controller
             'pj.alasan_magang',
             'pj.kompetensi_ilmu',
             'pj.jenis_magang',
+            'pj.file_pendukung',
         )
         ->where('pj.statusenabled', true)
         ->where('pj.uuid', $uuid)

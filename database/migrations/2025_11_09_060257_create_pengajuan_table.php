@@ -18,6 +18,9 @@ return new class extends Migration
             $table->boolean('statusenabled')->default(1);
             $table->date('tanggal_pengajuan')->nullable();
             $table->date('tanggal_selesai')->nullable();
+            $table->string('nama_perusahaan')->nullable();
+            $table->string('bagian_perusahaan')->nullable();
+            $table->string('alamat_perusahaan')->nullable();
             $table->text('alasan_magang')->nullable();
             $table->string('kompetensi_ilmu')->nullable();
             $table->string('jenis_magang')->nullable();
