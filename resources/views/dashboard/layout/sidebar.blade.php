@@ -118,6 +118,7 @@
                 </li>
 
                 <li class="slide__category"><span class="category-name">Auth</span></li>
+                @if (Auth::user()->roel == 'prodi')
                 <li class="slide">
                     <a href="{{ route('user.list') }}" class="side-menu__item">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 side-menu__icon" fill="none"
@@ -128,6 +129,7 @@
                         <span class="side-menu__label">Users</span>
                     </a>
                 </li>
+                @endif
 
                 <li class="slide">
                     <a href="{{ route('user.index') }}" class="side-menu__item">
