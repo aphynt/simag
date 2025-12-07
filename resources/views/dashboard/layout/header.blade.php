@@ -10,7 +10,7 @@
             <!-- Start::header-element -->
             <div class="header-element">
                 <div class="horizontal-logo">
-                    <a href="index.html" class="header-logo">
+                    <a href="#" class="header-logo">
                         <img src="{{ asset('dash') }}/build/assets/images/brand-logos/desktop-logo.png" alt="logo"
                             class="desktop-logo">
                         <img src="{{ asset('dash') }}/build/assets/images/brand-logos/toggle-dark.png" alt="logo"
