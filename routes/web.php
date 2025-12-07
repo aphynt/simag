@@ -59,6 +59,8 @@ Route::group(['middleware' => ['auth']], function(){
 
 
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/user/list', [UserController::class, 'list'])->name('user.list');
+    Route::post('/user/list/insert', [UserController::class, 'listInsert'])->name('user.list.insert');
     Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
 
 });

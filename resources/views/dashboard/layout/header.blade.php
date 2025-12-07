@@ -197,7 +197,15 @@
                             <span>
                                 {{ Auth::user()->name }}
                             </span>
-                            <span class="d-block text-uppercase text-muted">{{ Auth::user()->role }}</span>
+                            @php
+                                $roleName = [
+                                    'admin' => 'Administrator',
+                                    'wd3' => 'Wakil Dekan 3',
+                                    'prodi' => 'Program Studi',
+                                    'pembuatan' => 'Pembuat Pengajuan',
+                                ];
+                            @endphp
+                            <span class="d-block text-uppercase text-muted">{{ $roleName[Auth::user()->role] ?? Auth::user()->role }}</span>
                         </div>
                     </li>
                     <li><a class="dropdown-item d-flex align-items-center" href="{{ route('user.index') }}"><i

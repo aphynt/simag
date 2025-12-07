@@ -14,13 +14,13 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::insert([
-            'nim' => '1',
-            'name' => 'Administrator',
-            'role' => 'admin',
-            'avatar' => 'default.jpg',
-            'password' => Hash::make('12345'),
-        ]);
+        // User::insert([
+        //     'nim' => '1',
+        //     'name' => 'Administrator',
+        //     'role' => 'admin',
+        //     'avatar' => 'default.jpg',
+        //     'password' => Hash::make('12345'),
+        // ]);
 
         User::insert([
             'nim' => '123',

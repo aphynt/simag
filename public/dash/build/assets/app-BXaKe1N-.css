@@ -6040,12 +6040,12 @@ fieldset:disabled .btn-light.btn {
     padding: .5rem
 }
 
-.btn-list button,
+/* .btn-list button,
 .btn-list div,
 .btn-list a,
 .btn-list input {
     margin: 0 .375rem .375rem 0
-}
+} */
 
 [dir=rtl] .btn-list button,
 [dir=rtl] .btn-list div,

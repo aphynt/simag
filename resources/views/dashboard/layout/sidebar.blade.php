@@ -119,6 +119,17 @@
 
                 <li class="slide__category"><span class="category-name">Auth</span></li>
                 <li class="slide">
+                    <a href="{{ route('user.list') }}" class="side-menu__item">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 side-menu__icon" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm6 8v-1a4 4 0 00-4-4H10a4 4 0 00-4 4v1m14-6a3 3 0 11-6 0 3 3 0 016 0zM4 14a3 3 0 106 0 3 3 0 00-6 0z" />
+                        </svg>
+                        <span class="side-menu__label">Users</span>
+                    </a>
+                </li>
+
+                <li class="slide">
                     <a href="{{ route('user.index') }}" class="side-menu__item">
                         <!-- ICON SETTINGS (GEAR) -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 side-menu__icon" fill="none"

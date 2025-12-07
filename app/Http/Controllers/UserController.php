@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -13,6 +14,43 @@ class UserController extends Controller
     {
         return view('dashboard.user.index');
     }
+
+    public function list()
+    {
+
+        $data = User::all();
+        return view('dashboard.user.list', compact('data'));
+    }
+
+    public function listInsert(Request $request)
+    {
+
+        $request->validate([
+            'nim'       => 'nullable|string|max:50|unique:users,nim',
+        ],
+        [
+            'nim.unique' => 'Maaf, NIP/NIM sudah ada!'
+        ]);
+
+        try {
+
+            // Insert user
+            $userId = User::insertGetId([
+                'name'      => $request->name,
+                'nim'       => $request->nim,
+                'password'  => Hash::make('12345'),
+                'role'      => $request->role,
+                'avatar'    => 'default.jpg',
+            ]);
+
+            return redirect()->back()->with('success', 'User berhasil ditambahkan!');
+
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', 'Gagal menambah user: ' . $e->getMessage());
+        }
+    }
+
 
     public function update(Request $request)
     {
