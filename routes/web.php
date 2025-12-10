@@ -50,7 +50,10 @@ Route::group(['middleware' => ['auth']], function(){
 
     //Monitoring
     Route::get('/monitoring', [MonitoringController::class, 'index'])->name('monitoring.index');
+    Route::get('/monitoring/insert', [MonitoringController::class, 'insert'])->name('monitoring.insert');
+    Route::post('/monitoring/post', [MonitoringController::class, 'post'])->name('monitoring.post');
     Route::get('/monitoring/detail/{uuid}', [MonitoringController::class, 'detail'])->name('monitoring.detail');
+    Route::post('/monitoring/verifikasi/{uuid}', [MonitoringController::class, 'verifikasi'])->name('monitoring.verifikasi');
 
     //Evaluasi
     Route::get('/evaluasi', [EvaluasiController::class, 'index'])->name('evaluasi.index');

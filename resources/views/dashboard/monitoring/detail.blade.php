@@ -78,30 +78,29 @@
                                        readonly>
                             </div>
                             <hr>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label for="judul" class="form-label">Judul</label>
                                 <input type="text" class="form-control" id="judul"
                                        value="{{ $data->judul }}"
                                        readonly>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label for="keterangan" class="form-label">Keterangan</label>
-                                <input type="text" class="form-control" id="keterangan"
-                                       value="{{ $data->keterangan }}"
-                                       readonly>
+                                <textarea type="text" class="form-control" id="keterangan" rows="10"
+                                       readonly>{{ $data->keterangan }}</textarea>
                             </div>
-                            @if (!empty($data->file_pendukung))
+                            @if (!empty($data->file))
                                 <div class="col-md-12">
                                     <label class="form-label">File Pendukung Saat Ini</label>
                                     <div class="border rounded p-2">
                                         <iframe
-                                            src="{{ asset('storage/' . $data->file_pendukung) }}"
+                                            src="{{ asset('storage/' . $data->file) }}"
                                             width="100%"
                                             height="700"
                                             style="border:none;">
                                         </iframe>
 
-                                        <a href="{{ asset('storage/' . $data->file_pendukung) }}"
+                                        <a href="{{ asset('storage/' . $data->file) }}"
                                            target="_blank"
                                            class="btn btn-sm btn-primary mt-2">
                                             Buka di Tab Baru
@@ -109,6 +108,63 @@
                                     </div>
                                 </div>
                             @endif
+                            @if ($data->status == 0 && (Auth::user()->role == 'wd3' || Auth::user()->role == 'prodi'))
+                            <div class="col-12 mt-3 d-flex gap-2">
+                                {{-- Tombol Verifikasi --}}
+                                <button type="button"
+                                        class="btn btn-success"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#verifikasiMonitoring">
+                                    <i class="ri-check-double-line me-1"></i>
+                                    Verifikasi
+                                </button>
+                            </div>
+                            @endif
+
+                            <div class="modal fade" id="verifikasiMonitoring" tabindex="-1" aria-labelledby="verifikasiMonitoring" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form method="POST" action="{{ route('monitoring.verifikasi', $data->uuid) }}">
+                                            @csrf
+
+
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalVerifikasiLabel">
+                                                    <i class="ri-check-double-line me-1 text-success"></i>
+                                                    Verifikasi
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label for="keteranganVerifikasi" class="form-label">Keterangan</label>
+                                                    <textarea name="keterangan_evaluasi"
+                                                            id="keteranganVerifikasi"
+                                                            class="form-control"
+                                                            rows="3"
+                                                            placeholder="Tuliskan catatan/verifikasi untuk data ini..."
+                                                            required></textarea>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">
+                                                    Batal
+                                                </button>
+                                                <button type="submit" class="btn btn-success">
+                                                    <i class="ri-check-line me-1"></i>
+                                                    Simpan Verifikasi
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div> {{-- /.row g-3 --}}
                     </div>
                 </div>

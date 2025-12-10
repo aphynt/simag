@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('file')->nullable();
             $table->boolean('status')->default(0);
             $table->string('keterangan')->nullable();
+            $table->string('keterangan_evaluasi')->nullable();
+            $table->integer('rating')->nullable();
             $table->timestamps();
         });
     }

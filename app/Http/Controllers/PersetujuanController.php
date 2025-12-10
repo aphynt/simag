@@ -136,25 +136,26 @@ class PersetujuanController extends Controller
         ]);
 
         try {
-            $pengajuan = Pengajuan::where('uuid', $uuid)->update([
+            $pengajuan = Pengajuan::where('uuid', $uuid)->firstOrFail();
+
+            $pengajuan->update([
                 'status'      => 'Disetujui',
                 'keterangan'  => $request->keterangan,
                 'updated_at'  => now(),
             ]);
 
-            Monitoring::create([
-                'uuid' => (string) Uuid::uuid4()->toString(),
-                'statusenabled' => true,
-                'uuid_pengajuan' => $pengajuan->uuid,
-                'judul'   => $request->judul,
-                'file'   => $request->file,
-            ]);
+            // Monitoring::create([
+            //     'uuid'            => (string) Uuid::uuid4()->toString(),
+            //     'statusenabled'   => true,
+            //     'uuid_pengajuan'  => $pengajuan->uuid,
+            //     'judul'           => $request->judul,
+            //     'file'            => $request->file,
+            // ]);
 
             return redirect()->route('persetujuan.index')->with('success', 'Pengajuan magang diverifikasi.');
 
         } catch (\Throwable $th) {
-            //throw $th;
-            return redirect()->back()->with('info', 'Verifikasi gagal');
+            return redirect()->back()->with('info', 'Verifikasi gagal: ' . $th->getMessage());
         }
 
 

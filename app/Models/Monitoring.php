@@ -7,4 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Monitoring extends Model
 {
     //
+    protected $table = 'monitoring';
+
+    protected $guarded = [];
 }

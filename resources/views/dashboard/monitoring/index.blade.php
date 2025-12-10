@@ -13,6 +13,13 @@
                         <div>
                             <h1 class="page-title fw-medium fs-18 mb-0">Monitoring</h1>
                         </div>
+                        @if (Auth::user()->role == 'mahasiswa')
+                        <div class="btn-list">
+                            <a href="{{ route('monitoring.insert') }}" class="btn btn-primary btn-wave me-0">
+                                <i class="ri-add-line me-1"></i> Tambah data
+                            </a>
+                        </div>
+                        @endif
                     </div>
 
                     <div class="row">
@@ -28,7 +35,7 @@
                                                 <th>Nama</th>
                                                 <th>Jenis Magang</th>
                                                 <th>Judul</th>
-                                                <th>Keterangan</th>
+                                                <th>Status</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -41,7 +48,14 @@
                                                     <td>{{ $d->name }}</td>
                                                     <td>{{ $d->jenis_magang }}</td>
                                                     <td>{{ $d->judul }}</td>
-                                                    <td>{{ $d->keterangan }}</td>
+                                                    <td>
+                                                        @if ($d->status == 1)
+                                                            Diverifikasi
+                                                        @else
+                                                            Belum Diverifikasi
+                                                        @endif
+                                                    </td>
+
                                                     <td>
                                                         <a href="{{ route('monitoring.detail', $d->uuid) }}" class="btn btn-info label-btn rounded-pill">
                                                             <i class="ri-spam-2-line label-btn-icon me-2 rounded-pill"></i>
