@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth']], function(){
 
     //Monitoring
     Route::get('/monitoring', [MonitoringController::class, 'index'])->name('monitoring.index');
+    Route::get('/monitoring/detail/{uuid}', [MonitoringController::class, 'detail'])->name('monitoring.detail');
 
     //Evaluasi
     Route::get('/evaluasi', [EvaluasiController::class, 'index'])->name('evaluasi.index');

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Monitoring;
 use App\Models\Pengajuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Ramsey\Uuid\Uuid;
 
 class PersetujuanController extends Controller
 {
@@ -133,13 +135,29 @@ class PersetujuanController extends Controller
             'keterangan' => 'required|string',
         ]);
 
-        Pengajuan::where('uuid', $uuid)->update([
-            'status'      => 'Disetujui',
-            'keterangan'  => $request->keterangan,
-            'updated_at'  => now(),
-        ]);
+        try {
+            $pengajuan = Pengajuan::where('uuid', $uuid)->update([
+                'status'      => 'Disetujui',
+                'keterangan'  => $request->keterangan,
+                'updated_at'  => now(),
+            ]);
 
-        return redirect()->route('persetujuan.index')->with('success', 'Pengajuan magang diverifikasi.');
+            Monitoring::create([
+                'uuid' => (string) Uuid::uuid4()->toString(),
+                'statusenabled' => true,
+                'uuid_pengajuan' => $pengajuan->uuid,
+                'judul'   => $request->judul,
+                'file'   => $request->file,
+            ]);
+
+            return redirect()->route('persetujuan.index')->with('success', 'Pengajuan magang diverifikasi.');
+
+        } catch (\Throwable $th) {
+            //throw $th;
+            return redirect()->back()->with('info', 'Verifikasi gagal');
+        }
+
+
     }
 
     public function tolak(Request $request, $uuid)
