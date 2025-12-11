@@ -1,4 +1,4 @@
-@include('dashboard.layout.head', ['title' => 'Monitoring Magang'])
+@include('dashboard.layout.head', ['title' => 'Evaluasi Magang'])
 @include('dashboard.layout.switcher')
 @include('dashboard.layout.loader')
 @include('dashboard.layout.header')
@@ -10,7 +10,7 @@
         <!-- Page Header -->
         <div class="d-flex align-items-center justify-content-between page-header-breadcrumb flex-wrap gap-2">
             <div>
-                <h1 class="page-title fw-medium fs-18 mb-0">Monitoring Magang</h1>
+                <h1 class="page-title fw-medium fs-18 mb-0">Evaluasi Magang</h1>
             </div>
         </div>
         <!-- Page Header Close -->
@@ -114,17 +114,17 @@
                                 <button type="button"
                                         class="btn btn-success"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#verifikasiMonitoring">
+                                        data-bs-target="#verifikasiEvaluasi">
                                     <i class="ri-check-double-line me-1"></i>
                                     Verifikasi
                                 </button>
                             </div>
                             @endif
 
-                            <div class="modal fade" id="verifikasiMonitoring" tabindex="-1" aria-labelledby="verifikasiMonitoring" aria-hidden="true">
+                            <div class="modal fade" id="verifikasiEvaluasi" tabindex="-1" aria-labelledby="verifikasiEvaluasi" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <form method="POST" action="{{ route('monitoring.verifikasi', $data->uuid) }}">
+                                        <form method="POST" action="{{ route('evaluasi.verifikasi', $data->uuid) }}">
                                             @csrf
 
 

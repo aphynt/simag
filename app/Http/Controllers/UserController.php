@@ -89,4 +89,39 @@ class UserController extends Controller
             return back()->with('error', 'Profil gagal diperbarui: ' . $th->getMessage());
         }
     }
+
+    public function resetPassword($id)
+    {
+        try {
+            User::where('id', $id)->update([
+                'password'  => Hash::make('12345'),
+            ]);
+
+            return redirect()->back()->with('success', 'Berhasil reset password');
+        } catch (\Throwable $th) {
+            //throw $th;
+            return back()->with('error', 'Gagal reset password: ' . $th->getMessage());
+        }
+    }
+
+    public function gantiPassword(Request $request)
+    {
+
+        $request->validate([
+            'passwordLama' => 'required',
+            'passwordBaru' => 'required|min:6',
+        ]);
+
+        $user = User::findOrFail(Auth::user()->id);
+
+        if (!Hash::check($request->passwordLama, $user->password)) {
+            return back()->with('info', 'Password lama yang Anda masukkan salah.');
+        }
+
+
+        $user->password = Hash::make($request->passwordBaru);
+        $user->save();
+
+        return back()->with('success', 'Password berhasil diperbarui.');
+    }
 }

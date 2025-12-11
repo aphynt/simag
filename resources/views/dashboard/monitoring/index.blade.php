@@ -36,7 +36,7 @@
                                                 <th>Jenis Magang</th>
                                                 <th>Judul</th>
                                                 <th>Status</th>
-                                                <th>Aksi</th>
+                                                <th>Keterangan</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -55,13 +55,8 @@
                                                             Belum Diverifikasi
                                                         @endif
                                                     </td>
+                                                    <td>{{ $d->keterangan }}</td>
 
-                                                    <td>
-                                                        <a href="{{ route('monitoring.detail', $d->uuid) }}" class="btn btn-info label-btn rounded-pill">
-                                                            <i class="ri-spam-2-line label-btn-icon me-2 rounded-pill"></i>
-                                                            Detail
-                                                        </a>
-                                                    </td>
                                                 </tr>
                                             @endforeach
 

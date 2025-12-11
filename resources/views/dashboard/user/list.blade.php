@@ -45,6 +45,7 @@
                                                 <th>No. Handphone</th>
                                                 <th>Email</th>
                                                 <th>Avatar</th>
+                                                <th>Config</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -92,7 +93,13 @@
                                                             <span class="text-muted">Tidak ada</span>
                                                         @endif
                                                     </td>
+                                                    <td>
+                                                        <button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#resetPassword{{ $item->id }}">
+                                                            <i class="bi bi-key"></i> Reset Password
+                                                        </button>
+                                                    </td>
                                                 </tr>
+                                                @include('dashboard.user.modal.resetPassword')
                                             @endforeach
 
                                         </tbody>

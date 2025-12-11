@@ -52,11 +52,12 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/monitoring', [MonitoringController::class, 'index'])->name('monitoring.index');
     Route::get('/monitoring/insert', [MonitoringController::class, 'insert'])->name('monitoring.insert');
     Route::post('/monitoring/post', [MonitoringController::class, 'post'])->name('monitoring.post');
-    Route::get('/monitoring/detail/{uuid}', [MonitoringController::class, 'detail'])->name('monitoring.detail');
-    Route::post('/monitoring/verifikasi/{uuid}', [MonitoringController::class, 'verifikasi'])->name('monitoring.verifikasi');
+
 
     //Evaluasi
     Route::get('/evaluasi', [EvaluasiController::class, 'index'])->name('evaluasi.index');
+    Route::get('/evaluasi/detail/{uuid}', [EvaluasiController::class, 'detail'])->name('evaluasi.detail');
+    Route::post('/evaluasi/verifikasi/{uuid}', [EvaluasiController::class, 'verifikasi'])->name('evaluasi.verifikasi');
 
     //Penilaian
     Route::get('/penilaian', [PenilaianController::class, 'index'])->name('penilaian.index');
@@ -66,5 +67,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/user/list', [UserController::class, 'list'])->name('user.list');
     Route::post('/user/list/insert', [UserController::class, 'listInsert'])->name('user.list.insert');
     Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
+    Route::post('/user/resetPassword/{id}', [UserController::class, 'resetPassword'])->name('user.resetPassword');
+    Route::post('/user/gantiPassword', [UserController::class, 'gantiPassword'])->name('user.gantiPassword');
 
 });

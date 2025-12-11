@@ -29,6 +29,8 @@
                                                 <th>Jenis Magang</th>
                                                 <th>Judul</th>
                                                 <th>Status</th>
+                                                <th>Keterangan Verifikasi</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -46,6 +48,13 @@
                                                         @else
                                                             Belum Diverifikasi
                                                         @endif
+                                                    </td>
+                                                    <td>{{ $d->keterangan_evaluasi }}</td>
+                                                    <td>
+                                                        <a href="{{ route('evaluasi.detail', $d->uuid) }}" class="btn btn-info label-btn rounded-pill">
+                                                            <i class="ri-spam-2-line label-btn-icon me-2 rounded-pill"></i>
+                                                            Detail
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             @endforeach
