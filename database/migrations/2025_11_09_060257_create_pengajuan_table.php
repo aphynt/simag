@@ -28,6 +28,7 @@ return new class extends Migration
             $table->boolean('setuju')->default(1);
             $table->string('status')->nullable();
             $table->text('keterangan')->nullable();
+            $table->string('nilai')->nullable();
             $table->timestamps();
         });
     }

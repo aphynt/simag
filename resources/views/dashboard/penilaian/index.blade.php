@@ -1,18 +1,24 @@
-@include('dashboard.layout.head', ['title' => 'Penilaian'])
+@include('dashboard.layout.head', ['title' => 'Penilaian Magang'])
 @include('dashboard.layout.switcher')
 @include('dashboard.layout.loader')
 @include('dashboard.layout.header')
 @include('dashboard.layout.sidebar')
-
-
 
 <div class="main-content app-content">
                 <div class="container-fluid">
 
                     <div class="d-flex align-items-center justify-content-between page-header-breadcrumb flex-wrap gap-2">
                         <div>
-                            <h1 class="page-title fw-medium fs-18 mb-0">Penilaian</h1>
+                            <h1 class="page-title fw-medium fs-18 mb-0">Penilaian Magang</h1>
                         </div>
+                        @if (Auth::user()->role == 'mahasiswa')
+                        <div class="btn-list">
+                            <a href="{{ route('pengajuan.insert') }}" class="btn btn-primary btn-wave me-0">
+                                <i class="ri-share-forward-line me-1"></i> Ajukan
+                            </a>
+                        </div>
+                        @endif
+
                     </div>
 
                     <div class="row">
@@ -23,43 +29,42 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Hari/Tanggal</th>
-                                                <th>NIM</th>
                                                 <th>Nama</th>
-                                                <th>Jenis Magang</th>
-                                                <th>Judul</th>
-                                                <th>Status</th>
-                                                <th>Keterangan Verifikasi</th>
+                                                <th>NIM</th>
+                                                <th>Jenis Pengajuan</th>
+                                                <th>Status Penilaian</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
-                                        {{-- <tbody>
+                                        <tbody>
                                             @foreach ($data as $d)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($d->tgl_submit)->translatedFormat('l, d F Y') }}</td>
-                                                    <td>{{ $d->nim }}</td>
                                                     <td>{{ $d->name }}</td>
+                                                    <td>{{ $d->nim }}</td>
                                                     <td>{{ $d->jenis_magang }}</td>
-                                                    <td>{{ $d->judul }}</td>
-                                                    <td>
-                                                        @if ($d->status == 1)
-                                                            Diverifikasi
+                                                    <td>@if($d->status_nilai == null)
+                                                        Belum ada
                                                         @else
-                                                            Belum Diverifikasi
+                                                        {{ $d->rekomendasi }}
                                                         @endif
                                                     </td>
-                                                    <td>{{ $d->keterangan_evaluasi }}</td>
                                                     <td>
-                                                        <a href="{{ route('evaluasi.detail', $d->uuid) }}" class="btn btn-info label-btn rounded-pill">
-                                                            <i class="ri-spam-2-line label-btn-icon me-2 rounded-pill"></i>
-                                                            Detail
+                                                        @php
+                                                            $canEdit = Auth::user()->role == 'prodi' || Auth::user()->id == $d->user_id;
+                                                        @endphp
+
+                                                        <a href="{{ route('penilaian.detail', $d->uuid ) }}"
+                                                            class="btn btn-secondary label-btn {{ $canEdit ? '' : 'disabled' }}">
+                                                                <i class="ri-eye-line label-btn-icon me-2"></i>
+                                                                Detail
                                                         </a>
                                                     </td>
                                                 </tr>
+                                            @include('dashboard.pengajuan.modal.delete')
                                             @endforeach
 
-                                        </tbody> --}}
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>

@@ -61,6 +61,9 @@ Route::group(['middleware' => ['auth']], function(){
 
     //Penilaian
     Route::get('/penilaian', [PenilaianController::class, 'index'])->name('penilaian.index');
+    Route::get('/penilaian/form/{uuid}', [PenilaianController::class, 'form'])->name('penilaian.form');
+    Route::get('/penilaian/detail/{uuid}', [PenilaianController::class, 'detail'])->name('penilaian.detail');
+    Route::post('/penilaian/simpan/{uuid}', [PenilaianController::class, 'simpan'])->name('penilaian.simpan');
 
 
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
