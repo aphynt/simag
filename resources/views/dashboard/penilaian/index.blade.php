@@ -51,7 +51,7 @@
                                                     </td>
                                                     <td>
                                                         @php
-                                                            $canEdit = Auth::user()->role == 'prodi' || Auth::user()->id == $d->user_id;
+                                                            $canEdit = Auth::user()->role == 'wd3' || Auth::user()->role == 'prodi';
                                                         @endphp
 
                                                         <a href="{{ route('penilaian.detail', $d->uuid ) }}"
