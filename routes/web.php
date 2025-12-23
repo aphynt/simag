@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/persetujuan/detail/{uuid}', [PersetujuanController::class, 'detail'])->name('persetujuan.detail');
     Route::get('/persetujuan/download/{uuid}', [PersetujuanController::class, 'download'])->name('persetujuan.download');
     Route::put('/persetujuan/{uuid}/verifikasi', [PersetujuanController::class, 'verifikasi'])->name('persetujuan.verifikasi');
+    Route::put('/persetujuan/{uuid}/approve', [PersetujuanController::class, 'approve'])->name('persetujuan.approve');
     Route::put('/persetujuan/{uuid}/tolak', [PersetujuanController::class, 'tolak'])->name('persetujuan.tolak');
 
     //Konsultasi
@@ -56,11 +57,13 @@ Route::group(['middleware' => ['auth']], function(){
 
     //Evaluasi
     Route::get('/evaluasi', [EvaluasiController::class, 'index'])->name('evaluasi.index');
+    Route::get('/evaluasi/{user}', [EvaluasiController::class, 'user'])->name('evaluasi.user');
     Route::get('/evaluasi/detail/{uuid}', [EvaluasiController::class, 'detail'])->name('evaluasi.detail');
     Route::post('/evaluasi/verifikasi/{uuid}', [EvaluasiController::class, 'verifikasi'])->name('evaluasi.verifikasi');
 
     //Penilaian
     Route::get('/penilaian', [PenilaianController::class, 'index'])->name('penilaian.index');
+    Route::get('/penilaian/{user}', [PenilaianController::class, 'user'])->name('penilaian.user');
     Route::get('/penilaian/form/{uuid}', [PenilaianController::class, 'form'])->name('penilaian.form');
     Route::get('/penilaian/detail/{uuid}', [PenilaianController::class, 'detail'])->name('penilaian.detail');
     Route::post('/penilaian/simpan/{uuid}', [PenilaianController::class, 'simpan'])->name('penilaian.simpan');

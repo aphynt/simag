@@ -26,7 +26,7 @@
                             <div class="card custom-card">
                                 <div class="card-body">
                                     <table id="responsiveDataTable" class="table table-bordered text-nowrap w-100">
-                                        <thead>
+                                        {{-- <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama</th>
@@ -51,7 +51,8 @@
                                                     </td>
                                                     <td>
                                                         @php
-                                                            $canEdit = Auth::user()->role == 'wd3' || Auth::user()->role == 'prodi';
+                                                            // $canEdit = Auth::user()->role == 'wd3' || Auth::user()->role == 'prodi';
+                                                            $canEdit = Auth::user()->role == 'prodi';
                                                         @endphp
 
                                                         <a href="{{ route('penilaian.detail', $d->uuid ) }}"
@@ -62,6 +63,40 @@
                                                     </td>
                                                 </tr>
                                             @include('dashboard.pengajuan.modal.delete')
+                                            @endforeach
+
+                                        </tbody> --}}
+
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>NIM</th>
+                                                <th>Nama</th>
+                                                <th>Total Data</th>
+                                                <th>Last Submit</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($data as $row)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $row->nim }}</td>
+                                                <td>{{ $row->name }}</td>
+                                                <td>{{ $row->total_monitoring }}</td>
+                                                <td>{{ $row->last_submit }}</td>
+                                                <td>
+                                                    @php
+                                                            // $canEdit = Auth::user()->role == 'wd3' || Auth::user()->role == 'prodi';
+                                                            $canEdit = Auth::user()->role == 'prodi';
+                                                        @endphp
+                                                    <a href="{{ route('penilaian.detail', $row->uuid ) }}"
+                                                            class="btn btn-secondary label-btn {{ $canEdit ? '' : 'disabled' }}">
+                                                                <i class="ri-eye-line label-btn-icon me-2"></i>
+                                                                Detail
+                                                        </a>
+                                                </td>
+                                            </tr>
                                             @endforeach
 
                                         </tbody>

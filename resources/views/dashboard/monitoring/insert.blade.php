@@ -33,11 +33,11 @@
                                 </div>
                                 <hr>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="judul" class="form-label">Judul</label>
                                     <input type="text" class="form-control" id="judul" name="judul" required>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="pengajuanMagang" class="form-label">Instansi Magang</label>
                                     <select class="form-select" name="uuid_pengajuan" id="pengajuanMagang">
                                         @foreach ($pengajuan as $pg)
@@ -46,12 +46,16 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="col-md-4">
+                                    <label for="lokasiMagang" class="form-label">Lokasi Magang</label>
+                                    <input type="text" class="form-control" id="lokasiMagang" name="lokasi_magang" required>
+                                </div>
                                 <div class="col-md-12">
                                     <label for="keterangan" class="form-label">Keterangan</label>
                                     <textarea class="form-control" id="keterangan" name="keterangan" rows="10" required></textarea>
                                 </div>
                                 <div class="col-md-12">
-                                    <label for="file" class="form-label">File</label>
+                                    <label for="file" class="form-label">Dokumentasi Pendukung</label>
                                     <input type="file" class="form-control" id="file" name="file" required>
                                 </div>
 

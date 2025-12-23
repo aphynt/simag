@@ -16,30 +16,46 @@ class PenilaianController extends Controller
     {
         $user = Auth::user();
 
-        $data = DB::table('pengajuan as pj')
-        ->leftJoin('users as us', 'pj.user_id', 'us.id')
-        ->leftJoin('penilaian as pn', 'pj.uuid', 'pn.uuid_pengajuan')
-        ->select(
-            'pj.id',
-            'pj.user_id',
-            'pj.uuid',
-            'us.name',
-            'us.nim',
-            'pj.statusenabled',
-            'pj.tanggal_pengajuan',
-            'pj.tanggal_selesai',
-            'pj.alasan_magang',
-            'pj.kompetensi_ilmu',
-            'pj.jenis_magang',
-            'pj.status',
-            'pj.keterangan',
-            'pn.status as status_nilai',
-            'pn.rekomendasi',
-        )
-        ->where('pj.statusenabled', true);
-        if (in_array($user->role, ['mahasiswa'])) {
-            $data->where('pj.user_id', $user->id);
-        }
+        // $query = DB::table('pengajuan as pj')
+        //     ->leftJoin('users as us', 'pj.user_id', '=', 'us.id')
+        //     ->leftJoin('penilaian as pn', 'pj.uuid', '=', 'pn.uuid_pengajuan')
+        //     ->select(
+        //         'pj.uuid',
+        //         'pj.user_id',
+        //         'us.name',
+        //         'us.nim',
+        //         'pj.jenis_magang',
+        //         'pj.statusenabled',
+        //         'pn.status as status_nilai',
+        //         'pn.rekomendasi'
+        //     )
+        //     ->where('pj.statusenabled', true);
+
+
+
+        // // Mahasiswa hanya melihat magangnya sendiri
+        // if ($user->role === 'mahasiswa') {
+        //     $query->where('pj.user_id', $user->id);
+        // }
+
+        // $data = $query->get();
+
+        $data = DB::table('monitoring as mt')
+            ->leftJoin('pengajuan as pg', 'mt.uuid_pengajuan', '=', 'pg.uuid')
+            ->leftJoin('users as us', 'pg.user_id', '=', 'us.id')
+            ->select(
+                'us.id as user_id',
+                'pg.uuid',
+                'us.nim',
+                'us.name',
+                DB::raw('COUNT(mt.uuid) as total_monitoring'),
+                DB::raw('MAX(mt.created_at) as last_submit')
+            )
+            ->where('pg.statusenabled', true)
+            ->groupBy('us.id', 'pg.uuid', 'us.nim', 'us.name');
+            if ($user->role === 'mahasiswa') {
+                $data->where('user_id', $user->id);
+            }
 
         $data = $data->get();
 

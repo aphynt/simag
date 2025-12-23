@@ -23,40 +23,28 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Hari/Tanggal</th>
                                                 <th>NIM</th>
                                                 <th>Nama</th>
-                                                <th>Jenis Magang</th>
-                                                <th>Judul</th>
-                                                <th>Status</th>
-                                                <th>Keterangan Verifikasi</th>
+                                                <th>Total Data</th>
+                                                <th>Last Submit</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($data as $d)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($d->tgl_submit)->translatedFormat('l, d F Y') }}</td>
-                                                    <td>{{ $d->nim }}</td>
-                                                    <td>{{ $d->name }}</td>
-                                                    <td>{{ $d->jenis_magang }}</td>
-                                                    <td>{{ $d->judul }}</td>
-                                                    <td>
-                                                        @if ($d->status == 1)
-                                                            Diverifikasi
-                                                        @else
-                                                            Belum Diverifikasi
-                                                        @endif
-                                                    </td>
-                                                    <td>{{ $d->keterangan_evaluasi }}</td>
-                                                    <td>
-                                                        <a href="{{ route('evaluasi.detail', $d->uuid) }}" class="btn btn-info label-btn rounded-pill">
-                                                            <i class="ri-spam-2-line label-btn-icon me-2 rounded-pill"></i>
-                                                            Detail
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                                            @foreach ($data as $row)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $row->nim }}</td>
+                                                <td>{{ $row->name }}</td>
+                                                <td>{{ $row->total_monitoring }}</td>
+                                                <td>{{ $row->last_submit }}</td>
+                                                <td>
+                                                    <a href="{{ route('evaluasi.user', $row->user_id) }}"
+                                                    class="btn btn-info btn-sm">
+                                                        Lihat Data
+                                                    </a>
+                                                </td>
+                                            </tr>
                                             @endforeach
 
                                         </tbody>

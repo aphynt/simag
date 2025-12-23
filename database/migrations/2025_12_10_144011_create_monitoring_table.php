@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('judul')->nullable();
             $table->string('file')->nullable();
             $table->boolean('status')->default(0);
+            $table->string('lokasi_magang')->nullable();
             $table->string('keterangan')->nullable();
             $table->string('keterangan_evaluasi')->nullable();
             $table->integer('rating')->nullable();

@@ -91,7 +91,7 @@
                             </div>
                             @if (!empty($data->file))
                                 <div class="col-md-12">
-                                    <label class="form-label">File Pendukung Saat Ini</label>
+                                    <label class="form-label">Dokumentasi Pendukung</label>
                                     <div class="border rounded p-2">
                                         <iframe
                                             src="{{ asset('storage/' . $data->file) }}"
@@ -108,7 +108,8 @@
                                     </div>
                                 </div>
                             @endif
-                            @if ($data->status == 0 && (Auth::user()->role == 'wd3' || Auth::user()->role == 'prodi'))
+                            {{-- @if ($data->status == 0 && (Auth::user()->role == 'wd3' || Auth::user()->role == 'prodi')) --}}
+                            @if ($data->status == 0 && Auth::user()->role == 'prodi')
                             <div class="col-12 mt-3 d-flex gap-2">
                                 {{-- Tombol Verifikasi --}}
                                 <button type="button"

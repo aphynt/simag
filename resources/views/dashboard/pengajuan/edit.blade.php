@@ -66,7 +66,7 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="file" class="form-label">Masukkan File Pendukung (jika ada)</label>
+                                <label for="file" class="form-label">Masukkan Dokumentasi Pendukung (jika ada)</label>
                                 <input type="file" class="form-control" id="file" name="filePendukung">
                             </div>
                             <div class="col-12">

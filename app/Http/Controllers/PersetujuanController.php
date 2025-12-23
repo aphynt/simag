@@ -19,6 +19,7 @@ class PersetujuanController extends Controller
 
         $data = DB::table('pengajuan as pj')
         ->leftJoin('users as us', 'pj.user_id', 'us.id')
+        ->leftJoin('users as us2', 'pj.disetujui_oleh', 'us2.id')
         ->select(
             'pj.id',
             'pj.user_id',
@@ -30,6 +31,8 @@ class PersetujuanController extends Controller
             'pj.tanggal_selesai',
             'pj.alasan_magang',
             'pj.kompetensi_ilmu',
+            'us2.name as disetujui_oleh',
+            'us2.role as role_penyetujuan',
             'pj.jenis_magang',
             'pj.status',
             'pj.keterangan',
@@ -174,5 +177,17 @@ class PersetujuanController extends Controller
         ]);
 
         return redirect()->route('persetujuan.index')->with('success', 'Pengajuan magang ditolak.');
+    }
+
+    public function approve(Request $request, $uuid)
+    {
+
+        Pengajuan::where('uuid', $uuid)->update([
+            'disetujui_oleh'      => Auth::user()->id,
+            'setuju'  => true,
+            'status'      => 'Disetujui',
+        ]);
+
+        return redirect()->route('persetujuan.index')->with('success', 'Pengajuan magang diapprove.');
     }
 }

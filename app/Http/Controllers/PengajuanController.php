@@ -35,6 +35,17 @@ class PengajuanController extends Controller
 
     public function insert()
     {
+        $exists = Pengajuan::where('user_id', Auth::id())
+            ->where('status', 'Diajukan')
+            ->exists();
+
+        if ($exists) {
+            return redirect()->back()->with(
+                'info',
+                'Maaf, Anda tidak bisa mengajukan magang karena masih ada pengajuan magang yang yang belum selesai'
+            );
+        }
+
         if(Auth::user()->program_studi == null && Auth::user()->no_hp == null && Auth::user()->semester == null){
             return redirect()->route('user.index')->with('info', 'Maaf, silakan lengkapi profile terlebih dahulu!');
         }

@@ -32,6 +32,7 @@
                                                 <th>NIM</th>
                                                 <th>Jenis Pengajuan</th>
                                                 <th>Status</th>
+                                                <th>Disetujui oleh</th>
                                                 <th>Keterangan</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -52,29 +53,45 @@
                                                         <span class="btn btn-outline-danger btn-wave">{{ $d->status }}</span>
                                                         @endif
                                                     </td>
+                                                    <td>
+                                                        {{ strtoupper($d->role_penyetujuan ?? '') }}
+                                                        @if (!empty($d->role_penyetujuan) && !empty($d->disetujui_oleh))
+                                                            |
+                                                        @endif
+                                                        {{ $d->disetujui_oleh ?? '' }}
+                                                    </td>
                                                     <td>{{ $d->keterangan }}</td>
                                                     <td>
                                                         @if (in_array($d->status, ['Disetujui', 'Diverifikasi']))
+                                                            @if ($d->role_penyetujuan == 'wd3')
 
-                                                            @if ($d->jenis_magang === 'Magang Mandiri')
-                                                                <a href="{{ route('persetujuan.download', $d->uuid) }}"
-                                                                class="btn btn-dark label-btn rounded-pill">
-                                                                    <i class="ri-file-download-line label-btn-icon me-2 rounded-pill"></i>
-                                                                    Unduh Surat Pengantar
-                                                                </a>
-                                                            @else
-                                                                <a href="{{ route('persetujuan.download', $d->uuid) }}"
-                                                                class="btn btn-dark label-btn rounded-pill">
-                                                                    <i class="ri-download-2-line label-btn-icon me-2 rounded-pill"></i>
-                                                                    Unduh Surat Rekomendasi
-                                                                </a>
+                                                                @if ($d->jenis_magang == 'Magang Mandiri')
+                                                                    <a href="{{ route('persetujuan.download', $d->uuid) }}" target="_blank"
+                                                                    class="btn btn-dark label-btn rounded-pill">
+                                                                        <i class="ri-file-download-line label-btn-icon me-2"></i>
+                                                                        Unduh Surat Pengantar
+                                                                    </a>
+                                                                @else
+                                                                    <a href="{{ route('persetujuan.download', $d->uuid) }}" target="_blank"
+                                                                    class="btn btn-dark label-btn rounded-pill">
+                                                                        <i class="ri-download-2-line label-btn-icon me-2"></i>
+                                                                        Unduh Surat Rekomendasi
+                                                                    </a>
+                                                                @endif
+
                                                             @endif
-
                                                         @endif
                                                         <a href="{{ route('persetujuan.detail', $d->uuid) }}" class="btn btn-info label-btn rounded-pill">
                                                             <i class="ri-spam-2-line label-btn-icon me-2 rounded-pill"></i>
                                                             Detail
                                                         </a>
+                                                        @if ($d->role_penyetujuan != 'wd3' && Auth::user()->role == 'wd3')
+                                                        <a href="#" class="btn btn-success label-btn rounded-pill" data-bs-toggle="modal" data-bs-target="#approveMagang{{ $d->id }}">
+                                                            <i class="ri-check-line label-btn-icon me-2 rounded-pill"></i>
+                                                            Approve
+                                                        </a>
+                                                        @include('dashboard.persetujuan.modal.approve')
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach

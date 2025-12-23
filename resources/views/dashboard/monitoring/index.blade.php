@@ -34,6 +34,7 @@
                                                 <th>NIM</th>
                                                 <th>Nama</th>
                                                 <th>Jenis Magang</th>
+                                                <th>Lokasi</th>
                                                 <th>Judul</th>
                                                 <th>Status</th>
                                                 <th>Keterangan</th>
@@ -47,6 +48,7 @@
                                                     <td>{{ $d->nim }}</td>
                                                     <td>{{ $d->name }}</td>
                                                     <td>{{ $d->jenis_magang }}</td>
+                                                    <td>{{ $d->lokasi_magang }}</td>
                                                     <td>{{ $d->judul }}</td>
                                                     <td>
                                                         @if ($d->status == 1)

@@ -78,8 +78,18 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="file" class="form-label">Masukkan File Pendukung (jika ada)</label>
+                                <label for="file" class="form-label">Masukkan Dokumentasi Pendukung (jika ada)</label>
                                 <input type="file" class="form-control" id="file" name="filePendukung">
+                                <small class="text-muted">
+                                    Harap unggah <strong>satu file</strong> yang berisi:
+                                    <ul class="mb-1 ps-3">
+                                        <li>Sertifikat magang sebelumnya (jika ada)</li>
+                                        <li>Pamflet atau bukti registrasi magang</li>
+                                        <li>Sertifikat pendukung (jika ada)</li>
+                                        <li>Kartu Tanda Mahasiswa (KTM)</li>
+                                    </ul>
+                                    Seluruh dokumen <strong>wajib digabung menjadi satu file PDF</strong>
+                                </small>
                             </div>
                             <div class="col-12">
                                 <div class="form-check">
