@@ -78,7 +78,7 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="file" class="form-label">Masukkan Dokumentasi Pendukung</label>
+                                <label for="file" class="form-label">Masukkan File Pendukung</label>
                                 <input type="file" class="form-control" id="file" name="filePendukung">
                                 <small class="text-muted">
                                     Harap unggah <strong>satu file</strong> yang berisi:
