@@ -11,13 +11,13 @@
                         <div>
                             <h1 class="page-title fw-medium fs-18 mb-0">Penilaian Magang</h1>
                         </div>
-                        @if (Auth::user()->role == 'mahasiswa')
+                        {{-- @if (Auth::user()->role == 'mahasiswa')
                         <div class="btn-list">
                             <a href="{{ route('pengajuan.insert') }}" class="btn btn-primary btn-wave me-0">
                                 <i class="ri-share-forward-line me-1"></i> Ajukan
                             </a>
                         </div>
-                        @endif
+                        @endif --}}
 
                     </div>
 
