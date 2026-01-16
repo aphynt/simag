@@ -27,6 +27,7 @@
                             <option value="mahasiswa">Mahasiswa</option>
                             <option value="prodi">Prodi</option>
                             <option value="wd3">WD3</option>
+                            <option value="staff">Staff</option>
                         </select>
                     </div>
                 </div>

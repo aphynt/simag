@@ -1,270 +1,267 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surat Pengantar</title>
-    <style>
-    * {
-        box-sizing: border-box;
-        font-family: 'Times New Roman', Times, serif;
-    }
+<meta charset="UTF-8">
+<title>Surat Pengantar</title>
 
-    html, body {
-        margin: 0;
-        padding: 0;
-    }
+<style>
+/* =========================
+   DOMPDF FRIENDLY CSS
+========================= */
 
-    /* DOMPDF BACA INI – JANGAN DI DALAM @media print */
-    @page {
-        margin-top: 0.5cm;
-        margin-left: 2.54cm;
-        margin-right: 2.54cm;
-        margin-bottom: 2.54cm;
-        /* size tidak wajib kalau sudah setPaper di PHP */
-        /* size: legal portrait; */
-    }
+@page{
+    size: legal portrait;
+    margin-top:0.5cm;
+    margin-left:2.54cm;
+    margin-right:2.54cm;
+    margin-bottom:0.54cm;
+}
 
-    /* Jangan pakai width/height fix cm di body untuk dompdf */
-    body {
-        text-align: center;
-        font-size: 12pt;
-    }
+body{
+    font-family:"Times New Roman", Times, serif;
+    font-size:12pt;
+    margin:0;
+    padding:0;
+    color:#000;
+    text-align:center;
+}
 
-    header {
-        display:flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+/* ---------- HEADER ---------- */
+.header-table{
+    width:100%;
+    border-collapse:collapse;
+}
+.header-table td{
+    vertical-align:middle;
+}
+.logo{
+    width:110px;
+}
+.header-text{
+    text-align:left;
+}
+.header-text h5{
+    margin:0;
+    line-height:18px;
+}
+table {
+    border-collapse: collapse;
+}
 
-    /* h3 {
-        line-height: 27px;
-    } */
+td, th {
+    padding: 1px 3px;   /* super tipis */
+    line-height: 1.1;  /* rapat tapi masih terbaca */
+}
 
-    space {
-        width:50%;
-        display:block;
-    }
+/* ---------- LINE ---------- */
+.line{
+    width:100%;
+    height:6px;
+    border-top:3px solid #000;
+    border-bottom:2px solid #000;
+    margin:10px 0;
+}
 
-    .row {
-        text-align: left;
-        width:100%;
-    }
+/* ---------- ADDRESS ---------- */
+.address{
+    font-size:9pt;
+    line-height:12pt;
+    margin-bottom:12px;
+}
 
-    .line {
-        width:100%;
-        height:7px;
-        border-top: 4px solid black;
-        border-bottom: 2px solid black;
-        margin-top:10px;
-    }
+/* ---------- CONTENT ---------- */
+.justify{ text-align:justify; }
+.center{ text-align:center; }
 
-    .address{
-        font-size: 10px;
-        line-height: 13px;
-        margin-bottom:15px;
-    }
+.mt-10{ margin-top:10px; }
+.mt-20{ margin-top:20px; }
+.mt-30{ margin-top:30px; }
 
-    .isisurat{
-        text-align: justify;
-        margin-top:20px;
-    }
+.identity{
+    text-align:left;     /* paksa kiri */
+}
 
-    .idenitas{
-        margin-top:20px;
-        text-align: center;
-    }
+.identity table{
+    margin-left:0;       /* hilangkan auto center */
+}
 
-    .cc{
-        margin-top: 10px;
-        margin-bottom:15px;
-    }
+.mt-20{
+    text-align:left;     /* untuk blok Kepada Yth */
+}
 
-    .prakata{
-        margin-bottom:20px;
-    }
+/* .identity td{
+    padding:2px 6px;
+} */
 
-    .intruksi{
-        margin-top:20px;
-    }
+.data-table,
+.info-table{
+    width:100%;
+    margin-top:10px;
+}
+.data-table td,
+.info-table td{
+    padding:2px 4px;
+    vertical-align:top;
+}
 
-    .titimangsa{
-        display:flex;
-        justify-content: space-between;
-        margin-top:40px;
-    }
+.signature-table{
+    width:100%;
+    margin-top:40px;
+}
+.signature-table td{
+    vertical-align:top;
+}
 
-    .right{
-        display:flex;
-    }
-
-    .date{
-        display:flex;
-        flex-direction: column;
-    }
-
-    footer{
-        display:block;
-        width:100%;
-        text-align: left;
-        margin-top: 20px;
-    }
+/* ---------- FOOTER ---------- */
+.footer{
+    margin-top:25px;
+    font-size:11pt;
+    text-align:left;
+}
 </style>
-
 </head>
+
 @php
-    use Carbon\Carbon;
+use Carbon\Carbon;
 
-    $mulai  = Carbon::parse($data->tanggal_pengajuan)->translatedFormat('d F Y');
-    $selesai = Carbon::parse($data->tanggal_selesai)->translatedFormat('d F Y');
+$mulai   = Carbon::parse($data->tanggal_pengajuan)->translatedFormat('d F Y');
+$selesai = Carbon::parse($data->tanggal_selesai)->translatedFormat('d F Y');
 
-    $durasiBulan = Carbon::parse($data->tanggal_pengajuan)->diffInMonths(Carbon::parse($data->tanggal_selesai));
-    $durasiHari = Carbon::parse($data->tanggal_pengajuan)->diffInDays(Carbon::parse($data->tanggal_selesai));
+$durasiBulan = Carbon::parse($data->tanggal_pengajuan)
+                ->diffInMonths(Carbon::parse($data->tanggal_selesai));
 @endphp
 
 <body>
-    <header>
-        <img src="logo.png" alt="logo disini" width="100%">
-        <space></space>
-        <div class="row">
-            <h5>YAYASAN WAKAF UMI</h5>
-            <h5>UNIVERSITAS MUSLIM INDONESIA</h5>
-            <h5>FAKULTAS ILMU KOMPUTER</h5>
-        </div>
-    </header>
-    <div class="line"></div>
-    <main>
-        <div class="address">
-            <p>Jln. Urip Sumohardjo Km.05 Gedung Fakultas Ilmu Komputer Lt.I Kampus II UMI Tlp.(0411) 449775-453308-453818, Fax (0411) - 453009 Makassar 90231</p>
-            <p>website: fikom.umi.ac.id, email: fikom@umi.ac.id</p>
-        </div>
-        <br>
-        <h4><i>Bismillahir Rahmanir Rahiim</i></h4>
-        <br>
-        <div class="isisurat">
-            <div class="idenitas">
-                <table>
-                    <tr>
-                        <td>Nomor</td>
-                        <td>:</td>
-                        <td>……../B.02/TI/FIK-UMI/……../20</td>
-                    </tr>
-                    <tr>
-                        <td>Lampiran</td>
-                        <td>:</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Perihal</td>
-                        <td>:</td>
-                        <td>Pengantar Magang Mandiri</td>
-                    </tr>
-                </table>
-            </div>
-            <br>
-            <br>
-            <div class="cc">
-                Kepada Yth :<br>
-                <p><b>Dekan Fakultas Ilmu Komputer</b></p>
-                <p>Di-Makassar</p>
-            </div>
-            <br>
-            <div class="open">
-                <p><i>Assalamualaikum Warahmatullahi Wabarakatuh</i></p>
-            </div>
-            <div class="prakata">
-                <p>Dengan	Rahmat Allah SWT., kami sampaikan kepada bapak/ibu, bahwa mahasiswa tersebut dibawah ini.</p>
-            </div>
-            <div class="data">
-                <table>
-                    <tr>
-                        <td>Nama</td>
-                        <td>: {{ $data->name }}</td>
-                        <td></td>
-                        <td><b></b></td>
-                    </tr>
-                    <tr>
-                        <td>NIM</td>
-                        <td>: {{ $data->nim }}</td>
-                        <td></td>
-                        <td><b></b></td>
-                    </tr>
-                    <tr>
-                        <td>Prodi</td>
-                        <td>: {{ $data->program_studi }}</td>
-                        <td></td>
-                        <td><b></b></td>
-                    </tr>
-                    <tr>
-                        <td>Nomor HP</td>
-                        <td>: {{ $data->no_hp }}</td>
-                        <td></td>
-                        <td><b></b></td>
-                </table>
-            </div>
-            <div class="intruksi">
-                <p>Mengajukan permohonan agar dapat diberikan surat pengantar yang ditujukan kepada:</p>
-                <br>
-                <table>
-                    <tr>
-                        <td>Nama Perusahaan</td>
-                        <td>: {{ $data->nama_perusahaan }}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Bagian</td>
-                        <td>: {{ $data->bagian_perusahaan }}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Alamat</td>
-                        <td>: {{ $data->alamat_perusahaan }}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Tujuan</td>
-                        <td>:</td>
-                        <td></td>
-                    </tr>
-                </table>
-                <br>
-                <p>
-                    Untuk melakukan magang selama {{ $durasiBulan }} bulan terhitung mulai tanggal
-                    {{ $mulai }} sampai {{ $selesai }}.
-                </p>
 
-            </div>
-            <br>
-            <br>
-            <div class="closing">
-                <p>Demikian surat pengantar ini, atas perhatian dan kerjasamanya diucapkan terima kasih.</p>
-            </div>
-            <p><i>Wallahu Waliyyut Taufiq Walhidayah</i></p>
-        </div>
-        <div class="titimangsa">
-            <div class="left"></div>
-            <div class="right">
-                <div class="date">
-                    <p>Makassar, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
-                    <p>Ketua Program Studi Informatika</p>
-                    <br>
-                    <br>
-                    <br>
-                    <p><b>Tasrif Hasanuddin, S.T.,M.Cs.</b></p>
-                    <p>NIDN : 0910126901</p>
-                </div>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <p><u>Tembusan Yth,</u></p>
-        <ol style="padding-left:20px">
-            <li>Ketua Prodi Teknik Informatika</li>
-            <li>Arsip</li>
-        </ol>
-    </footer>
+<!-- ================= HEADER ================= -->
+<table class="header-table">
+<tr>
+    <td style="width:120px">
+        <img src="{{ public_path('logo/LogoFikom_HitamKuning.png') }}" class="logo" alt="logo">
+    </td>
+    <td class="header-text">
+        <h5>YAYASAN WAKAF UMI</h5>
+        <h5>UNIVERSITAS MUSLIM INDONESIA</h5>
+        <h5>FAKULTAS ILMU KOMPUTER</h5>
+    </td>
+</tr>
+</table>
+
+<div class="line"></div>
+
+<!-- ================= ADDRESS ================= -->
+<div class="address">
+    <p style="font-size: 7pt">Jln. Urip Sumohardjo Km.05 Gedung Fakultas Ilmu Komputer Lt.I Kampus II UMI
+    Tlp.(0411) 449775-453308-453818, Fax (0411) 453009 Makassar 90231</p>
+    <p>website: fikom.umi.ac.id, email: fikom@umi.ac.id</p>
+</div>
+
+<p class="center"><i>Bismillahir Rahmanir Rahiim</i></p>
+
+<!-- ================= CONTENT ================= -->
+<div class="identity mt-20">
+<table>
+<tr>
+    <td>Nomor</td><td>:</td><td>{{ $data->no_surat }}</td>
+</tr>
+<tr>
+    <td>Lampiran</td><td>:</td><td>-</td>
+</tr>
+<tr>
+    <td>Perihal</td><td>:</td><td><b>Pengantar Magang Mandiri</b></td>
+</tr>
+</table>
+</div>
+
+<div class="mt-20">
+    <p>Kepada Yth :</p>
+    <p><b>Dekan Fakultas Ilmu Komputer</b></p>
+    <p>Di - Makassar</p>
+</div>
+
+<p class="mt-20"><i>Assalamualaikum Warahmatullahi Wabarakatuh</i></p>
+
+<p class="justify mt-10">
+Dengan Rahmat Allah SWT., kami sampaikan kepada Bapak/Ibu bahwa mahasiswa tersebut di bawah ini:
+</p>
+
+<table class="data-table">
+<tr>
+    <td width="90">Nama</td><td width="10">:</td>
+    <td>{{ $data->name }}</td>
+</tr>
+<tr>
+    <td>NIM</td><td>:</td>
+    <td>{{ $data->nim }}</td>
+</tr>
+<tr>
+    <td>Prodi</td><td>:</td>
+    <td>{{ $data->program_studi }}</td>
+</tr>
+<tr>
+    <td>Nomor HP</td><td>:</td>
+    <td>{{ $data->no_hp }}</td>
+</tr>
+</table>
+
+<div class="mt-20">
+<p class="justify">
+Mengajukan permohonan agar dapat diberikan surat pengantar yang ditujukan kepada:
+</p>
+
+<table class="info-table">
+<tr>
+    <td width="130">Nama Perusahaan</td><td width="10">:</td>
+    <td>{{ $data->nama_perusahaan }}</td>
+</tr>
+<tr>
+    <td>Bagian</td><td>:</td>
+    <td>{{ $data->bagian_perusahaan }}</td>
+</tr>
+<tr>
+    <td>Alamat</td><td>:</td>
+    <td>{{ $data->alamat_perusahaan }}</td>
+</tr>
+<tr>
+    <td>Tujuan</td><td>:</td>
+    <td>Melaksanakan kegiatan magang mandiri sebagai bagian dari pemenuhan persyaratan akademik</td>
+</tr>
+</table>
+
+<p class="justify mt-10">
+Untuk melakukan magang selama {{ $durasiBulan }} bulan terhitung mulai tanggal
+{{ $mulai }} sampai {{ $selesai }}.
+</p>
+</div>
+
+<p class="justify mt-20">
+Demikian surat pengantar ini, atas perhatian dan kerja samanya kami ucapkan terima kasih.
+</p>
+
+<p><i>Wallahu Waliyyut Taufiq Walhidayah</i></p>
+
+<!-- ================= SIGNATURE ================= -->
+<table class="signature-table">
+<tr>
+    <td width="60%"></td>
+    <td>
+        <p>Makassar, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
+        <p>Ketua Program Studi Informatika</p>
+        <p>@if ($data->qrcode != null)<img src="{{ $data->qrcode }}" style="max-width: 70px;">@endif</p>
+        <p><b>Tasrif Hasanuddin, S.T., M.Cs.</b></p>
+        <p>NIDN : 0910126901</p>
+    </td>
+</tr>
+</table>
+
+<!-- ================= FOOTER ================= -->
+<div class="footer">
+    <p><u>Tembusan Yth,</u></p>
+    <ol style="margin-left:20px">
+        <li>Ketua Prodi Teknik Informatika</li>
+        <li>Arsip</li>
+    </ol>
+</div>
+
 </body>
-{{-- <script>
-    window.print();
-</script> --}}
 </html>

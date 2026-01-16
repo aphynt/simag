@@ -10,6 +10,7 @@ use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\EvaluasiController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VerifiedController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -23,6 +24,8 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/verified/index', [VerifiedController::class, 'index'])->name('verified.index');
 
 Route::group(['middleware' => ['auth']], function(){
 
@@ -44,6 +47,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::put('/persetujuan/{uuid}/verifikasi', [PersetujuanController::class, 'verifikasi'])->name('persetujuan.verifikasi');
     Route::put('/persetujuan/{uuid}/approve', [PersetujuanController::class, 'approve'])->name('persetujuan.approve');
     Route::put('/persetujuan/{uuid}/tolak', [PersetujuanController::class, 'tolak'])->name('persetujuan.tolak');
+    Route::put('/persetujuan/{uuid}/updateNoSurat', [PersetujuanController::class, 'updateNoSurat'])->name('persetujuan.updateNoSurat');
 
     //Konsultasi
     Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsultasi.index');

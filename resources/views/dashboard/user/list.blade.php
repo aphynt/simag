@@ -73,8 +73,8 @@
                                                                 Admin
                                                                 @break
 
-                                                            @case('pembuatan')
-                                                                Pembuatan
+                                                            @case('staff')
+                                                                Staff
                                                                 @break
 
                                                             @default

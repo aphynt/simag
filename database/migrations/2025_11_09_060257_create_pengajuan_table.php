@@ -28,6 +28,8 @@ return new class extends Migration
             $table->biginteger('disetujui_oleh')->nullable();
             $table->boolean('setuju')->default(1);
             $table->string('status')->nullable();
+            $table->string('no_surat')->nullable();
+            $table->date('tanggal_surat')->nullable();
             $table->text('keterangan')->nullable();
             $table->string('nilai')->nullable();
             $table->timestamps();
