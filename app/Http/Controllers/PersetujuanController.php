@@ -141,7 +141,14 @@ class PersetujuanController extends Controller
             $fileName = 'qrcode' . $item->uuid . '.png';
             $filePath = $qrTempFolder . DIRECTORY_SEPARATOR . $fileName;
 
-            QrCode::size(150)->format('png')->generate(route('verified.index', ['encodedNik' => base64_encode($item->uuid)]), $filePath);
+            QrCode::size(150)
+            ->format('png')
+            ->generate(
+                route('verified.index', [
+                    'uuid' => base64_encode($item->uuid)
+                ]),
+                $filePath
+            );
             $item->qrcode = $filePath;
         }
 
@@ -217,7 +224,14 @@ class PersetujuanController extends Controller
             $fileName = 'qrcode' . $item->uuid . '.png';
             $filePath = $qrTempFolder . DIRECTORY_SEPARATOR . $fileName;
 
-            QrCode::size(150)->format('png')->generate(route('verified.index', ['encodedNik' => base64_encode($item->uuid)]), $filePath);
+            QrCode::size(150)
+    ->format('png')
+    ->generate(
+        route('verified.index', [
+            'uuid' => base64_encode($item->uuid)
+        ]),
+        $filePath
+    );
             $item->qrcode = $filePath;
         }
 
