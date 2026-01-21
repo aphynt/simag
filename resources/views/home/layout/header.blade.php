@@ -43,6 +43,7 @@
                         <li><a href="#" class="sub-menu-item">Contact</a></li>
                         @if (Auth::user())
                             <li><a href="{{ route('logout') }}" class="sub-menu-item">Logout</a></li>
+                            <li><a href="{{ route('dashboard.index') }}" class="sub-menu-item">Masuk ke Dashboard</a></li>
                         @else
                             <li><a href="{{ route('login') }}" class="sub-menu-item">Login</a></li>
                         @endif
