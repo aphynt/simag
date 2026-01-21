@@ -67,19 +67,19 @@
                                         @if (in_array($d->status, ['Disetujui', 'Diverifikasi']))
                                         @if ($d->role_penyetujuan == 'wd3')
 
-                                        @if ($d->jenis_magang == 'Magang Mandiri')
-                                        <a href="{{ route('persetujuan.download', $d->uuid) }}" target="_blank"
+                                        {{-- @if ($d->jenis_magang == 'Magang Mandiri') --}}
+                                        <a href="{{ route('persetujuan.suratPengantar', $d->uuid) }}" target="_blank"
                                             class="btn btn-dark label-btn rounded-pill">
                                             <i class="ri-file-download-line label-btn-icon me-2"></i>
-                                            Unduh Surat Pengantar
+                                            Surat Pengantar
                                         </a>
-                                        @else
-                                        <a href="{{ route('persetujuan.download', $d->uuid) }}" target="_blank"
+                                        {{-- @else --}}
+                                        <a href="{{ route('persetujuan.suratRekomendasi', $d->uuid) }}" target="_blank"
                                             class="btn btn-dark label-btn rounded-pill">
                                             <i class="ri-download-2-line label-btn-icon me-2"></i>
-                                            Unduh Surat Rekomendasi
+                                            Surat Rekomendasi
                                         </a>
-                                        @endif
+                                        {{-- @endif --}}
 
                                         @endif
                                         @endif
@@ -87,9 +87,9 @@
                                         <a href="#" class="btn btn-primary label-btn rounded-pill"
                                             data-bs-toggle="modal" data-bs-target="#noSurat{{ $d->id }}">
                                             <i class="ri-file-add-line label-btn-icon me-2"></i>
-                                            Tambahkan No. Surat
+                                            Tambah No. Surat
                                         </a>
-                                        @include('dashboard.persetujuan.modal.noSurat')
+
                                         @endif
                                         <a href="{{ route('persetujuan.detail', $d->uuid) }}"
                                             class="btn btn-info label-btn rounded-pill">
@@ -102,10 +102,12 @@
                                             <i class="ri-check-line label-btn-icon me-2 rounded-pill"></i>
                                             Approve
                                         </a>
-                                        @include('dashboard.persetujuan.modal.approve')
+
                                         @endif
                                     </td>
                                 </tr>
+                                @include('dashboard.persetujuan.modal.noSurat')
+                                @include('dashboard.persetujuan.modal.approve')
                                 @endforeach
 
                             </tbody>

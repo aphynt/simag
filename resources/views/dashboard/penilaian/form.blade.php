@@ -238,50 +238,65 @@
 document.addEventListener('DOMContentLoaded', function () {
     const nilaiInputs = document.querySelectorAll('.nilai');
     const nilaiAkhirInput = document.getElementById('nilaiAkhir');
+    const rekomendasiSelect = document.getElementById('rekomendasi');
     const form = document.getElementById('formPenilaian');
     const btnReset = document.getElementById('btnResetForm');
 
-    function hitungRataRata() {
-        let sum = 0;
+    function hitungNilai() {
+        let total = 0;
         let count = 0;
-        nilaiInputs.forEach(function(el) {
-            const v = parseFloat(el.value);
+
+        nilaiInputs.forEach(el => {
+            const v = parseInt(el.value);
             if (!isNaN(v)) {
-                sum += v;
+                total += v;
                 count++;
             }
         });
+
         if (count === 0) {
             nilaiAkhirInput.value = '';
+            rekomendasiSelect.value = '';
             return;
         }
-        const avg = sum / count;
-        // tampilkan dua angka desimal
+
+        // Rata-rata
+        const avg = total / count;
         nilaiAkhirInput.value = avg.toFixed(2);
+
+        // ===== LOGIKA REKOMENDASI OTOMATIS =====
+        if (total >= 15) {
+            rekomendasiSelect.value = 'Lulus';
+        } else if (total >= 10) {
+            rekomendasiSelect.value = 'Perbaikan';
+        } else {
+            rekomendasiSelect.value = 'Tidak Lulus';
+        }
     }
 
-    nilaiInputs.forEach(function(el) {
-        el.addEventListener('change', hitungRataRata);
+    nilaiInputs.forEach(el => {
+        el.addEventListener('change', hitungNilai);
     });
 
     if (btnReset) {
-        btnReset.addEventListener('click', function() {
-            setTimeout(hitungRataRata, 50);
+        btnReset.addEventListener('click', function () {
+            setTimeout(hitungNilai, 50);
         });
     }
 
-    // Validasi sederhana saat submit: pastikan semua field nilai terisi
     if (form) {
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', function (e) {
             let valid = true;
-            nilaiInputs.forEach(function(el) {
+            nilaiInputs.forEach(el => {
                 if (el.value === '') valid = false;
             });
+
             if (!valid) {
                 e.preventDefault();
-                alert('Mohon isi semua kriteria penilaian (1-5) sebelum menyimpan.');
+                alert('Mohon isi semua kriteria penilaian (1–5).');
             }
         });
     }
 });
 </script>
+

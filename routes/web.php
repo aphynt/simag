@@ -25,7 +25,7 @@ Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('aut
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/verified/index', [VerifiedController::class, 'index'])->name('verified.index');
+Route::get('/verified/index/{uuid}', [VerifiedController::class, 'index'])->name('verified.index');
 
 Route::group(['middleware' => ['auth']], function(){
 
@@ -43,7 +43,8 @@ Route::group(['middleware' => ['auth']], function(){
     //Persetujuan
     Route::get('/persetujuan', [PersetujuanController::class, 'index'])->name('persetujuan.index');
     Route::get('/persetujuan/detail/{uuid}', [PersetujuanController::class, 'detail'])->name('persetujuan.detail');
-    Route::get('/persetujuan/download/{uuid}', [PersetujuanController::class, 'download'])->name('persetujuan.download');
+    Route::get('/persetujuan/download/suratPengantar/{uuid}', [PersetujuanController::class, 'suratPengantar'])->name('persetujuan.suratPengantar');
+    Route::get('/persetujuan/download/suratRekomendasi/{uuid}', [PersetujuanController::class, 'suratRekomendasi'])->name('persetujuan.suratRekomendasi');
     Route::put('/persetujuan/{uuid}/verifikasi', [PersetujuanController::class, 'verifikasi'])->name('persetujuan.verifikasi');
     Route::put('/persetujuan/{uuid}/approve', [PersetujuanController::class, 'approve'])->name('persetujuan.approve');
     Route::put('/persetujuan/{uuid}/tolak', [PersetujuanController::class, 'tolak'])->name('persetujuan.tolak');

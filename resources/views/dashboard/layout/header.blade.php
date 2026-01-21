@@ -11,17 +11,17 @@
             <div class="header-element">
                 <div class="horizontal-logo">
                     <a href="#" class="header-logo">
-                        <img src="{{ asset('dash') }}/build/assets/images/brand-logos/desktop-logo.png" alt="logo"
+                        <img src="{{ asset('logo') }}/umi.png" alt="logo"
                             class="desktop-logo">
-                        <img src="{{ asset('dash') }}/build/assets/images/brand-logos/toggle-dark.png" alt="logo"
+                        <img src="{{ asset('logo') }}/umi.png" alt="logo"
                             class="toggle-dark">
-                        <img src="{{ asset('dash') }}/build/assets/images/brand-logos/desktop-dark.png" alt="logo"
+                        <img src="{{ asset('logo') }}/umi.png" alt="logo"
                             class="desktop-dark">
-                        <img src="{{ asset('dash') }}/build/assets/images/brand-logos/toggle-logo.png" alt="logo"
+                        <img src="{{ asset('logo') }}/umi.png" alt="logo"
                             class="toggle-logo">
-                        <img src="{{ asset('dash') }}/build/assets/images/brand-logos/toggle-white.png" alt="logo"
+                        <img src="{{ asset('logo') }}/umi.png" alt="logo"
                             class="toggle-white">
-                        <img src="{{ asset('dash') }}/build/assets/images/brand-logos/desktop-white.png" alt="logo"
+                        <img src="{{ asset('logo') }}/umi.png" alt="logo"
                             class="desktop-white">
                     </a>
                 </div>

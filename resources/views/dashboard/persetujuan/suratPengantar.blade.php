@@ -35,7 +35,13 @@ body{
     vertical-align:middle;
 }
 .logo{
-    width:110px;
+    width:130px;
+    margin:0;
+    padding:0;
+    display:inline-block;
+}
+.logoumi{
+    width: 30px;
 }
 .header-text{
     text-align:left;
@@ -43,6 +49,7 @@ body{
 .header-text h5{
     margin:0;
     line-height:18px;
+    font-size: 14pt;
 }
 table {
     border-collapse: collapse;
@@ -124,11 +131,10 @@ td, th {
 @php
 use Carbon\Carbon;
 
-$mulai   = Carbon::parse($data->tanggal_pengajuan)->translatedFormat('d F Y');
-$selesai = Carbon::parse($data->tanggal_selesai)->translatedFormat('d F Y');
+$mulai   = Carbon::parse($data->tanggal_pengajuan);
+$selesai = Carbon::parse($data->tanggal_selesai);
 
-$durasiBulan = Carbon::parse($data->tanggal_pengajuan)
-                ->diffInMonths(Carbon::parse($data->tanggal_selesai));
+$durasiBulan = max(1, $mulai->diffInMonths($selesai) + ($mulai->addMonths($mulai->diffInMonths($selesai))->lt($selesai) ? 1 : 0));
 @endphp
 
 <body>
@@ -136,8 +142,9 @@ $durasiBulan = Carbon::parse($data->tanggal_pengajuan)
 <!-- ================= HEADER ================= -->
 <table class="header-table">
 <tr>
-    <td style="width:120px">
-        <img src="{{ public_path('logo/LogoFikom_HitamKuning.png') }}" class="logo" alt="logo">
+    <td style="width:220px; font-size:0;">
+        <img src="{{ public_path('logo/umi.png') }}" class="logoumi">
+        <img src="{{ public_path('logo/LogoFikom_HitamKuning.png') }}" class="logo">
     </td>
     <td class="header-text">
         <h5>YAYASAN WAKAF UMI</h5>

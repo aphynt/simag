@@ -85,7 +85,7 @@ class PersetujuanController extends Controller
         return view('dashboard.persetujuan.detail', compact('data'));
     }
 
-    public function download($uuid)
+    public function suratPengantar($uuid)
     {
         $cekData = Pengajuan::where('uuid', $uuid)->first();
 
@@ -158,6 +158,71 @@ class PersetujuanController extends Controller
             $pdf = PDF::loadView('dashboard.persetujuan.suratRekomendasi', compact('data'));
             return $pdf->download('Surat Rekomendasi.pdf');
         }
+
+    }
+
+    public function suratRekomendasi($uuid)
+    {
+        $cekData = Pengajuan::where('uuid', $uuid)->first();
+
+        if (!in_array($cekData->status, ['Disetujui', 'Diverifikasi'])) {
+            return redirect()->back()->with('info', 'Maaf, pengajuan magang belum disetujui');
+        }
+
+        if($cekData->no_surat == null){
+            return redirect()->back()->with('info', 'Maaf, No. Surat belum ada, harap menghubungi staff');
+        }
+
+        $data = DB::table('pengajuan as pj')
+        ->leftJoin('users as us', 'pj.user_id', 'us.id')
+        ->select(
+            'pj.id',
+            'pj.user_id',
+            'pj.uuid',
+            'us.name',
+            'us.nim',
+            'us.semester',
+            'us.program_studi',
+            'us.no_hp',
+            'pj.statusenabled',
+            'pj.tanggal_pengajuan',
+            'pj.tanggal_selesai',
+            'pj.nama_perusahaan',
+            'pj.bagian_perusahaan',
+            'pj.alamat_perusahaan',
+            'pj.alasan_magang',
+            'pj.kompetensi_ilmu',
+            'pj.jenis_magang',
+            'pj.setuju',
+            'pj.status',
+            'pj.file_pendukung',
+            'pj.no_surat',
+            'pj.tanggal_surat',
+
+        )
+        ->where('pj.statusenabled', true)
+        ->where('pj.uuid', $uuid)
+        ->first();
+
+        if($data == null){
+            return redirect()->back()->with('info', 'Maaf, data tidak ditemukan');
+        }else {
+            $item = $data;
+
+            $qrTempFolder = storage_path('app/qr-temp');
+            if (!File::exists($qrTempFolder)) {
+                File::makeDirectory($qrTempFolder, 0755, true);
+            }
+
+            $fileName = 'qrcode' . $item->uuid . '.png';
+            $filePath = $qrTempFolder . DIRECTORY_SEPARATOR . $fileName;
+
+            QrCode::size(150)->format('png')->generate(route('verified.index', ['encodedNik' => base64_encode($item->uuid)]), $filePath);
+            $item->qrcode = $filePath;
+        }
+
+        $pdf = PDF::loadView('dashboard.persetujuan.suratRekomendasi', compact('data'));
+        return $pdf->download('Surat Rekomendasi.pdf');
 
     }
 
