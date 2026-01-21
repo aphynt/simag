@@ -96,25 +96,17 @@
 
 <div class="verify-card">
 
-    <!-- LOGO -->
-    <img src="{{ asset('dashboard/assets/images/logo-full.png') }}" class="logo" alt="Logo">
-
-    <!-- STATUS -->
-    <div class="badge-success">
-        <i class="ri-checkbox-circle-line me-1"></i> Verifikasi Berhasil
-    </div>
-
     <h4 class="fw-bold text-dark mt-2">Data Tervalidasi</h4>
     <p class="text-muted mb-3">
         Informasi pengguna telah berhasil diverifikasi dan disimpan dalam sistem.
     </p>
 
     <!-- USER INFO -->
-    <div class="user-info">
+    {{-- <div class="user-info">
         <p><strong>Nama</strong> : <span>{{ $user->name }}</span></p>
         <p><strong>NIK</strong> : <span>{{ $user->nik }}</span></p>
         <p><strong>Jabatan</strong> : <span>{{ $user->role }}</span></p>
-    </div>
+    </div> --}}
 
     <!-- ACTION -->
     <button onclick="tutupHalaman()" class="btn-close-page">
