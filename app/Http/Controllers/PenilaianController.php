@@ -56,7 +56,7 @@ class PenilaianController extends Controller
 
             $user = Auth::user();
         if ($user->role === 'mahasiswa') {
-            $data->where('pj.user_id', $user->id);
+            $data->where('pg.user_id', $user->id);
         }
         $data = $data->get();
 

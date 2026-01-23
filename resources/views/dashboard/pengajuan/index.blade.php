@@ -67,8 +67,8 @@
                                                         </a>
                                                     </td>
                                                 </tr>
-                                                @endforeach
                                                 @include('dashboard.pengajuan.modal.delete')
+                                                @endforeach
 
                                         </tbody>
                                     </table>
