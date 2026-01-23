@@ -53,10 +53,11 @@ class PenilaianController extends Controller
             )
             ->where('pg.statusenabled', true)
             ->groupBy('us.id', 'pg.uuid', 'us.nim', 'us.name');
-            if ($user->role === 'mahasiswa') {
-                $data->where('user_id', $user->id);
-            }
 
+            $user = Auth::user();
+        if ($user->role === 'mahasiswa') {
+            $data->where('pj.user_id', $user->id);
+        }
         $data = $data->get();
 
         return view('dashboard.penilaian.index', compact('data'));

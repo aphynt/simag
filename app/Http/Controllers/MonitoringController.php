@@ -29,8 +29,12 @@ class MonitoringController extends Controller
             'mt.status',
             'mt.keterangan',
             )
-        ->where('pg.statusenabled', true)
-        ->get();
+        ->where('pg.statusenabled', true);
+        $user = Auth::user();
+        if ($user->role === 'mahasiswa') {
+            $data->where('pg.user_id', $user->id);
+        }
+        $data = $data->get();
 
         return view('dashboard.monitoring.index', compact('data'));
     }

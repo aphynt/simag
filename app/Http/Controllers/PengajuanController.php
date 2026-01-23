@@ -28,7 +28,12 @@ class PengajuanController extends Controller
             'pj.kompetensi_ilmu',
             'pj.jenis_magang',
         )
-        ->where('pj.statusenabled', true)->get();
+        ->where('pj.statusenabled', true);
+        $user = Auth::user();
+        if ($user->role === 'mahasiswa') {
+            $data->where('pj.user_id', $user->id);
+        }
+        $data = $data->get();
 
         return view('dashboard.pengajuan.index', compact('data'));
     }

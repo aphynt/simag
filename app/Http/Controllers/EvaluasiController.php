@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Monitoring;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class EvaluasiController extends Controller
@@ -42,8 +43,14 @@ class EvaluasiController extends Controller
             DB::raw('MAX(mt.created_at) as last_submit')
         )
         ->where('pg.statusenabled', true)
-        ->groupBy('us.id', 'us.nim', 'us.name')
-        ->get();
+        ->groupBy('us.id', 'us.nim', 'us.name');
+
+        $user = Auth::user();
+        if ($user->role === 'mahasiswa') {
+            $data->where('pg.user_id', $user->id);
+        }
+        $data = $data->get();
+
 
 
         return view('dashboard.evaluasi.index', compact('data'));

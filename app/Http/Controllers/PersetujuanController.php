@@ -43,10 +43,10 @@ class PersetujuanController extends Controller
             'pj.tanggal_surat',
         )
         ->where('pj.statusenabled', true);
-        if (in_array($user->role, ['mahasiswa'])) {
+        $user = Auth::user();
+        if ($user->role === 'mahasiswa') {
             $data->where('pj.user_id', $user->id);
         }
-
         $data = $data->get();
 
         return view('dashboard.persetujuan.index', compact('data'));
