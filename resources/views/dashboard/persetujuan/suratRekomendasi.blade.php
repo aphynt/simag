@@ -269,7 +269,7 @@ $hijriah = $formatter->format($now);
     <p class="justify mt-20">
         Untuk melaksanakan kegiatan magang mandiri selama {{ $durasiBulan }} bulan terhitung mulai tanggal
         {{ $mulai }} sampai {{ $selesai }} bertempat di {{ $data->nama_perusahaan }}
-        Alamat : Jln. Perumnas Raya Manggala Kec. Manggala Kota Makassar Sulawesi Selatan 90234
+        Alamat : {{ $data->alamat_perusahaan }}
         dengan ketentuan sebagai berikut :
     </p>
 
