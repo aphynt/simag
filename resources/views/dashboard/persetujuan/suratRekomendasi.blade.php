@@ -180,6 +180,8 @@ $selesai = $selesaiCarbon->translatedFormat('d F Y');
 $diff = $mulaiCarbon->diff($selesaiCarbon);
 $bulan = ($diff->y * 12) + $diff->m;
 $hari  = $diff->d;
+$now = Carbon::now();
+$masehi = $now->translatedFormat('d F Y');
 @endphp
 <body>
 
