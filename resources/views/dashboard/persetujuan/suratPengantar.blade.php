@@ -145,7 +145,7 @@ $selesai = $selesaiCarbon->translatedFormat('d F Y');
 //         $mulaiCarbon->floatDiffInMonths($selesaiCarbon)
 //     )
 // );
-$diff = $mulai->diff($selesai);
+$diff = $mulaiCarbon->diff($selesaiCarbon);
 $bulan = ($diff->y * 12) + $diff->m;
 $hari  = $diff->d;
 @endphp
