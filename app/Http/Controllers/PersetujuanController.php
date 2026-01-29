@@ -163,7 +163,7 @@ class PersetujuanController extends Controller
             // return view('dashboard.persetujuan.suratRekomendasi', compact('data'));
 
             $pdf = PDF::loadView('dashboard.persetujuan.suratRekomendasi', compact('data'));
-            return $pdf->download('Surat Rekomendasi.pdf');
+            return $pdf->download('Surat Pengantar.pdf');
         }
 
     }

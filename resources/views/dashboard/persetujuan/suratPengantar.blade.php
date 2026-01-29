@@ -131,10 +131,19 @@ td, th {
 @php
 use Carbon\Carbon;
 
-$mulai   = Carbon::parse($data->tanggal_pengajuan);
-$selesai = Carbon::parse($data->tanggal_selesai);
+Carbon::setLocale('id');
 
-$durasiBulan = max(1, $mulai->diffInMonths($selesai) + ($mulai->addMonths($mulai->diffInMonths($selesai))->lt($selesai) ? 1 : 0));
+$mulai = Carbon::parse($data->tanggal_pengajuan)
+    ->translatedFormat('d F Y');
+
+$selesai = Carbon::parse($data->tanggal_selesai)
+    ->translatedFormat('d F Y');
+
+$durasiBulan = max(
+    1,
+    Carbon::parse($data->tanggal_pengajuan)
+        ->diffInMonths($data->tanggal_selesai) + 1
+);
 @endphp
 
 <body>

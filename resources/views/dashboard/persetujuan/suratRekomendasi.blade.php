@@ -163,20 +163,36 @@
 @php
 use Carbon\Carbon;
 
-$mulai   = Carbon::parse($data->tanggal_pengajuan);
-$selesai = Carbon::parse($data->tanggal_selesai);
+Carbon::setLocale('id');
 
-$durasiBulan = max(1, $mulai->diffInMonths($selesai) + ($mulai->addMonths($mulai->diffInMonths($selesai))->lt($selesai) ? 1 : 0));
+// Carbon object (UNTUK HITUNG)
+$mulaiCarbon   = Carbon::parse($data->tanggal_pengajuan);
+$selesaiCarbon = Carbon::parse($data->tanggal_selesai);
 
+// String (UNTUK TAMPIL)
+$mulai   = $mulaiCarbon->translatedFormat('d F Y');
+$selesai = $selesaiCarbon->translatedFormat('d F Y');
 
+// Hitung durasi bulan
+$durasiBulan = max(
+    1,
+    $mulaiCarbon->diffInMonths($selesaiCarbon) +
+    ($mulaiCarbon->copy()
+        ->addMonths($mulaiCarbon->diffInMonths($selesaiCarbon))
+        ->lt($selesaiCarbon) ? 1 : 0)
+);
+
+// Tanggal sekarang
 $now = Carbon::now();
 $masehi = $now->translatedFormat('d F Y');
 
-// konversi ke Hijriah (pakai IntlDateFormatter)
 $formatter = new \IntlDateFormatter(
     'id_ID@calendar=islamic',
-    \IntlDateFormatter::FULL,
-    \IntlDateFormatter::NONE
+    \IntlDateFormatter::NONE,
+    \IntlDateFormatter::NONE,
+    null,
+    null,
+    'dd MMMM yyyy'
 );
 
 $hijriah = $formatter->format($now);
@@ -252,7 +268,7 @@ $hijriah = $formatter->format($now);
 
     <p class="justify mt-20">
         Untuk melaksanakan kegiatan magang mandiri selama {{ $durasiBulan }} terhitung mulai tanggal
-        {{ $mulai }} sampai {{ $selesai }} bertempat di Kantor KPU Kota Makassar
+        {{ $mulai }} sampai {{ $selesai }} bertempat di {{ $data->nama_perusahaan }}
         Alamat : Jln. Perumnas Raya Manggala Kec. Manggala Kota Makassar Sulawesi Selatan 90234
         dengan ketentuan sebagai berikut :
     </p>
@@ -285,12 +301,12 @@ $hijriah = $formatter->format($now);
                 <table width="100%">
                     <tr>
                         <td>Makassar,</td>
-                        <td>{{ $hijriah }}</td>
+                        <td>{{ $masehi }}</td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <td></td>
                         <td>{{ $masehi }} M</td>
-                    </tr>
+                    </tr> --}}
                 </table>
 
                 <br><br>
