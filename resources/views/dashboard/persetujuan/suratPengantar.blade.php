@@ -145,7 +145,7 @@ $selesai = $selesaiCarbon->translatedFormat('d F Y');
 //         $mulaiCarbon->floatDiffInMonths($selesaiCarbon)
 //     )
 // );
-$diff = $mulaiCarbon->diff($selesaiCarbon);
+$diff = $mulai->diff($selesai);
 $bulan = ($diff->y * 12) + $diff->m;
 $hari  = $diff->d;
 @endphp
@@ -249,7 +249,7 @@ Mengajukan permohonan agar dapat diberikan surat pengantar yang ditujukan kepada
 </table>
 
 <p class="justify mt-10">
-Untuk melakukan magang selama {{ $bulan }} bulan {{ $hari }} 0 terhitung mulai tanggal
+Untuk melakukan magang selama {{ $bulan }} bulan {{ $hari }} hari terhitung mulai tanggal
 {{ $mulai }} sampai {{ $selesai }}.
 </p>
 </div>
