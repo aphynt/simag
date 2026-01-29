@@ -133,16 +133,19 @@ use Carbon\Carbon;
 
 Carbon::setLocale('id');
 
-$mulai = Carbon::parse($data->tanggal_pengajuan)
-    ->translatedFormat('d F Y');
+// Carbon object (UNTUK HITUNG)
+$mulaiCarbon   = Carbon::parse($data->tanggal_pengajuan);
+$selesaiCarbon = Carbon::parse($data->tanggal_selesai);
 
-$selesai = Carbon::parse($data->tanggal_selesai)
-    ->translatedFormat('d F Y');
+// String (UNTUK TAMPIL)
+$mulai   = $mulaiCarbon->translatedFormat('d F Y');
+$selesai = $selesaiCarbon->translatedFormat('d F Y');
 
+// Hitung durasi bulan (BULAT, TANPA KOMA)
 $durasiBulan = max(
     1,
-    (int) floor(
-        $mulai->floatDiffInMonths($selesai)
+    (int) ceil(
+        $mulaiCarbon->floatDiffInMonths($selesaiCarbon)
     )
 );
 @endphp

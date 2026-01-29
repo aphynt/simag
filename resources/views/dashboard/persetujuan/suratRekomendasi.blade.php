@@ -176,8 +176,8 @@ $selesai = $selesaiCarbon->translatedFormat('d F Y');
 // Hitung durasi bulan
 $durasiBulan = max(
     1,
-    (int) floor(
-        $mulai->floatDiffInMonths($selesai)
+    (int) ceil(
+        $mulaiCarbon->floatDiffInMonths($selesaiCarbon)
     )
 );
 
