@@ -152,19 +152,8 @@ class PersetujuanController extends Controller
             $item->qrcode = $filePath;
         }
 
-        if($data->jenis_magang == 'Magang Mandiri'){
-
-            // return view('dashboard.persetujuan.suratPengantar', compact('data'));
-
-            $pdf = PDF::loadView('dashboard.persetujuan.suratPengantar', compact('data'));
-            return $pdf->download('Surat Pengantar.pdf');
-        }else{
-
-            // return view('dashboard.persetujuan.suratRekomendasi', compact('data'));
-
-            $pdf = PDF::loadView('dashboard.persetujuan.suratRekomendasi', compact('data'));
-            return $pdf->download('Surat Pengantar.pdf');
-        }
+        $pdf = PDF::loadView('dashboard.persetujuan.suratPengantar', compact('data'));
+        return $pdf->download('Surat Pengantar.pdf');
 
     }
 

@@ -133,21 +133,21 @@ use Carbon\Carbon;
 
 Carbon::setLocale('id');
 
-// Carbon object (UNTUK HITUNG)
 $mulaiCarbon   = Carbon::parse($data->tanggal_pengajuan);
 $selesaiCarbon = Carbon::parse($data->tanggal_selesai);
 
-// String (UNTUK TAMPIL)
 $mulai   = $mulaiCarbon->translatedFormat('d F Y');
 $selesai = $selesaiCarbon->translatedFormat('d F Y');
 
-// Hitung durasi bulan (BULAT, TANPA KOMA)
-$durasiBulan = max(
-    1,
-    (int) ceil(
-        $mulaiCarbon->floatDiffInMonths($selesaiCarbon)
-    )
-);
+// $durasiBulan = max(
+//     1,
+//     (int) ceil(
+//         $mulaiCarbon->floatDiffInMonths($selesaiCarbon)
+//     )
+// );
+$diff = $mulai->diff($selesai);
+$bulan = ($diff->y * 12) + $diff->m;
+$hari  = $diff->d;
 @endphp
 
 <body>
@@ -249,7 +249,7 @@ Mengajukan permohonan agar dapat diberikan surat pengantar yang ditujukan kepada
 </table>
 
 <p class="justify mt-10">
-Untuk melakukan magang selama {{ $durasiBulan }} bulan terhitung mulai tanggal
+Untuk melakukan magang selama {{ $bulan }} bulan {{ $hari }} 0 terhitung mulai tanggal
 {{ $mulai }} sampai {{ $selesai }}.
 </p>
 </div>

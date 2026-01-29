@@ -49,8 +49,12 @@ class DashboardController extends Controller
                 'pj.tanggal_pengajuan'
             )
             ->orderBy('pj.created_at', 'desc')
-            ->limit(10)
-            ->get();
+            ->limit(10);
+            $user = Auth::user();
+            if ($user->role === 'mahasiswa') {
+                $latestPengajuan->where('pj.user_id', $user->id);
+            }
+            $latestPengajuan = $latestPengajuan->get();
 
         return view('dashboard.index', compact(
             'totalPengajuan',

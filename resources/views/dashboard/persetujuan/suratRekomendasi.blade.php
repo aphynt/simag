@@ -174,12 +174,10 @@ $mulai   = $mulaiCarbon->translatedFormat('d F Y');
 $selesai = $selesaiCarbon->translatedFormat('d F Y');
 
 // Hitung durasi bulan
-$durasiBulan = max(
-    1,
-    (int) ceil(
-        $mulaiCarbon->floatDiffInMonths($selesaiCarbon)
-    )
-);
+$diff = $mulaiCarbon->diff($selesaiCarbon);
+
+$bulan = max(1, ($diff->y * 12) + $diff->m);
+$hari  = $diff->d;
 
 // Tanggal sekarang
 $now = Carbon::now();
@@ -266,7 +264,7 @@ $hijriah = $formatter->format($now);
     </table>
 
     <p class="justify mt-20">
-        Untuk melaksanakan kegiatan magang mandiri selama {{ $durasiBulan }} bulan terhitung mulai tanggal
+        Untuk melaksanakan kegiatan magang mandiri selama {{ $bulan }} bulan {{ $hari }} hari terhitung mulai tanggal
         {{ $mulai }} sampai {{ $selesai }} bertempat di {{ $data->nama_perusahaan }}
         Alamat : {{ $data->alamat_perusahaan }}
         dengan ketentuan sebagai berikut :
