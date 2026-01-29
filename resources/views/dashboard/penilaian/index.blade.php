@@ -91,7 +91,7 @@
                                                             $canEdit = Auth::user()->role == 'prodi';
                                                         @endphp
                                                     <a href="{{ route('penilaian.detail', $row->uuid ) }}"
-                                                            class="btn btn-secondary label-btn ">
+                                                            class="btn btn-secondary label-btn {{ $canEdit ? '' : 'disabled' }}">
                                                                 <i class="ri-eye-line label-btn-icon me-2"></i>
                                                                 Detail
                                                         </a>
