@@ -142,7 +142,7 @@ $selesai = Carbon::parse($data->tanggal_selesai)
 $durasiBulan = max(
     1,
     (int) floor(
-        $mulaiCarbon->floatDiffInMonths($selesaiCarbon)
+        $mulai->floatDiffInMonths($selesai)
     )
 );
 @endphp

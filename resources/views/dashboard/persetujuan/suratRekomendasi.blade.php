@@ -177,7 +177,7 @@ $selesai = $selesaiCarbon->translatedFormat('d F Y');
 $durasiBulan = max(
     1,
     (int) floor(
-        $mulaiCarbon->floatDiffInMonths($selesaiCarbon)
+        $mulai->floatDiffInMonths($selesai)
     )
 );
 
