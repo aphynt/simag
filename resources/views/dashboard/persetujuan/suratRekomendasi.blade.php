@@ -169,15 +169,17 @@ Carbon::setLocale('id');
 $mulaiCarbon   = Carbon::parse($data->tanggal_pengajuan);
 $selesaiCarbon = Carbon::parse($data->tanggal_selesai);
 
+$diff = $mulaiCarbon->diff($selesaiCarbon);
+
+$bulan = max(1, ($diff->y * 12) + $diff->m);
+$hari  = $diff->d;
+
 // String (UNTUK TAMPIL)
 $mulai   = $mulaiCarbon->translatedFormat('d F Y');
 $selesai = $selesaiCarbon->translatedFormat('d F Y');
 
 // Hitung durasi bulan
-$diff = $mulaiCarbon->diff($selesaiCarbon);
 
-$bulan = max(1, ($diff->y * 12) + $diff->m);
-$hari  = $diff->d;
 
 // Tanggal sekarang
 $now = Carbon::now();
