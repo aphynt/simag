@@ -165,36 +165,21 @@ use Carbon\Carbon;
 
 Carbon::setLocale('id');
 
-// Carbon object (UNTUK HITUNG)
 $mulaiCarbon   = Carbon::parse($data->tanggal_pengajuan);
 $selesaiCarbon = Carbon::parse($data->tanggal_selesai);
 
-$diff = $mulaiCarbon->diff($selesaiCarbon);
-
-$bulan = max(1, ($diff->y * 12) + $diff->m);
-$hari  = $diff->d;
-
-// String (UNTUK TAMPIL)
 $mulai   = $mulaiCarbon->translatedFormat('d F Y');
 $selesai = $selesaiCarbon->translatedFormat('d F Y');
 
-// Hitung durasi bulan
-
-
-// Tanggal sekarang
-$now = Carbon::now();
-$masehi = $now->translatedFormat('d F Y');
-
-$formatter = new \IntlDateFormatter(
-    'id_ID@calendar=islamic',
-    \IntlDateFormatter::NONE,
-    \IntlDateFormatter::NONE,
-    null,
-    null,
-    'dd MMMM yyyy'
-);
-
-$hijriah = $formatter->format($now);
+// $durasiBulan = max(
+//     1,
+//     (int) ceil(
+//         $mulaiCarbon->floatDiffInMonths($selesaiCarbon)
+//     )
+// );
+$diff = $mulaiCarbon->diff($selesaiCarbon);
+$bulan = ($diff->y * 12) + $diff->m;
+$hari  = $diff->d;
 @endphp
 <body>
 
