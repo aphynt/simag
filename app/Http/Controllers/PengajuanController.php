@@ -40,14 +40,14 @@ class PengajuanController extends Controller
 
     public function insert()
     {
-        $exists = Pengajuan::where('user_id', Auth::id())
-            ->where('status', 'Diajukan')
+        $adaTanggungan = Pengajuan::where('user_id', Auth::id())
+            ->doesntHave('penilaian')
             ->exists();
 
-        if ($exists) {
+        if ($adaTanggungan) {
             return redirect()->back()->with(
                 'info',
-                'Maaf, Anda tidak bisa mengajukan magang karena masih ada pengajuan magang yang yang belum selesai'
+                'Anda tidak dapat mengajukan magang baru karena masih ada pengajuan sebelumnya yang belum dinilai.'
             );
         }
 
