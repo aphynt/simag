@@ -196,6 +196,7 @@ $masehi = $now->translatedFormat('d F Y');
                 <h3>YAYASAN WAKAF UMI</h3>
                 <h3>UNIVERSITAS MUSLIM INDONESIA</h3>
                 <h3>FAKULTAS ILMU KOMPUTER</h3>
+                <h3>PROGRAM STUDI {{ Str::upper($data->program_studi) }}</h3>
             </td>
         </tr>
     </table>

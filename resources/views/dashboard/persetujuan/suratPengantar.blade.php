@@ -163,6 +163,7 @@ $hari  = $diff->d;
         <h5>YAYASAN WAKAF UMI</h5>
         <h5>UNIVERSITAS MUSLIM INDONESIA</h5>
         <h5>FAKULTAS ILMU KOMPUTER</h5>
+        <h5>PROGRAM STUDI {{ Str::upper($data->program_studi) }}</h5>
     </td>
 </tr>
 </table>
