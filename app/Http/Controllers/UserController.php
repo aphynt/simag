@@ -90,6 +90,27 @@ class UserController extends Controller
         }
     }
 
+    public function edit(Request $request, $id)
+    {
+
+        try {
+            $updateData = [
+                'program_studi'          => $request->program_studi,
+                'role'  => $request->role,
+                'updated_at'     => now(),
+            ];
+
+
+            User::where('id', $id) ->update($updateData);
+
+            return back()->with('success', 'User berhasil diperbarui');
+
+        } catch (\Throwable $th) {
+
+            return back()->with('info', 'User gagal diperbarui: ' . $th->getMessage());
+        }
+    }
+
     public function resetPassword($id)
     {
         try {
@@ -100,7 +121,7 @@ class UserController extends Controller
             return redirect()->back()->with('success', 'Berhasil reset password');
         } catch (\Throwable $th) {
             //throw $th;
-            return back()->with('error', 'Gagal reset password: ' . $th->getMessage());
+            return back()->with('info', 'Gagal reset password: ' . $th->getMessage());
         }
     }
 

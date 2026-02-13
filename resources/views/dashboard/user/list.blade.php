@@ -42,6 +42,7 @@
                                                 <th>NIP/NIM</th>
                                                 <th>Nama</th>
                                                 <th>Role</th>
+                                                <th>Program Studi</th>
                                                 <th>No. Handphone</th>
                                                 <th>Email</th>
                                                 <th>Avatar</th>
@@ -81,6 +82,7 @@
                                                                 {{ ucfirst($item->role) }}
                                                         @endswitch
                                                     </td>
+                                                    <td>{{ $item->program_studi }}</td>
                                                     <td>{{ $item->no_hp }}</td>
                                                     <td>{{ $item->email }}</td>
                                                     <td>
@@ -94,11 +96,15 @@
                                                         @endif
                                                     </td>
                                                     <td>
+                                                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#ubahUser{{ $item->id }}">
+                                                            <i class="bi bi-pencil-square"></i> Ubah User
+                                                        </button>
                                                         <button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#resetPassword{{ $item->id }}">
                                                             <i class="bi bi-key"></i> Reset Password
                                                         </button>
                                                     </td>
                                                 </tr>
+                                                @include('dashboard.user.modal.edit')
                                                 @include('dashboard.user.modal.resetPassword')
                                             @endforeach
 

@@ -79,6 +79,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/user/list/insert', [UserController::class, 'listInsert'])->name('user.list.insert');
     Route::post('/user/update', [UserController::class, 'update'])->name('user.update');
     Route::post('/user/resetPassword/{id}', [UserController::class, 'resetPassword'])->name('user.resetPassword');
+    Route::post('/user/edit/{id}', [UserController::class, 'edit'])->name('user.list.update');
     Route::post('/user/gantiPassword', [UserController::class, 'gantiPassword'])->name('user.gantiPassword');
 
 });

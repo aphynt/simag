@@ -47,6 +47,9 @@ class PersetujuanController extends Controller
         if ($user->role === 'mahasiswa') {
             $data->where('pj.user_id', $user->id);
         }
+        if($user->role == 'prodi'){
+            $data->where('us.program_studi', $user->program_studi);
+        }
         $data = $data->get();
 
         return view('dashboard.persetujuan.index', compact('data'));
