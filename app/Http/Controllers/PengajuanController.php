@@ -33,6 +33,9 @@ class PengajuanController extends Controller
         if ($user->role === 'mahasiswa') {
             $data->where('pj.user_id', $user->id);
         }
+        if($user->role == 'prodi'){
+            $data->where('us.program_studi', $user->program_studi);
+        }
         $data = $data->get();
 
         return view('dashboard.pengajuan.index', compact('data'));
@@ -47,7 +50,7 @@ class PengajuanController extends Controller
         if ($adaTanggungan) {
             return redirect()->back()->with(
                 'info',
-                'Anda tidak dapat mengajukan magang baru karena masih ada pengajuan sebelumnya yang belum dinilai.'
+                'Anda tidak dapat mengajukan magang baru, unggah dokumen monitoring evaluasi dari magang sebelumnya'
             );
         }
 

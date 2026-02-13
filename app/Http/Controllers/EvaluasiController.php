@@ -49,6 +49,9 @@ class EvaluasiController extends Controller
         if ($user->role === 'mahasiswa') {
             $data->where('pg.user_id', $user->id);
         }
+        if($user->role == 'prodi'){
+            $data->where('us.program_studi', $user->program_studi);
+        }
         $data = $data->get();
 
 
