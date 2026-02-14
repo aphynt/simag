@@ -254,7 +254,7 @@ $masehi = $now->translatedFormat('d F Y');
     </table>
 
     <p class="justify mt-20">
-        Untuk melaksanakan kegiatan magang mandiri selama {{ $bulan }} bulan {{ $hari }} hari terhitung mulai tanggal
+        Untuk melaksanakan kegiatan {{ $data->jenis_magang }} selama {{ $bulan }} bulan {{ $hari }} hari terhitung mulai tanggal
         {{ $mulai }} sampai {{ $selesai }} bertempat di {{ $data->nama_perusahaan }}
         Alamat : {{ $data->alamat_perusahaan }}
         dengan ketentuan sebagai berikut :

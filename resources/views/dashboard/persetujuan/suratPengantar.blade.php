@@ -189,7 +189,7 @@ $hari  = $diff->d;
     <td>Lampiran</td><td>:</td><td>-</td>
 </tr>
 <tr>
-    <td>Perihal</td><td>:</td><td><b>Pengantar Magang Mandiri</b></td>
+    <td>Perihal</td><td>:</td><td><b>Pengantar {{ $data->jenis_magang }}</b></td>
 </tr>
 </table>
 </div>
@@ -245,7 +245,7 @@ Mengajukan permohonan agar dapat diberikan surat pengantar yang ditujukan kepada
 </tr>
 <tr>
     <td>Tujuan</td><td>:</td>
-    <td>Melaksanakan kegiatan magang mandiri sebagai bagian dari pemenuhan persyaratan akademik</td>
+    <td>Melaksanakan kegiatan {{ $data->jenis_magang }} sebagai bagian dari pemenuhan persyaratan akademik</td>
 </tr>
 </table>
 
@@ -269,7 +269,12 @@ Demikian surat pengantar ini, atas perhatian dan kerja samanya kami ucapkan teri
         <p>Makassar, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
         <p>Ketua Program Studi Informatika</p>
         <p>@if ($data->qrcode != null)<img src="{{ $data->qrcode }}" style="max-width: 70px;">@endif</p>
-        <p><b>Tasrif Hasanuddin, S.T., M.Cs.</b></p>
+        <p><b>@if ($data->program_studi == 'Teknik Informatika')
+            Tasrif Hasanuddin, S.T., M.Cs.
+                    @else
+            Herman, S.Kom., M.Cs., MTA
+                    @endif
+                </b></p>
         <p>NIDN : 0910126901</p>
     </td>
 </tr>
