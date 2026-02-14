@@ -267,7 +267,7 @@ Demikian surat pengantar ini, atas perhatian dan kerja samanya kami ucapkan teri
     <td width="60%"></td>
     <td>
         <p>Makassar, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
-        <p>Ketua Program Studi Informatika</p>
+        <p>Ketua Program Studi</p>
         <p>@if ($data->qrcode != null)<img src="{{ $data->qrcode }}" style="max-width: 70px;">@endif</p>
         <p><b>@if ($data->program_studi == 'Teknik Informatika')
             Tasrif Hasanuddin, S.T., M.Cs.
@@ -284,7 +284,7 @@ Demikian surat pengantar ini, atas perhatian dan kerja samanya kami ucapkan teri
 <div class="footer">
     <p><u>Tembusan Yth,</u></p>
     <ol style="margin-left:20px">
-        <li>Ketua Prodi Teknik Informatika</li>
+        <li>Ketua Prodi {{ $data->program_studi }}</li>
         <li>Arsip</li>
     </ol>
 </div>
