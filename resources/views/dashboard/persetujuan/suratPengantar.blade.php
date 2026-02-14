@@ -269,13 +269,14 @@ Demikian surat pengantar ini, atas perhatian dan kerja samanya kami ucapkan teri
         <p>Makassar, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
         <p>Ketua Program Studi</p>
         <p>@if ($data->qrcode != null)<img src="{{ $data->qrcode }}" style="max-width: 70px;">@endif</p>
-        <p><b>@if ($data->program_studi == 'Teknik Informatika')
-            Tasrif Hasanuddin, S.T., M.Cs.
-                    @else
-            Herman, S.Kom., M.Cs., MTA
-                    @endif
-                </b></p>
-        <p>NIDN : 0910126901</p>
+        @if ($data->program_studi == 'Teknik Informatika')
+            <p><b>Tasrif Hasanuddin, S.T., M.Cs.</b></p>
+            <p>NIDN : 0910126901</p>
+        @else
+            <p><b>Herman, S.Kom., M.Cs., MTA</b></p>
+            <p>NIDN : 0913038506</p>
+        @endif
+
     </td>
 </tr>
 </table>
