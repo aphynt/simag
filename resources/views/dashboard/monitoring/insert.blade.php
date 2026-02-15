@@ -54,6 +54,12 @@
                                     <label for="keterangan" class="form-label">Keterangan</label>
                                     <textarea class="form-control" id="keterangan" name="keterangan" rows="10" required></textarea>
                                 </div>
+                                <div class="col-md-4">
+                                    <label for="tahunKegiatan" class="form-label">Tahun Kegiatan</label>
+                                    <select class="form-select" name="tahun_kegiatan" id="tahunKegiatan">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
                                 <div class="col-md-12">
                                     <label for="file" class="form-label">Dokumentasi Pendukung</label>
                                     <input type="file" class="form-control" id="file" name="file" required>
@@ -70,5 +76,26 @@
 
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const select = document.getElementById("tahunKegiatan");
+    const currentYear = new Date().getFullYear();
+
+    const startYear = currentYear - 1;
+    const endYear = currentYear + 3;
+
+    for (let year = startYear; year <= endYear; year++) {
+        const option = document.createElement("option");
+        option.value = year;
+        option.textContent = year;
+
+        if (year === currentYear) {
+            option.selected = true;
+        }
+
+        select.appendChild(option);
+    }
+});
+</script>
 
 @include('dashboard.layout.footer')
