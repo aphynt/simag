@@ -50,17 +50,19 @@
                 @php
                     $status = $data->status_disetujui;
 
-                    $badgeClass = match ($status) {
-                        'Terverifikasi' => 'bg-success',
-                        'Ditolak' => 'bg-danger',
-                        default => 'bg-warning',
-                    };
-
-                    $label = match ($status) {
-                        'Terverifikasi' => 'Terverifikasi',
-                        'Ditolak' => 'Ditolak',
-                        default => 'Menunggu Verifikasi',
-                    };
+                    if ($status === 'Ditolak') {
+                        $badgeClass = 'bg-danger';
+                        $label = 'Ditolak';
+                    } elseif ($status === 'Terverifikasi') {
+                        $badgeClass = 'bg-success';
+                        $label = 'Terverifikasi';
+                    } elseif ($data->role_penyetuju === 'prodi') {
+                        $badgeClass = 'bg-info';
+                        $label = 'Menunggu WD3';
+                    } else {
+                        $badgeClass = 'bg-warning';
+                        $label = 'Menunggu Verifikasi Prodi';
+                    }
                 @endphp
 
                 <span class="badge {{ $badgeClass }}">
@@ -143,25 +145,48 @@
 
 
                     {{-- TOMBOL VERIFIKASI --}}
-                    @if ($data->status == 0 && Auth::user()->role == 'prodi')
-                    <div class="col-12 mt-3">
-                        <button type="button"
-                                class="btn btn-success"
-                                data-bs-toggle="modal"
-                                data-bs-target="#verifikasi{{ $data->uuid }}">
-                            <i class="ri-check-double-line me-1"></i>
-                            Verifikasi
-                        </button>
-                    </div>
-                    <div class="col-12 mt-3">
-                        <button type="button"
-                                class="btn btn-danger"
-                                data-bs-toggle="modal"
-                                data-bs-target="#verifikasiTolak{{ $data->uuid }}">
-                            <i class="ri-check-double-line me-1"></i>
-                            Tolak
-                        </button>
-                    </div>
+                    @php
+                        $roleLogin = Auth::user()->role;
+                        $penyetuju = $data->role_penyetuju;
+                        $statusFinal = in_array($data->status_disetujui, ['Terverifikasi','Ditolak']);
+                    @endphp
+
+                    @if (!$statusFinal)
+
+                        {{-- PRODI --}}
+                        @if ($roleLogin === 'prodi' && !$penyetuju)
+                            <div class="col-12 mt-3">
+                                <button type="button" class="btn btn-success"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#verifikasi{{ $data->uuid }}">
+                                    Verifikasi (Prodi)
+                                </button>
+
+                                <button type="button" class="btn btn-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#verifikasiTolak{{ $data->uuid }}">
+                                    Tolak
+                                </button>
+                            </div>
+                        @endif
+
+                        {{-- WD3 --}}
+                        @if ($roleLogin === 'wd3' && $penyetuju === 'prodi')
+                            <div class="col-12 mt-3">
+                                <button type="button" class="btn btn-success"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#verifikasi{{ $data->uuid }}">
+                                    Verifikasi (WD3)
+                                </button>
+
+                                <button type="button" class="btn btn-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#verifikasiTolak{{ $data->uuid }}">
+                                    Tolak
+                                </button>
+                            </div>
+                        @endif
+
                     @endif
 
                 </div>

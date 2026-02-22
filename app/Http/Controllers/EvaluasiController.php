@@ -99,28 +99,31 @@ class EvaluasiController extends Controller
             ->first();
 
         $monitorings = DB::table('monitoring as mt')
-            ->leftJoin('pengajuan as pg', 'mt.uuid_pengajuan', '=', 'pg.uuid')
-            ->select(
-                'mt.uuid',
-                'mt.created_at as tgl_submit',
-                'mt.judul',
-                'mt.keterangan',
-                'mt.file',
-                'mt.status',
-                'mt.keterangan_evaluasi',
-                'mt.status_disetujui',
-                'pg.jenis_magang',
-                'mt.lokasi_magang',
-                'pg.tanggal_pengajuan',
-                'pg.tanggal_selesai',
-                'pg.nama_perusahaan',
-                'pg.bagian_perusahaan',
-                'pg.alamat_perusahaan'
-            )
-            ->where('pg.user_id', $userId)
-            ->where('pg.statusenabled', true)
-            ->orderBy('mt.created_at', 'desc')
-            ->get();
+        ->leftJoin('pengajuan as pg', 'mt.uuid_pengajuan', '=', 'pg.uuid')
+        ->leftJoin('users as us', 'mt.user_setuju', '=', 'us.id') // <- penyetuju
+        ->select(
+            'mt.uuid',
+            'mt.created_at as tgl_submit',
+            'mt.judul',
+            'mt.keterangan',
+            'mt.file',
+            'mt.status',
+            'mt.keterangan_evaluasi',
+            'mt.status_disetujui',
+            'mt.user_setuju',
+            'us.role as role_penyetuju',
+            'pg.jenis_magang',
+            'mt.lokasi_magang',
+            'pg.tanggal_pengajuan',
+            'pg.tanggal_selesai',
+            'pg.nama_perusahaan',
+            'pg.bagian_perusahaan',
+            'pg.alamat_perusahaan'
+        )
+        ->where('pg.user_id', $userId)
+        ->where('pg.statusenabled', true)
+        ->orderByDesc('mt.created_at')
+        ->get();
 
         return view('dashboard.evaluasi.user', compact('user', 'monitorings'));
     }
@@ -129,20 +132,50 @@ class EvaluasiController extends Controller
     {
         try {
             $evaluasi = Monitoring::where('uuid', $uuid)->firstOrFail();
+            $role = Auth::user()->role;
 
-            $evaluasi->update([
-                'status'      => 1,
-                'keterangan_evaluasi'  => $request->keterangan_evaluasi,
-                'status_disetujui'  => 'Terverifikasi'
-            ]);
+            // Kalau sudah ditolak, tidak boleh diverifikasi lagi
+            if ($evaluasi->status_disetujui === 'Ditolak') {
+                return back()->with('info', 'Data sudah ditolak.');
+            }
 
-            return redirect()->route('evaluasi.index')->with('success', 'Data berhasil diverifikasi.');
+            // =======================
+            // STEP 1 - PRODI
+            // =======================
+            if (!$evaluasi->user_setuju && $role === 'prodi') {
+
+                $evaluasi->update([
+                    'user_setuju' => Auth::user()->id,
+                    'keterangan_evaluasi' => $request->keterangan_evaluasi,
+                    'status_disetujui' => 'Menunggu WD3',
+                    'status' => 0
+                ]);
+
+                return redirect()->route('evaluasi.index')
+                    ->with('success', 'Berhasil diverifikasi Prodi, menunggu WD3.');
+            }
+
+            // =======================
+            // STEP 2 - WD3 (FINAL)
+            // =======================
+            if ($evaluasi->user_setuju && $role === 'wd3') {
+
+                $evaluasi->update([
+                    'user_setuju' => Auth::user()->id,
+                    'keterangan_evaluasi' => $request->keterangan_evaluasi,
+                    'status_disetujui' => 'Terverifikasi',
+                    'status' => 1
+                ]);
+
+                return redirect()->route('evaluasi.index')
+                    ->with('success', 'Data berhasil diverifikasi WD3.');
+            }
+
+            return back()->with('info', 'Urutan verifikasi tidak sesuai.');
 
         } catch (\Throwable $th) {
-            return redirect()->back()->with('info', 'Verifikasi gagal: ' . $th->getMessage());
+            return back()->with('error', 'Verifikasi gagal: ' . $th->getMessage());
         }
-
-
     }
 
     public function verifikasiTolak(Request $request, $uuid)
@@ -151,18 +184,18 @@ class EvaluasiController extends Controller
             $evaluasi = Monitoring::where('uuid', $uuid)->firstOrFail();
 
             $evaluasi->update([
-                'status'      => 1,
-                'keterangan_evaluasi'  => $request->keterangan_evaluasi,
-                'status_disetujui'  => 'Ditolak'
+                'user_setuju' => Auth::user()->id,
+                'keterangan_evaluasi' => $request->keterangan_evaluasi,
+                'status_disetujui' => 'Ditolak',
+                'status' => -1 // status final ditolak
             ]);
 
-            return redirect()->route('evaluasi.index')->with('success', 'Data berhasil diverifikasi.');
+            return redirect()->route('evaluasi.index')
+                ->with('success', 'Data berhasil ditolak.');
 
         } catch (\Throwable $th) {
-            return redirect()->back()->with('info', 'Verifikasi gagal: ' . $th->getMessage());
+            return back()->with('error', 'Tolak gagal: ' . $th->getMessage());
         }
-
-
     }
 
 }
