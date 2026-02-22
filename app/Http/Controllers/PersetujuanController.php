@@ -258,8 +258,14 @@ class PersetujuanController extends Controller
         try {
             $pengajuan = Pengajuan::where('uuid', $uuid)->firstOrFail();
 
+            if(Auth::user()->role == 'prodi'){
+                $status = 'Menunggu WD3';
+            }else{
+                $status = 'Disetujui';
+            }
+
             $pengajuan->update([
-                'status'      => 'Disetujui',
+                'status'      => $status,
                 'keterangan'  => $request->keterangan,
                 'updated_at'  => now(),
             ]);
