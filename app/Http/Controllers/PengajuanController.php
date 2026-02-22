@@ -47,7 +47,9 @@ class PengajuanController extends Controller
         // $adaTanggungan = Pengajuan::where('user_id', Auth::id())
         //     ->doesntHave('penilaian')
         //     ->exists();
-        $adaTanggungan = Monitoring::where('user_id', Auth::id())->where('status', '!=', 1)->exists();
+        $adaTanggungan = DB::table('monitoring as mt')
+        ->leftJoin('pengajuan as pj', 'mt.uuid_pengajuan', 'pj.uuid')
+        ->where('pj.user_id', Auth::id())->where('mt.status', '!=', 1)->exists();
 
         if ($adaTanggungan) {
             return redirect()->back()->with(

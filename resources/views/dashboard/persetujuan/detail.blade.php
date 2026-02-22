@@ -136,7 +136,10 @@
                             </div>
 
                             {{-- @if ($data->status == 'Diajukan' && (Auth::user()->role == 'wd3' || Auth::user()->role == 'prodi')) --}}
-                            @if ($data->status == 'Diajukan' && Auth::user()->role == 'prodi')
+                            @if (
+                                ($data->status == 'Diajukan' && Auth::user()->role == 'prodi') ||
+                                ($data->status == 'Menunggu WD3' && Auth::user()->role == 'wd3')
+                            )
                             <div class="col-12 mt-3 d-flex gap-2">
                                 {{-- Tombol Verifikasi --}}
                                 <button type="button"
