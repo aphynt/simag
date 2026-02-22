@@ -299,10 +299,15 @@ class PersetujuanController extends Controller
     public function approve(Request $request, $uuid)
     {
 
+        if(Auth::user()->role == 'prodi'){
+            $status = 'Menunggu WD3';
+        }else{
+            $status = 'Disetujui';
+        }
         Pengajuan::where('uuid', $uuid)->update([
             'disetujui_oleh'      => Auth::user()->id,
             'setuju'  => true,
-            'status'      => 'Disetujui',
+            'status'      => $status,
         ]);
 
         return redirect()->route('persetujuan.index')->with('success', 'Pengajuan magang diapprove.');

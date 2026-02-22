@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Monitoring;
 use App\Models\Pengajuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,14 +44,15 @@ class PengajuanController extends Controller
 
     public function insert()
     {
-        $adaTanggungan = Pengajuan::where('user_id', Auth::id())
-            ->doesntHave('penilaian')
-            ->exists();
+        // $adaTanggungan = Pengajuan::where('user_id', Auth::id())
+        //     ->doesntHave('penilaian')
+        //     ->exists();
+        $adaTanggungan = Monitoring::where('user_id', Auth::id())->where('status', '!=', 1)->exists();
 
         if ($adaTanggungan) {
             return redirect()->back()->with(
                 'info',
-                'Anda tidak dapat mengajukan magang baru, unggah dokumen monitoring evaluasi dari magang sebelumnya'
+                'Anda tidak dapat mengajukan magang baru, masih ada evaluasi yang belum di verifikasi'
             );
         }
 

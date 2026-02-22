@@ -48,6 +48,8 @@
                                     <td>
                                         @if ($d->status == 'Diajukan')
                                         <span class="btn btn-outline-secondary btn-wave">{{ $d->status }}</span>
+                                        @elseif ($d->status == 'Menunggu WD3')
+                                        <span class="btn btn-outline-info btn-wave">{{ $d->status }}</span>
                                         @elseif ($d->status == 'Disetujui' || $d->status == 'Diverifikasi')
                                         <span class="btn btn-outline-success btn-wave">{{ $d->status }}</span>
                                         @else
@@ -96,7 +98,10 @@
                                             <i class="ri-spam-2-line label-btn-icon me-2 rounded-pill"></i>
                                             Detail
                                         </a>
-                                        @if ($d->role_penyetujuan != 'wd3' && Auth::user()->role == 'wd3')
+                                        @if (
+                                            ($d->status == 'Diajukan' && Auth::user()->role == 'prodi') ||
+                                            ($d->status == 'Menunggu WD3' && Auth::user()->role == 'wd3')
+                                        )
                                         <a href="#" class="btn btn-success label-btn rounded-pill"
                                             data-bs-toggle="modal" data-bs-target="#approveMagang{{ $d->id }}">
                                             <i class="ri-check-line label-btn-icon me-2 rounded-pill"></i>
