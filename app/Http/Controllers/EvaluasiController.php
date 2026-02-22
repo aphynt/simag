@@ -108,6 +108,7 @@ class EvaluasiController extends Controller
                 'mt.file',
                 'mt.status',
                 'mt.keterangan_evaluasi',
+                'mt.status_disetujui',
                 'pg.jenis_magang',
                 'mt.lokasi_magang',
                 'pg.tanggal_pengajuan',
@@ -131,7 +132,28 @@ class EvaluasiController extends Controller
 
             $evaluasi->update([
                 'status'      => 1,
-                'keterangan_evaluasi'  => $request->keterangan_evaluasi
+                'keterangan_evaluasi'  => $request->keterangan_evaluasi,
+                'status_disetujui'  => 'Terverifikasi'
+            ]);
+
+            return redirect()->route('evaluasi.index')->with('success', 'Data berhasil diverifikasi.');
+
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('info', 'Verifikasi gagal: ' . $th->getMessage());
+        }
+
+
+    }
+
+    public function verifikasiTolak(Request $request, $uuid)
+    {
+        try {
+            $evaluasi = Monitoring::where('uuid', $uuid)->firstOrFail();
+
+            $evaluasi->update([
+                'status'      => 1,
+                'keterangan_evaluasi'  => $request->keterangan_evaluasi,
+                'status_disetujui'  => 'Ditolak'
             ]);
 
             return redirect()->route('evaluasi.index')->with('success', 'Data berhasil diverifikasi.');

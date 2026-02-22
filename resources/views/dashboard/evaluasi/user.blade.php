@@ -47,8 +47,24 @@
                     </small>
                 </div>
 
-                <span class="badge {{ $data->status == 1 ? 'bg-success' : 'bg-warning' }}">
-                    {{ $data->status == 1 ? 'Terverifikasi' : 'Menunggu Verifikasi' }}
+                @php
+                    $status = $data->status_disetujui;
+
+                    $badgeClass = match ($status) {
+                        'Terverifikasi' => 'bg-success',
+                        'Ditolak' => 'bg-danger',
+                        default => 'bg-warning',
+                    };
+
+                    $label = match ($status) {
+                        'Terverifikasi' => 'Terverifikasi',
+                        'Ditolak' => 'Ditolak',
+                        default => 'Menunggu Verifikasi',
+                    };
+                @endphp
+
+                <span class="badge {{ $badgeClass }}">
+                    {{ $label }}
                 </span>
             </div>
 
@@ -98,8 +114,8 @@
                         </textarea>
                     </div>
 
-                    @if (!empty($data->file))
                     <div class="col-md-12">
+                        @if (!empty($data->file))
                         <label class="form-label">Dokumentasi</label>
                         <div class="border rounded p-2">
                             <iframe
@@ -115,8 +131,16 @@
                                 Buka di Tab Baru
                             </a>
                         </div>
+                        @endif
+                        @if ($data->keterangan_evaluasi != null)
+                            <div class="alert svg-primary alert-primary alert-dismissible fade show custom-alert-icon shadow-sm" role="alert">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1.5rem" viewBox="0 0 24 24" width="1.5rem" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                                    {{ $data->keterangan_evaluasi }}
+                                </div>
+                            </div>
+                        @endif
                     </div>
-                    @endif
+
 
                     {{-- TOMBOL VERIFIKASI --}}
                     @if ($data->status == 0 && Auth::user()->role == 'prodi')
@@ -129,6 +153,15 @@
                             Verifikasi
                         </button>
                     </div>
+                    <div class="col-12 mt-3">
+                        <button type="button"
+                                class="btn btn-danger"
+                                data-bs-toggle="modal"
+                                data-bs-target="#verifikasiTolak{{ $data->uuid }}">
+                            <i class="ri-check-double-line me-1"></i>
+                            Tolak
+                        </button>
+                    </div>
                     @endif
 
                 </div>
@@ -136,44 +169,8 @@
         </div>
 
         {{-- MODAL VERIFIKASI --}}
-        <div class="modal fade" id="verifikasi{{ $data->uuid }}" tabindex="-1">
-            <div class="modal-dialog">
-                <form method="POST"
-                      action="{{ route('evaluasi.verifikasi', $data->uuid) }}"
-                      class="modal-content">
-                    @csrf
-
-                    <div class="modal-header">
-                        <h5 class="modal-title">
-                            Verifikasi Evaluasi
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Keterangan Verifikasi</label>
-                            <textarea name="keterangan_evaluasi"
-                                      class="form-control"
-                                      rows="4"
-                                      required></textarea>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button"
-                                class="btn btn-secondary"
-                                data-bs-dismiss="modal">
-                            Batal
-                        </button>
-                        <button type="submit"
-                                class="btn btn-success">
-                            Simpan Verifikasi
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        @include('dashboard.evaluasi.modal.verifikasi')
+        @include('dashboard.evaluasi.modal.verifikasiTolak')
         @endforeach
 
     </div>

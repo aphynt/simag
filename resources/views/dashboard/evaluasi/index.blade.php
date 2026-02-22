@@ -19,7 +19,7 @@
                         <div class="col-xl-12">
                             <div class="card custom-card">
                                 <div class="card-body">
-                                    <table id="hidden-columns" class="table table-bordered text-nowrap w-100">
+                                    <table  class="table table-bordered text-nowrap w-100">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
