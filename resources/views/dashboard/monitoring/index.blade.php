@@ -51,11 +51,7 @@
                                                     <td>{{ $d->lokasi_magang }}</td>
                                                     <td>{{ $d->judul }}</td>
                                                     <td>
-                                                        @if ($d->status == 1)
-                                                            Diverifikasi
-                                                        @else
-                                                            Belum Diverifikasi
-                                                        @endif
+                                                        {{ $d->status_disetujui }}
                                                     </td>
                                                     <td>{{ $d->keterangan }}</td>
 
