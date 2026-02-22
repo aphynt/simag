@@ -26,6 +26,7 @@ class MonitoringController extends Controller
             'pg.jenis_magang',
             'mt.lokasi_magang',
             'mt.judul',
+            'mt.status_disetujui',
             'mt.status',
             'mt.keterangan',
             )
