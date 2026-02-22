@@ -268,6 +268,7 @@ class PersetujuanController extends Controller
                 'status'      => $status,
                 'keterangan'  => $request->keterangan,
                 'updated_at'  => now(),
+                'disetujui_oleh'      => Auth::user()->id,
             ]);
 
             // Monitoring::create([
