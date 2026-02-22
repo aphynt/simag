@@ -52,7 +52,7 @@ class EvaluasiController extends Controller
         if($user->role == 'prodi'){
             $data->where('us.program_studi', $user->program_studi);
         }
-        $data = $data->get();
+        $data = $data->orderByDesc('last_submit')->get();
 
 
 
