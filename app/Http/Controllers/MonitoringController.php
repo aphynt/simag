@@ -72,6 +72,7 @@ class MonitoringController extends Controller
                 'lokasi_magang' => $request->lokasi_magang,
                 'keterangan' => $request->keterangan,
                 'tahun_kegiatan' => $request->tahun_kegiatan,
+                'keterangan_file' => $request->keterangan_file,
                 'status' => false,
                 'file' => $filePath,
             ]);

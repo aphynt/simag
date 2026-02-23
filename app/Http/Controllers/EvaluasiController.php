@@ -107,6 +107,7 @@ class EvaluasiController extends Controller
             'mt.judul',
             'mt.keterangan',
             'mt.file',
+            'mt.keterangan_file',
             'mt.status',
             'mt.keterangan_evaluasi',
             'mt.status_disetujui',

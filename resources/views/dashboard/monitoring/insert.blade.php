@@ -64,7 +64,14 @@
                                     <label for="file" class="form-label">Dokumentasi Pendukung</label>
                                     <input type="file" class="form-control" id="file" name="file" required>
                                 </div>
-
+                                 <div class="col-md-4">
+                                    <label for="keterangan_file" class="form-label">Instansi Magang</label>
+                                    <select class="form-select" name="keterangan_file" id="keterangan_file" required>
+                                        <option value="Logbook Magang">Logbook Magang</option>
+                                        <option value="Sertifikat Magang">Sertifikat Magang</option>
+                                        <option value="Penilaian">Penilaian</option>
+                                    </select>
+                                </div>
                                 <button href="#" type="submut"  class="btn btn-success">Submit</button>
 
                             </div>

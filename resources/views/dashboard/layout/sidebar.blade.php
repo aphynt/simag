@@ -105,7 +105,7 @@
                     </a>
                 </li>
 
-                <li class="slide">
+                {{-- <li class="slide">
                     <a href="{{ route('penilaian.index') }}" class="side-menu__item">
                         <!-- ICON PENILAIAN (STAR) -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 side-menu__icon" fill="none"
@@ -115,7 +115,7 @@
                         </svg>
                         <span class="side-menu__label">Penilaian</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="slide__category"><span class="category-name">Auth</span></li>
                 @if (Auth::user()->role == 'prodi')

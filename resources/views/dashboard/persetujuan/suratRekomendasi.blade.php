@@ -307,7 +307,7 @@ $masehi = $now->translatedFormat('d F Y');
 
                 <!-- nama -->
                 <p><b><u>Poetri Lestari L.B, S.Kom., MT., MTA</u></b></p>
-                <p>NIP : 114090894</p>
+                <p>NIP : 0916108403</p>
 
             </td>
         </tr>

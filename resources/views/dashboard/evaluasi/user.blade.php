@@ -65,7 +65,7 @@
                     }
                 @endphp
 
-                <span class="badge {{ $badgeClass }}">
+                <span class="badge {{ $badgeClass }}" style="font-size:22px; padding:6px 10px;">
                     {{ $label }}
                 </span>
             </div>
@@ -118,7 +118,7 @@
 
                     <div class="col-md-12">
                         @if (!empty($data->file))
-                        <label class="form-label">Dokumentasi</label>
+                        <label class="form-label">Dokumentasi ({{ $data->keterangan_file }})</label>
                         <div class="border rounded p-2">
                             <iframe
                                 src="{{ asset('storage/' . $data->file) }}"
