@@ -26,7 +26,7 @@
                             <div class="card custom-card">
                                 <div class="card-body">
                                     <table id="responsiveDataTable" class="table table-bordered text-nowrap w-100">
-                                        {{-- <thead>
+                                        <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama</th>
@@ -65,9 +65,9 @@
                                             @include('dashboard.pengajuan.modal.delete')
                                             @endforeach
 
-                                        </tbody> --}}
+                                        </tbody>
 
-                                        <thead>
+                                        {{-- <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>NIM</th>
@@ -99,7 +99,7 @@
                                             </tr>
                                             @endforeach
 
-                                        </tbody>
+                                        </tbody> --}}
                                     </table>
                                 </div>
                             </div>

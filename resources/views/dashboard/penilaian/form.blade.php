@@ -184,7 +184,7 @@
                                         </div>
 
                                         <div class="col-12">
-                                            <label class="form-label">Komentar / Catatan Pembimbing</label>
+                                            <label class="form-label">Komentar / Catatan</label>
                                             <textarea name="komentar" id="komentar" class="form-control" rows="4" placeholder="Tuliskan komentar atau rekomendasi untuk mahasiswa..." required></textarea>
                                         </div>
 

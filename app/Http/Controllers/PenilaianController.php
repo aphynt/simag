@@ -16,52 +16,52 @@ class PenilaianController extends Controller
     {
         $user = Auth::user();
 
-        // $query = DB::table('pengajuan as pj')
-        //     ->leftJoin('users as us', 'pj.user_id', '=', 'us.id')
-        //     ->leftJoin('penilaian as pn', 'pj.uuid', '=', 'pn.uuid_pengajuan')
-        //     ->select(
-        //         'pj.uuid',
-        //         'pj.user_id',
-        //         'us.name',
-        //         'us.nim',
-        //         'pj.jenis_magang',
-        //         'pj.statusenabled',
-        //         'pn.status as status_nilai',
-        //         'pn.rekomendasi'
-        //     )
-        //     ->where('pj.statusenabled', true);
-
-
-
-        // // Mahasiswa hanya melihat magangnya sendiri
-        // if ($user->role === 'mahasiswa') {
-        //     $query->where('pj.user_id', $user->id);
-        // }
-
-        // $data = $query->get();
-
-        $data = DB::table('monitoring as mt')
-            ->leftJoin('pengajuan as pg', 'mt.uuid_pengajuan', '=', 'pg.uuid')
-            ->leftJoin('users as us', 'pg.user_id', '=', 'us.id')
+        $query = DB::table('pengajuan as pj')
+            ->leftJoin('users as us', 'pj.user_id', '=', 'us.id')
+            ->leftJoin('penilaian as pn', 'pj.uuid', '=', 'pn.uuid_pengajuan')
             ->select(
-                'us.id as user_id',
-                'pg.uuid',
-                'us.nim',
+                'pj.uuid',
+                'pj.user_id',
                 'us.name',
-                DB::raw('COUNT(mt.uuid) as total_monitoring'),
-                DB::raw('MAX(mt.created_at) as last_submit')
+                'us.nim',
+                'pj.jenis_magang',
+                'pj.statusenabled',
+                'pn.status as status_nilai',
+                'pn.rekomendasi'
             )
-            ->where('pg.statusenabled', true)
-            ->groupBy('us.id', 'pg.uuid', 'us.nim', 'us.name');
+            ->where('pj.statusenabled', true);
 
-            $user = Auth::user();
+
+
+        // Mahasiswa hanya melihat magangnya sendiri
         if ($user->role === 'mahasiswa') {
-            $data->where('pg.user_id', $user->id);
+            $query->where('pj.user_id', $user->id);
         }
-        if($user->role == 'prodi'){
-            $data->where('us.program_studi', $user->program_studi);
-        }
-        $data = $data->get();
+
+        $data = $query->get();
+
+        // $data = DB::table('monitoring as mt')
+        //     ->leftJoin('pengajuan as pg', 'mt.uuid_pengajuan', '=', 'pg.uuid')
+        //     ->leftJoin('users as us', 'pg.user_id', '=', 'us.id')
+        //     ->select(
+        //         'us.id as user_id',
+        //         'pg.uuid',
+        //         'us.nim',
+        //         'us.name',
+        //         DB::raw('COUNT(mt.uuid) as total_monitoring'),
+        //         DB::raw('MAX(mt.created_at) as last_submit')
+        //     )
+        //     ->where('pg.statusenabled', true)
+        //     ->groupBy('us.id', 'pg.uuid', 'us.nim', 'us.name');
+
+        //     $user = Auth::user();
+        // if ($user->role === 'mahasiswa') {
+        //     $data->where('pg.user_id', $user->id);
+        // }
+        // if($user->role == 'prodi'){
+        //     $data->where('us.program_studi', $user->program_studi);
+        // }
+        // $data = $data->get();
 
         return view('dashboard.penilaian.index', compact('data'));
     }

@@ -143,7 +143,7 @@
 
                         {{-- Komentar --}}
                         <div class="mb-3">
-                            <label class="form-label small text-muted">Komentar / Catatan Pembimbing</label>
+                            <label class="form-label small text-muted">Komentar / Catatan</label>
                             <div class="border rounded p-3 bg-light">
                                 <pre class="mb-0" style="white-space:pre-wrap;word-wrap:break-word;">{{ val($src, 'komentar', '-') }}</pre>
                             </div>
