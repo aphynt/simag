@@ -104,7 +104,7 @@
                     </div>
 
                     <div class="col-md-12">
-                        <label class="form-label">Judul</label>
+                        <label class="form-label">Nama Dokumen</label>
                         <input type="text" class="form-control"
                                value="{{ $data->judul }}" readonly>
                     </div>

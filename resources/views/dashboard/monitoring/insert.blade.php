@@ -34,8 +34,13 @@
                                 <hr>
 
                                 <div class="col-md-4">
-                                    <label for="judul" class="form-label">Judul</label>
-                                    <input type="text" class="form-control" id="judul" name="judul" required>
+                                    <label for="judul" class="form-label">Nama Dokumen</label>
+                                     <select class="form-select" name="judul" id="judul" required>
+                                        <option value="Logbook Magang">Logbook Magang</option>
+                                        <option value="Sertifikat Magang">Sertifikat Magang</option>
+                                        <option value="Penilaian">Penilaian</option>
+                                    </select>
+
                                 </div>
                                 <div class="col-md-4">
                                     <label for="pengajuanMagang" class="form-label">Instansi Magang</label>
@@ -65,12 +70,8 @@
                                     <input type="file" class="form-control" id="file" name="file" required>
                                 </div>
                                  <div class="col-md-4">
-                                    <label for="keterangan_file" class="form-label">Instansi Magang</label>
-                                    <select class="form-select" name="keterangan_file" id="keterangan_file" required>
-                                        <option value="Logbook Magang">Logbook Magang</option>
-                                        <option value="Sertifikat Magang">Sertifikat Magang</option>
-                                        <option value="Penilaian">Penilaian</option>
-                                    </select>
+                                    <label for="keterangan_file" class="form-label">Keterangan File</label>
+                                    <input type="text" class="form-control" id="keterangan_file" name="keterangan_file" required>
                                 </div>
                                 <button href="#" type="submut"  class="btn btn-success">Submit</button>
 

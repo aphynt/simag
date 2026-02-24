@@ -35,7 +35,7 @@
                                                 <th>Nama</th>
                                                 <th>Jenis Magang</th>
                                                 <th>Lokasi</th>
-                                                <th>Judul</th>
+                                                <th>Nama Dokumen</th>
                                                 <th>Status</th>
                                                 <th>Keterangan</th>
                                             </tr>
