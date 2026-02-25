@@ -116,7 +116,7 @@
 
                     <div class="col-md-12">
                         @if (!empty($data->file))
-                        <label class="form-label">Dokumentasi ({{ $data->keterangan_file }})</label>
+                        <label class="form-label">Dokumentasi</label>
                         <div class="border rounded p-2">
                             <iframe
                                 src="{{ asset('storage/' . $data->file) }}"

@@ -69,10 +69,10 @@
                                     <label for="file" class="form-label">Dokumentasi Pendukung</label>
                                     <input type="file" class="form-control" id="file" name="file" required>
                                 </div>
-                                 <div class="col-md-4">
+                                 {{-- <div class="col-md-4">
                                     <label for="keterangan_file" class="form-label">Keterangan File</label>
                                     <input type="text" class="form-control" id="keterangan_file" name="keterangan_file" required>
-                                </div>
+                                </div> --}}
                                 <button href="#" type="submut"  class="btn btn-success">Submit</button>
 
                             </div>

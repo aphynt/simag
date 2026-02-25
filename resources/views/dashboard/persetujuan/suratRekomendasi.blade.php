@@ -283,18 +283,14 @@ $masehi = $now->translatedFormat('d F Y');
 
             <!-- kolom kanan (isi tanda tangan) -->
             <td width="50%" style="text-align:left">
-
-                <!-- tanggal -->
-                <table width="100%">
+                <table class="signature-table">
                     <tr>
                         <td>Makassar,</td>
                         <td>{{ $masehi }}</td>
                     </tr>
-                    {{-- <tr>
-                        <td></td>
-                        <td>{{ $masehi }} M</td>
-                    </tr> --}}
                 </table>
+
+
 
                 <br><br>
 
