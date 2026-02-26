@@ -47,11 +47,19 @@ class PengajuanController extends Controller
         // $adaTanggungan = Pengajuan::where('user_id', Auth::id())
         //     ->doesntHave('penilaian')
         //     ->exists();
-        $adaTanggungan = DB::table('monitoring as mt')
-        ->leftJoin('pengajuan as pj', 'mt.uuid_pengajuan', 'pj.uuid')
-        ->where('pj.user_id', Auth::id())->where('mt.status_disetujui', '!=', 'Terverifikasi')->exists();
+        $dataTerverifikasi = DB::table('monitoring')
+        ->where(function ($q) {
+            $q->where('judul', 'like', '%Logbook%')
+            ->orWhere('judul', 'like', '%Sertifikat%')
+            ->orWhere('judul', 'like', '%Penilaian%');
+        })
+        ->where(function ($q) {
+            $q->whereNull('status_disetujui')
+            ->orWhere('status_disetujui', '!=', 'Terverifikasi');
+        })
+        ->exists();
 
-        if ($adaTanggungan) {
+        if ($dataTerverifikasi) {
             return redirect()->back()->with(
                 'info',
                 'Anda tidak dapat mengajukan magang baru, masih ada evaluasi yang belum di verifikasi'
