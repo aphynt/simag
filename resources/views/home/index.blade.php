@@ -93,7 +93,7 @@
                         <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2">
                             <div class="card features feature-primary explore-feature border-0 rounded text-center"
                                 style="cursor:pointer"
-                                onclick="checkLogin('penilaian')">
+                                onclick="checkLogin('evaluasi')">
                                 <div class="card-body">
                                     <div class="icons rounded-circle shadow-lg d-inline-block">
                                         <img src="{{ asset('home') }}/assets/images/insurance/bike.svg"

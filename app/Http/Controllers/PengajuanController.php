@@ -47,16 +47,18 @@ class PengajuanController extends Controller
         // $adaTanggungan = Pengajuan::where('user_id', Auth::id())
         //     ->doesntHave('penilaian')
         //     ->exists();
-        $dataTerverifikasi = DB::table('monitoring')
+        $dataTerverifikasi = DB::table('monitoring as mt')
+        ->leftJoin('pengajuan as pj', 'mt.uuid_pengajuan', 'pj.uuid')
         ->where(function ($q) {
-            $q->where('judul', 'like', '%Logbook%')
-            ->orWhere('judul', 'like', '%Sertifikat%')
-            ->orWhere('judul', 'like', '%Penilaian%');
+            $q->where('mt.judul', 'like', '%Logbook%')
+            ->orWhere('mt.judul', 'like', '%Sertifikat%')
+            ->orWhere('mt.judul', 'like', '%Penilaian%');
         })
         ->where(function ($q) {
-            $q->whereNull('status_disetujui')
-            ->orWhere('status_disetujui', '!=', 'Terverifikasi');
+            $q->whereNull('mt.status_disetujui')
+            ->orWhere('mt.status_disetujui', '!=', 'Terverifikasi');
         })
+        ->where('pj.user_id', Auth::id())
         ->exists();
 
         if ($dataTerverifikasi) {
