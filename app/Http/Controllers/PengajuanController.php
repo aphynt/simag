@@ -44,43 +44,41 @@ class PengajuanController extends Controller
 
     public function insert()
     {
-        // $adaTanggungan = Pengajuan::where('user_id', Auth::id())
-        //     ->doesntHave('penilaian')
-        //     ->exists();
-        // 1. Cek apakah user punya minimal 1 monitoring
-        $punyaMonitoring = DB::table('monitoring as mt')
-            ->leftJoin('pengajuan as pj', 'mt.uuid_pengajuan', 'pj.uuid')
-            ->where('pj.user_id', Auth::id())
-            ->exists();
+        $uuidPengajuanTerakhir = DB::table('pengajuan')
+        ->where('user_id', Auth::id())
+        ->latest('created_at')
+        ->value('uuid');
 
+        $dokumen = DB::table('monitoring')
+        ->where('uuid_pengajuan', $uuidPengajuanTerakhir)
+        ->whereIn('judul', [
+            'Logbook Magang',
+            'Sertifikat Magang'
+        ])
+        ->get();
 
-        // 2. Cek dokumen TERAKHIR apakah masih ada yang belum Terverifikasi
-        $dataBelumVerif = DB::table('monitoring as mt')
-            ->leftJoin('pengajuan as pj', 'mt.uuid_pengajuan', 'pj.uuid')
-            ->where('pj.user_id', Auth::id())
-            ->whereIn('mt.judul', [
-                'Logbook Magang',
-                'Sertifikat Magang',
-                'Penilaian'
-            ])
-            ->whereIn('mt.id', function ($sub) {
-                $sub->selectRaw('MAX(id)')
-                    ->from('monitoring')
-                    ->groupBy('judul');
-            })
-            ->where(function ($q) {
-                $q->whereNull('mt.status_disetujui')
-                ->orWhere('mt.status_disetujui', '!=', 'Terverifikasi');
-            })
-            ->exists();
+        $punyaLogbook = $dokumen->where('judul', 'Logbook Magang')->isNotEmpty();
+        $punyaSertifikat = $dokumen->where('judul', 'Sertifikat Magang')->isNotEmpty();
 
+        $semuaTerverifikasi = $dokumen->every(function ($item) {
+            return $item->status_disetujui === 'Terverifikasi';
+        });
 
-        // 3. Blok jika kedua kondisi terpenuhi
-        if ($punyaMonitoring && $dataBelumVerif) {
-            return redirect()->back()->with(
-                'info',
-                'Anda tidak dapat mengajukan magang baru, masih ada evaluasi yang belum diverifikasi'
-            );
+        if ($uuidPengajuanTerakhir) {
+
+            if (!$punyaLogbook || !$punyaSertifikat) {
+                return back()->with(
+                    'info',
+                    'Silahkan melengkapi dokumen (logbook, sertifikat, penilaian) untuk diverifikasi agar dapat mengajukan magang berikutnya.'
+                );
+            }
+
+            if (!$semuaTerverifikasi) {
+                return back()->with(
+                    'info',
+                    'Maaf, Anda belum melengkapi dokumen atau belum terverifikasi di laman pengajuan.'
+                );
+            }
         }
 
         if(Auth::user()->program_studi == null && Auth::user()->no_hp == null && Auth::user()->semester == null){
