@@ -59,10 +59,19 @@ class PengajuanController extends Controller
         ->get()
         ->unique('judul');
 
+        $dokumen2 = DB::table('monitoring')
+        ->where('uuid_pengajuan', $uuidPengajuanTerakhir)
+        ->whereIn('judul', [
+            'Logbook Magang',
+        ])
+        ->orderBy('created_at', 'desc')
+        ->get()
+        ->unique('judul');
+
         $punyaLogbook = $dokumen->where('judul', 'Logbook Magang')->isNotEmpty();
         $punyaSertifikat = $dokumen->where('judul', 'Sertifikat Magang')->isNotEmpty();
 
-        $semuaTerverifikasi = $dokumen->every(function ($item) {
+        $semuaTerverifikasi = $dokumen2->every(function ($item) {
             return $item->status_disetujui === 'Terverifikasi';
         });
 
