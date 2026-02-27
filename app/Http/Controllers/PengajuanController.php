@@ -55,7 +55,9 @@ class PengajuanController extends Controller
             'Logbook Magang',
             'Sertifikat Magang'
         ])
-        ->get();
+        ->orderBy('created_at', 'desc')
+        ->get()
+        ->unique('judul');
 
         $punyaLogbook = $dokumen->where('judul', 'Logbook Magang')->isNotEmpty();
         $punyaSertifikat = $dokumen->where('judul', 'Sertifikat Magang')->isNotEmpty();
