@@ -71,14 +71,15 @@ class PengajuanController extends Controller
             if (!$punyaLogbook || !$punyaSertifikat) {
                 return back()->with(
                     'info',
-                    'Silahkan melengkapi dokumen (logbook, sertifikat, penilaian) untuk diverifikasi agar dapat mengajukan magang berikutnya.'
+                    'Maaf, Anda belum melengkapi dokumen atau belum terverifikasi di laman pengajuan.'
                 );
             }
 
             if (!$semuaTerverifikasi) {
                 return back()->with(
                     'info',
-                    'Maaf, Anda belum melengkapi dokumen atau belum terverifikasi di laman pengajuan.'
+                    'Silahkan melengkapi dokumen (logbook, sertifikat, penilaian) untuk diverifikasi agar dapat mengajukan magang berikutnya.'
+
                 );
             }
         }
