@@ -30,7 +30,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Hari/Tanggal</th>
+                                                <th>Waktu Rekomendasi</th>
                                                 <th>NIM</th>
                                                 <th>Nama</th>
                                                 <th>Jenis Magang</th>
