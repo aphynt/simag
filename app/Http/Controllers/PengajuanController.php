@@ -53,7 +53,8 @@ class PengajuanController extends Controller
         ->where('uuid_pengajuan', $uuidPengajuanTerakhir)
         ->whereIn('judul', [
             'Logbook Magang',
-            'Sertifikat Magang'
+            'Sertifikat Magang',
+            'Laporan Akhir',
         ])
         ->orderBy('created_at', 'desc')
         ->get()
@@ -69,7 +70,7 @@ class PengajuanController extends Controller
         ->unique('judul');
 
         $punyaLogbook = $dokumen->where('judul', 'Logbook Magang')->isNotEmpty();
-        $punyaSertifikat = $dokumen->where('judul', 'Sertifikat Magang')->isNotEmpty();
+        $punyaSertifikat = $dokumen->where('judul', 'Laporan Akhir')->isNotEmpty();
 
         $semuaTerverifikasi = $dokumen2->every(function ($item) {
             return $item->status_disetujui === 'Terverifikasi';
@@ -87,7 +88,7 @@ class PengajuanController extends Controller
             if (!$semuaTerverifikasi) {
                 return back()->with(
                     'info',
-                    'Silahkan melengkapi dokumen (logbook, sertifikat, penilaian) untuk diverifikasi agar dapat mengajukan magang berikutnya.'
+                    'Silahkan melengkapi dokumen (logbook, sertifikat, laporan akhir) untuk diverifikasi agar dapat mengajukan magang berikutnya.'
 
                 );
             }

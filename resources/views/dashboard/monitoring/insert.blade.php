@@ -38,6 +38,7 @@
                                      <select class="form-select" name="judul" id="judul" required>
                                         <option value="Logbook Magang">Logbook Magang</option>
                                         <option value="Sertifikat Magang">Sertifikat Magang</option>
+                                        <option value="Laporan Akhir">Laporan Akhir</option>
                                         <option value="Penilaian">Penilaian</option>
                                     </select>
 
